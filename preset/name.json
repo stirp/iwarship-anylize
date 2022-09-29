@@ -1,0 +1,4868 @@
+{
+	"PASA002": {
+		"zh": "博格（旧）",
+		"en": "Bogue (old)",
+		"py": "bgj",
+		"tag": "M5A"
+	},
+	"PASA004": {
+		"zh": "兰利（旧）",
+		"en": "Langley (old)",
+		"py": "llj",
+		"tag": "M4A"
+	},
+	"PASA006": {
+		"zh": "独立（旧）",
+		"en": "Independence (old)",
+		"py": "dlj",
+		"tag": "M6A"
+	},
+	"PASA010": {
+		"zh": "突击者（旧）",
+		"en": "Ranger (old)",
+		"py": "tjzj",
+		"tag": "M7A"
+	},
+	"PASA012": {
+		"zh": "列克星敦（旧）",
+		"en": "Lexington (old)",
+		"py": "lkxdj",
+		"tag": "M8A"
+	},
+	"PASA013": {
+		"zh": "埃塞克斯（旧）",
+		"en": "Essex (old)",
+		"py": "asksj",
+		"tag": "M9A"
+	},
+	"PASA015": {
+		"zh": "中途岛（旧）",
+		"en": "Midway (old)",
+		"py": "ztdj",
+		"tag": "M10A"
+	},
+	"PASA104": {
+		"zh": "兰利",
+		"en": "Langley",
+		"py": "ll",
+		"tag": "M4A"
+	},
+	"PASA106": {
+		"zh": "突击者",
+		"en": "Ranger",
+		"py": "tjz",
+		"tag": "M6A"
+	},
+	"PASA108": {
+		"zh": "列克星敦",
+		"en": "Lexington",
+		"py": "lkxd",
+		"tag": "M8A"
+	},
+	"PASA110": {
+		"zh": "中途岛",
+		"en": "Midway",
+		"py": "ztd",
+		"tag": "M10A"
+	},
+	"PASA111": {
+		"zh": "合众国",
+		"en": "United States",
+		"py": "hzg",
+		"tag": "M11A"
+	},
+	"PASA208": {
+		"zh": "约克城",
+		"en": "Yorktown",
+		"py": "ykc",
+		"tag": "M8A"
+	},
+	"PASA507": {
+		"zh": "塞班（旧）",
+		"en": "Saipan (old)",
+		"py": "sbj",
+		"tag": "M7A"
+	},
+	"PASA508": {
+		"zh": "企业（旧）",
+		"en": "Enterprise (old)",
+		"py": "qyj",
+		"tag": "M8A"
+	},
+	"PASA510": {
+		"zh": "富兰克林·罗斯福",
+		"en": "F. D. Roosevelt",
+		"py": "flkllsf",
+		"tag": "M10A"
+	},
+	"PASA518": {
+		"zh": "企业",
+		"en": "Enterprise",
+		"py": "qy",
+		"tag": "M8A"
+	},
+	"PASA528": {
+		"zh": "塞班",
+		"en": "Saipan",
+		"py": "sb",
+		"tag": "M8A"
+	},
+	"PASA538": {
+		"zh": "大黄蜂",
+		"en": "Hornet",
+		"py": "dhf",
+		"tag": "M8A"
+	},
+	"PASA598": {
+		"zh": "塞班 B",
+		"en": "Saipan B",
+		"py": "sb B",
+		"tag": "M8A"
+	},
+	"PASA906": {
+		"zh": "突击者",
+		"en": "Ranger",
+		"py": "tjz"
+	},
+	"PASA915": {
+		"zh": "[中途岛]",
+		"en": "[Midway]",
+		"py": "ztd",
+		"tag": "M10A"
+	},
+	"PASB001": {
+		"zh": "南卡罗来纳",
+		"en": "S. Carolina",
+		"py": "nklln",
+		"tag": "M3B"
+	},
+	"PASB004": {
+		"zh": "怀俄明",
+		"en": "Wyoming",
+		"py": "hem",
+		"tag": "M4B"
+	},
+	"PASB006": {
+		"zh": "纽约",
+		"en": "New York",
+		"py": "ny",
+		"tag": "M5B"
+	},
+	"PASB008": {
+		"zh": "科罗拉多",
+		"en": "Colorado",
+		"py": "klld",
+		"tag": "M7B"
+	},
+	"PASB012": {
+		"zh": "北卡罗来纳",
+		"en": "N. Carolina",
+		"py": "bklln",
+		"tag": "M8B"
+	},
+	"PASB013": {
+		"zh": "阿肯色 B",
+		"en": "Arkansas B",
+		"py": "aks B",
+		"tag": "M4B"
+	},
+	"PASB017": {
+		"zh": "蒙大拿",
+		"en": "Montana",
+		"py": "mdn",
+		"tag": "M10B"
+	},
+	"PASB018": {
+		"zh": "依阿华",
+		"en": "Iowa",
+		"py": "yah",
+		"tag": "M9B"
+	},
+	"PASB034": {
+		"zh": "新墨西哥",
+		"en": "New Mexico",
+		"py": "xmxg",
+		"tag": "M6B"
+	},
+	"PASB108": {
+		"zh": "堪萨斯",
+		"en": "Kansas",
+		"py": "kss",
+		"tag": "M8B"
+	},
+	"PASB109": {
+		"zh": "明尼苏达",
+		"en": "Minnesota",
+		"py": "mnsd",
+		"tag": "M9B"
+	},
+	"PASB110": {
+		"zh": "佛蒙特",
+		"en": "Vermont",
+		"py": "fmt",
+		"tag": "M10B"
+	},
+	"PASB505": {
+		"zh": "俄克拉荷马",
+		"en": "Oklahoma",
+		"py": "eklhm",
+		"tag": "M5B"
+	},
+	"PASB506": {
+		"zh": "亚利桑那",
+		"en": "Arizona",
+		"py": "ylsn",
+		"tag": "M6B"
+	},
+	"PASB507": {
+		"zh": "西弗吉尼亚 1941",
+		"en": "W. Virginia 1941",
+		"py": "xfjny 1941",
+		"tag": "M6B"
+	},
+	"PASB508": {
+		"zh": "阿拉巴马",
+		"en": "Alabama",
+		"py": "albm",
+		"tag": "M8B"
+	},
+	"PASB509": {
+		"zh": "密苏里",
+		"en": "Missouri",
+		"py": "msl",
+		"tag": "M9B"
+	},
+	"PASB510": {
+		"zh": "俄亥俄",
+		"en": "Ohio",
+		"py": "ehe",
+		"tag": "M10B"
+	},
+	"PASB517": {
+		"zh": "佛罗里达",
+		"en": "Florida",
+		"py": "flld",
+		"tag": "M7B"
+	},
+	"PASB518": {
+		"zh": "马萨诸塞",
+		"en": "Massachusetts",
+		"py": "mszs",
+		"tag": "M8B"
+	},
+	"PASB519": {
+		"zh": "奇尔沙治",
+		"en": "Kearsarge",
+		"py": "qesz",
+		"tag": "M9B"
+	},
+	"PASB528": {
+		"zh": "阿拉巴马 VL",
+		"en": "Alabama VL",
+		"py": "albm VL",
+		"tag": "M8B"
+	},
+	"PASB538": {
+		"zh": "星座",
+		"en": "Constellation",
+		"py": "xz",
+		"tag": "M8B"
+	},
+	"PASB598": {
+		"zh": "马萨诸塞 B",
+		"en": "Massachusetts B",
+		"py": "mszs B",
+		"tag": "M8B"
+	},
+	"PASB705": {
+		"zh": "德克萨斯",
+		"en": "Texas",
+		"py": "dkss",
+		"tag": "M5B"
+	},
+	"PASB707": {
+		"zh": "加利福尼亚",
+		"en": "California",
+		"py": "jlfny",
+		"tag": "M7B"
+	},
+	"PASB708": {
+		"zh": "阿拉巴马 ST",
+		"en": "Alabama ST",
+		"py": "albm ST",
+		"tag": "M8B"
+	},
+	"PASB729": {
+		"zh": "佐治亚",
+		"en": "Georgia",
+		"py": "zzy",
+		"tag": "M9B"
+	},
+	"PASB801": {
+		"zh": "南卡罗来纳",
+		"en": "South Carolina",
+		"py": "nklln"
+	},
+	"PASB802": {
+		"zh": "密歇根",
+		"en": "Michigan",
+		"py": "mxg"
+	},
+	"PASB810": {
+		"zh": "蒙大拿 P",
+		"en": "Montana P",
+		"py": "mdn P",
+		"tag": "M10B"
+	},
+	"PASB910": {
+		"zh": "康涅狄格",
+		"en": "Connecticut",
+		"py": "kndg",
+		"tag": "M10B"
+	},
+	"PASB917": {
+		"zh": "[蒙大拿]",
+		"en": "[Montana]",
+		"py": "mdn",
+		"tag": "M10B"
+	},
+	"PASC001": {
+		"zh": "伊利",
+		"en": "Erie",
+		"py": "yl",
+		"tag": "M1C"
+	},
+	"PASC002": {
+		"zh": "切斯特",
+		"en": "Chester",
+		"py": "qst",
+		"tag": "M2C"
+	},
+	"PASC003": {
+		"zh": "奥尔巴尼",
+		"en": "Albany",
+		"py": "aebn",
+		"tag": "M2C"
+	},
+	"PASC004": {
+		"zh": "圣路易斯",
+		"en": "St. Louis",
+		"py": "slys",
+		"tag": "M3C"
+	},
+	"PASC005": {
+		"zh": "奥马哈",
+		"en": "Omaha",
+		"py": "amh",
+		"tag": "M5C"
+	},
+	"PASC006": {
+		"zh": "亚特兰大",
+		"en": "Atlanta",
+		"py": "ytld",
+		"tag": "M7C"
+	},
+	"PASC007": {
+		"zh": "克利夫兰（旧）",
+		"en": "Cleveland (old)",
+		"py": "klflj",
+		"tag": "M6C"
+	},
+	"PASC012": {
+		"zh": "彭萨科拉（旧）",
+		"en": "Pensacola (old)",
+		"py": "psklj",
+		"tag": "M7C"
+	},
+	"PASC014": {
+		"zh": "新奥尔良（旧）",
+		"en": "New Orleans (old)",
+		"py": "xaelj",
+		"tag": "M8C"
+	},
+	"PASC016": {
+		"zh": "伍斯特",
+		"en": "Worcester",
+		"py": "wst",
+		"tag": "M10C"
+	},
+	"PASC017": {
+		"zh": "巴尔的摩（旧）",
+		"en": "Baltimore (old)",
+		"py": "bedmj",
+		"tag": "M9C"
+	},
+	"PASC019": {
+		"zh": "水牛城",
+		"en": "Buffalo",
+		"py": "snc",
+		"tag": "M10C"
+	},
+	"PASC020": {
+		"zh": "得梅因",
+		"en": "Des Moines",
+		"py": "dmy",
+		"tag": "M10C"
+	},
+	"PASC024": {
+		"zh": "凤凰城",
+		"en": "Phoenix",
+		"py": "fhc",
+		"tag": "M4C"
+	},
+	"PASC039": {
+		"zh": "彭萨科拉 1930",
+		"en": "Pensacola 1930",
+		"py": "pskl 1930"
+	},
+	"PASC044": {
+		"zh": "马布尔黑德",
+		"en": "Marblehead",
+		"py": "mbehd",
+		"tag": "M5C"
+	},
+	"PASC045": {
+		"zh": "马布尔黑德 L",
+		"en": "Marblehead L",
+		"py": "mbehd L",
+		"tag": "M5C"
+	},
+	"PASC106": {
+		"zh": "彭萨科拉",
+		"en": "Pensacola",
+		"py": "pskl",
+		"tag": "M6C"
+	},
+	"PASC107": {
+		"zh": "新奥尔良",
+		"en": "New Orleans",
+		"py": "xael",
+		"tag": "M7C"
+	},
+	"PASC108": {
+		"zh": "巴尔的摩",
+		"en": "Baltimore",
+		"py": "bedm",
+		"tag": "M8C"
+	},
+	"PASC109": {
+		"zh": "水牛城",
+		"en": "Buffalo",
+		"py": "snc",
+		"tag": "M9C"
+	},
+	"PASC111": {
+		"zh": "安纳波利斯",
+		"en": "Annapolis",
+		"py": "anbls",
+		"tag": "M11C"
+	},
+	"PASC206": {
+		"zh": "达拉斯",
+		"en": "Dallas",
+		"py": "dls",
+		"tag": "M6C"
+	},
+	"PASC207": {
+		"zh": "海伦娜",
+		"en": "Helena",
+		"py": "hln",
+		"tag": "M7C"
+	},
+	"PASC208": {
+		"zh": "克利夫兰",
+		"en": "Cleveland",
+		"py": "klfl",
+		"tag": "M8C"
+	},
+	"PASC209": {
+		"zh": "西雅图",
+		"en": "Seattle",
+		"py": "xyt",
+		"tag": "M9C"
+	},
+	"PASC210": {
+		"zh": "伍斯特",
+		"en": "Worcester",
+		"py": "wst",
+		"tag": "M10C"
+	},
+	"PASC503": {
+		"zh": "查尔斯顿",
+		"en": "Charleston",
+		"py": "cesd",
+		"tag": "M3C"
+	},
+	"PASC507": {
+		"zh": "印第安纳波利斯",
+		"en": "Indianapolis",
+		"py": "ydanbls",
+		"tag": "M7C"
+	},
+	"PASC508": {
+		"zh": "威奇塔",
+		"en": "Wichita",
+		"py": "wqt",
+		"tag": "M8C"
+	},
+	"PASC509": {
+		"zh": "瓦列霍",
+		"en": "Vallejo",
+		"py": "wlh",
+		"tag": "M9C"
+	},
+	"PASC510": {
+		"zh": "阿拉斯加",
+		"en": "Alaska",
+		"py": "alsj",
+		"tag": "M9C"
+	},
+	"PASC518": {
+		"zh": "安克雷奇",
+		"en": "Anchorage",
+		"py": "aklq",
+		"tag": "M8C"
+	},
+	"PASC519": {
+		"zh": "塔尔萨",
+		"en": "Tulsa",
+		"py": "tes",
+		"tag": "M9C"
+	},
+	"PASC528": {
+		"zh": "国会",
+		"en": "Congress",
+		"py": "gh",
+		"tag": "M8C"
+	},
+	"PASC538": {
+		"zh": "罗彻斯特",
+		"en": "Rochester",
+		"py": "lcst",
+		"tag": "M8C"
+	},
+	"PASC548": {
+		"zh": "圣地亚哥",
+		"en": "San Diego",
+		"py": "sdyg",
+		"tag": "M8C"
+	},
+	"PASC587": {
+		"zh": "亚特兰大 B",
+		"en": "Atlanta B",
+		"py": "ytld B",
+		"tag": "M7C"
+	},
+	"PASC597": {
+		"zh": "博伊西",
+		"en": "Boise",
+		"py": "byx",
+		"tag": "M7C"
+	},
+	"PASC599": {
+		"zh": "阿拉斯加 B",
+		"en": "Alaska B",
+		"py": "alsj B",
+		"tag": "M9C"
+	},
+	"PASC610": {
+		"zh": "波多黎各",
+		"en": "Puerto Rico",
+		"py": "bdlg",
+		"tag": "M10C"
+	},
+	"PASC707": {
+		"zh": "弗林特",
+		"en": "Flint",
+		"py": "flt",
+		"tag": "M7C"
+	},
+	"PASC710": {
+		"zh": "塞勒姆",
+		"en": "Salem",
+		"py": "slm",
+		"tag": "M10C"
+	},
+	"PASC718": {
+		"zh": "AL 蒙彼利埃",
+		"en": "AL Montpelier",
+		"py": "AL mbla",
+		"tag": "M8C"
+	},
+	"PASC802": {
+		"zh": "西马隆",
+		"en": "Cimarron",
+		"py": "xml"
+	},
+	"PASC803": {
+		"zh": "西马隆",
+		"en": "Cimarron",
+		"py": "xml"
+	},
+	"PASC804": {
+		"zh": "伊利",
+		"en": "Erie",
+		"py": "yl"
+	},
+	"PASC805": {
+		"zh": "伊利",
+		"en": "Erie",
+		"py": "yl"
+	},
+	"PASC810": {
+		"zh": "奥斯汀",
+		"en": "Austin",
+		"py": "ast",
+		"tag": "M10C"
+	},
+	"PASD002": {
+		"zh": "桑普森",
+		"en": "Sampson",
+		"py": "sps",
+		"tag": "M2D"
+	},
+	"PASD005": {
+		"zh": "法拉格特",
+		"en": "Farragut",
+		"py": "flgt",
+		"tag": "M6D"
+	},
+	"PASD006": {
+		"zh": "马汉",
+		"en": "Mahan",
+		"py": "mh",
+		"tag": "M7D"
+	},
+	"PASD008": {
+		"zh": "本森",
+		"en": "Benson",
+		"py": "bs",
+		"tag": "M8D"
+	},
+	"PASD013": {
+		"zh": "基林",
+		"en": "Gearing",
+		"py": "jl",
+		"tag": "M10D"
+	},
+	"PASD014": {
+		"zh": "尼古拉斯",
+		"en": "Nicholas",
+		"py": "ngls",
+		"tag": "M5D"
+	},
+	"PASD019": {
+		"zh": "克莱姆森",
+		"en": "Clemson",
+		"py": "klms",
+		"tag": "M4D"
+	},
+	"PASD021": {
+		"zh": "弗莱彻",
+		"en": "Fletcher",
+		"py": "flc",
+		"tag": "M9D"
+	},
+	"PASD027": {
+		"zh": "维克斯",
+		"en": "Wickes",
+		"py": "wks",
+		"tag": "M3D"
+	},
+	"PASD029": {
+		"zh": "西姆斯",
+		"en": "Sims",
+		"py": "xms",
+		"tag": "M7D"
+	},
+	"PASD502": {
+		"zh": "史密斯",
+		"en": "Smith",
+		"py": "sms",
+		"tag": "M2D"
+	},
+	"PASD505": {
+		"zh": "希尔",
+		"en": "Hill",
+		"py": "xe",
+		"tag": "M5D"
+	},
+	"PASD506": {
+		"zh": "莫纳汉",
+		"en": "Monaghan",
+		"py": "mnh",
+		"tag": "M6D"
+	},
+	"PASD508": {
+		"zh": "基德",
+		"en": "Kidd",
+		"py": "jd",
+		"tag": "M8D"
+	},
+	"PASD509": {
+		"zh": "贝纳姆",
+		"en": "Benham",
+		"py": "bnm",
+		"tag": "M9D"
+	},
+	"PASD510": {
+		"zh": "萨默斯",
+		"en": "Somers",
+		"py": "sms",
+		"tag": "M10D"
+	},
+	"PASD597": {
+		"zh": "西姆斯 B",
+		"en": "Sims B",
+		"py": "xms B",
+		"tag": "M7D"
+	},
+	"PASD610": {
+		"zh": "福雷斯特·谢尔曼",
+		"en": "F. Sherman",
+		"py": "flstxem",
+		"tag": "M10D"
+	},
+	"PASD709": {
+		"zh": "布莱克",
+		"en": "Black",
+		"py": "blk",
+		"tag": "M9D"
+	},
+	"PASD801": {
+		"zh": "桑普森",
+		"en": "Sampson",
+		"py": "sps"
+	},
+	"PASD810": {
+		"zh": "基林 P",
+		"en": "Gearing P",
+		"py": "jl P",
+		"tag": "M10D"
+	},
+	"PASD913": {
+		"zh": "[基林]",
+		"en": "[Gearing]",
+		"py": "jl",
+		"tag": "M10D"
+	},
+	"PASS106": {
+		"zh": "Cachalot (old)",
+		"en": "Cachalot (old)",
+		"py": "Cachalot old",
+		"tag": "M6S"
+	},
+	"PASS108": {
+		"zh": "Salmon (old)",
+		"en": "Salmon (old)",
+		"py": "Salmon old",
+		"tag": "M8S"
+	},
+	"PASS110": {
+		"zh": "Balao (old)",
+		"en": "Balao (old)",
+		"py": "Balao old",
+		"tag": "M10S"
+	},
+	"PASS206": {
+		"zh": "抹香鲸",
+		"en": "Cachalot",
+		"py": "mxj",
+		"tag": "M6S"
+	},
+	"PASS208": {
+		"zh": "鲑鱼",
+		"en": "Salmon",
+		"py": "gy",
+		"tag": "M8S"
+	},
+	"PASS210": {
+		"zh": "巴劳鱵",
+		"en": "Balao",
+		"py": "blz",
+		"tag": "M10S"
+	},
+	"PASS518": {
+		"zh": "猫鲨",
+		"en": "Gato",
+		"py": "ms",
+		"tag": "M10S"
+	},
+	"PASX001": {
+		"zh": "西马隆",
+		"en": "Cimarron",
+		"py": "xml",
+		"tag": "M5A"
+	},
+	"PASX003": {
+		"zh": "Liberty",
+		"en": "Liberty",
+		"py": "Liberty",
+		"tag": "M5A"
+	},
+	"PASX005": {
+		"zh": "St. Clair",
+		"en": "St. Clair",
+		"py": "St Clair",
+		"tag": "M5A"
+	},
+	"PASX006": {
+		"zh": "西马隆",
+		"en": "Cimarron",
+		"py": "xml"
+	},
+	"PASX799": {
+		"zh": "独角鲸",
+		"en": "Narwhal",
+		"py": "djj"
+	},
+	"PASX815": {
+		"zh": "博格",
+		"en": "Bogue",
+		"py": "bg"
+	},
+	"PASX904": {
+		"zh": "西马隆测试",
+		"en": "Cimarron Test",
+		"py": "xmlcs",
+		"tag": "M5A"
+	},
+	"PBSA106": {
+		"zh": "暴怒",
+		"en": "Furious",
+		"py": "bn",
+		"tag": "Y6A"
+	},
+	"PBSA108": {
+		"zh": "怨仇",
+		"en": "Implacable",
+		"py": "yc",
+		"tag": "Y8A"
+	},
+	"PBSA111": {
+		"zh": "老鹰",
+		"en": "Eagle",
+		"py": "ly",
+		"tag": "Y11A"
+	},
+	"PBSA204": {
+		"zh": "竞技神",
+		"en": "Hermes",
+		"py": "jjs",
+		"tag": "Y4A"
+	},
+	"PBSA210": {
+		"zh": "大胆",
+		"en": "Audacious",
+		"py": "dd",
+		"tag": "Y10A"
+	},
+	"PBSA508": {
+		"zh": "不挠",
+		"en": "Indomitable",
+		"py": "bn",
+		"tag": "Y8A"
+	},
+	"PBSA510": {
+		"zh": "马耳他",
+		"en": "Malta",
+		"py": "met",
+		"tag": "Y10A"
+	},
+	"PBSA518": {
+		"zh": "皇家方舟",
+		"en": "Ark Royal",
+		"py": "hjfz",
+		"tag": "Y6A"
+	},
+	"PBSA910": {
+		"zh": "[大胆]",
+		"en": "[Audacious]",
+		"py": "dd",
+		"tag": "Y10A"
+	},
+	"PBSB002": {
+		"zh": "厌战",
+		"en": "Warspite",
+		"py": "yz",
+		"tag": "Y6B"
+	},
+	"PBSB103": {
+		"zh": "柏勒罗丰",
+		"en": "Bellerophon",
+		"py": "bllf",
+		"tag": "Y3B"
+	},
+	"PBSB104": {
+		"zh": "猎户座",
+		"en": "Orion",
+		"py": "lhz",
+		"tag": "Y4B"
+	},
+	"PBSB105": {
+		"zh": "铁公爵",
+		"en": "Iron Duke",
+		"py": "tgj",
+		"tag": "Y5B"
+	},
+	"PBSB106": {
+		"zh": "伊丽莎白女王",
+		"en": "Queen Elizabeth",
+		"py": "ylsbnw",
+		"tag": "Y6B"
+	},
+	"PBSB107": {
+		"zh": "英王乔治五世",
+		"en": "King George V",
+		"py": "ywqzws",
+		"tag": "Y7B"
+	},
+	"PBSB108": {
+		"zh": "君主",
+		"en": "Monarch",
+		"py": "jz",
+		"tag": "Y8B"
+	},
+	"PBSB109": {
+		"zh": "狮",
+		"en": "Lion",
+		"py": "s",
+		"tag": "Y9B"
+	},
+	"PBSB110": {
+		"zh": "征服者",
+		"en": "Conqueror",
+		"py": "zfz",
+		"tag": "Y10B"
+	},
+	"PBSB203": {
+		"zh": "不倦",
+		"en": "Indefatigable",
+		"py": "bj",
+		"tag": "Y3B"
+	},
+	"PBSB204": {
+		"zh": "玛丽女王",
+		"en": "Queen Mary",
+		"py": "mlnw",
+		"tag": "Y4B"
+	},
+	"PBSB205": {
+		"zh": "虎",
+		"en": "Tiger",
+		"py": "h",
+		"tag": "Y5B"
+	},
+	"PBSB206": {
+		"zh": "声望",
+		"en": "Renown",
+		"py": "sw",
+		"tag": "Y6B"
+	},
+	"PBSB207": {
+		"zh": "鲁克",
+		"en": "Rooke",
+		"py": "lk",
+		"tag": "Y7B"
+	},
+	"PBSB208": {
+		"zh": "霍克",
+		"en": "Hawke",
+		"py": "hk",
+		"tag": "Y8B"
+	},
+	"PBSB209": {
+		"zh": "邓肯",
+		"en": "Duncan",
+		"py": "dk",
+		"tag": "Y9B"
+	},
+	"PBSB210": {
+		"zh": "圣文森特",
+		"en": "St. Vincent",
+		"py": "swst",
+		"tag": "Y10B"
+	},
+	"PBSB503": {
+		"zh": "无畏",
+		"en": "Dreadnought",
+		"py": "ww",
+		"tag": "Y3B"
+	},
+	"PBSB505": {
+		"zh": "阿金库尔",
+		"en": "Agincourt",
+		"py": "ajke",
+		"tag": "Y5B"
+	},
+	"PBSB507": {
+		"zh": "胡德",
+		"en": "Hood",
+		"py": "hd",
+		"tag": "Y7B"
+	},
+	"PBSB508": {
+		"zh": "前卫",
+		"en": "Vanguard",
+		"py": "qw",
+		"tag": "Y8B"
+	},
+	"PBSB509": {
+		"zh": "马尔博罗",
+		"en": "Marlborough",
+		"py": "mebl",
+		"tag": "Y9B"
+	},
+	"PBSB510": {
+		"zh": "雷神",
+		"en": "Thunderer",
+		"py": "ls",
+		"tag": "Y10B"
+	},
+	"PBSB517": {
+		"zh": "纳尔逊",
+		"en": "Nelson",
+		"py": "nex",
+		"tag": "Y7B"
+	},
+	"PBSB526": {
+		"zh": "反击",
+		"en": "Repulse",
+		"py": "fj",
+		"tag": "Y6B"
+	},
+	"PBSB527": {
+		"zh": "约克公爵",
+		"en": "Duke of York",
+		"py": "ykgj",
+		"tag": "Y7B"
+	},
+	"PBSB537": {
+		"zh": "科林伍德",
+		"en": "Collingwood",
+		"py": "klwd",
+		"tag": "Y7B"
+	},
+	"PBSB547": {
+		"zh": "Renown '44",
+		"en": "Renown '44",
+		"py": "Renown 44",
+		"tag": "Y7B"
+	},
+	"PBSB610": {
+		"zh": "无比",
+		"en": "Incomparable",
+		"py": "wb",
+		"tag": "Y10B"
+	},
+	"PBSB910": {
+		"zh": "[征服者]",
+		"en": "[Conqueror]",
+		"py": "zfz",
+		"tag": "Y10B"
+	},
+	"PBSB911": {
+		"zh": "征服者",
+		"en": "Conqueror",
+		"py": "zfz"
+	},
+	"PBSB998": {
+		"zh": "圣劳伦斯",
+		"en": "St. Lawrence",
+		"py": "slls",
+		"tag": "Y10B"
+	},
+	"PBSC101": {
+		"zh": "黑天鹅",
+		"en": "Black Swan",
+		"py": "hte",
+		"tag": "Y1C"
+	},
+	"PBSC102": {
+		"zh": "韦茅斯",
+		"en": "Weymouth",
+		"py": "wms",
+		"tag": "Y2C"
+	},
+	"PBSC103": {
+		"zh": "卡利登",
+		"en": "Caledon",
+		"py": "kld",
+		"tag": "Y3C"
+	},
+	"PBSC104": {
+		"zh": "达娜厄",
+		"en": "Danae",
+		"py": "dne",
+		"tag": "Y4C"
+	},
+	"PBSC105": {
+		"zh": "翡翠",
+		"en": "Emerald",
+		"py": "fc",
+		"tag": "Y5C"
+	},
+	"PBSC106": {
+		"zh": "利安得",
+		"en": "Leander",
+		"py": "lad",
+		"tag": "Y6C"
+	},
+	"PBSC107": {
+		"zh": "斐济",
+		"en": "Fiji",
+		"py": "fj",
+		"tag": "Y7C"
+	},
+	"PBSC108": {
+		"zh": "爱丁堡",
+		"en": "Edinburgh",
+		"py": "adb",
+		"tag": "Y8C"
+	},
+	"PBSC109": {
+		"zh": "海王星",
+		"en": "Neptune",
+		"py": "hwx",
+		"tag": "Y9C"
+	},
+	"PBSC110": {
+		"zh": "米诺陶",
+		"en": "Minotaur",
+		"py": "mnt",
+		"tag": "Y10C"
+	},
+	"PBSC111": {
+		"zh": "埃德加",
+		"en": "Edgar",
+		"py": "adj",
+		"tag": "Y11C"
+	},
+	"PBSC205": {
+		"zh": "霍金斯",
+		"en": "Hawkins",
+		"py": "hjs",
+		"tag": "Y5C"
+	},
+	"PBSC206": {
+		"zh": "德文郡",
+		"en": "Devonshire",
+		"py": "dwj",
+		"tag": "Y6C"
+	},
+	"PBSC207": {
+		"zh": "萨里",
+		"en": "Surrey",
+		"py": "sl",
+		"tag": "Y7C"
+	},
+	"PBSC208": {
+		"zh": "阿尔伯马尔",
+		"en": "Albemarle",
+		"py": "aebme",
+		"tag": "Y8C"
+	},
+	"PBSC209": {
+		"zh": "德雷克",
+		"en": "Drake",
+		"py": "dlk",
+		"tag": "Y9C"
+	},
+	"PBSC210": {
+		"zh": "哥利亚",
+		"en": "Goliath",
+		"py": "gly",
+		"tag": "Y10C"
+	},
+	"PBSC505": {
+		"zh": "埃克塞特",
+		"en": "Exeter",
+		"py": "akst",
+		"tag": "Y5C"
+	},
+	"PBSC507": {
+		"zh": "贝尔法斯特",
+		"en": "Belfast",
+		"py": "befst",
+		"tag": "Y7C"
+	},
+	"PBSC508": {
+		"zh": "柴郡",
+		"en": "Cheshire",
+		"py": "cj",
+		"tag": "Y8C"
+	},
+	"PBSC510": {
+		"zh": "普利茅斯",
+		"en": "Plymouth",
+		"py": "plms",
+		"tag": "Y10C"
+	},
+	"PBSC516": {
+		"zh": "伦敦",
+		"en": "London",
+		"py": "ld",
+		"tag": "Y6C"
+	},
+	"PBSC518": {
+		"zh": "虎59",
+		"en": "Tiger '59",
+		"py": "h59",
+		"tag": "Y8C"
+	},
+	"PBSC526": {
+		"zh": "黛朵",
+		"en": "Dido",
+		"py": "dd",
+		"tag": "Y6C"
+	},
+	"PBSC528": {
+		"zh": "贝尔法斯特43",
+		"en": "Belfast '43",
+		"py": "befst43",
+		"tag": "Y8C"
+	},
+	"PBSC538": {
+		"zh": "汉普郡",
+		"en": "Hampshire",
+		"py": "hpj",
+		"tag": "Y8C"
+	},
+	"PBSC610": {
+		"zh": "直布罗陀",
+		"en": "Gibraltar",
+		"py": "zblt",
+		"tag": "Y10C"
+	},
+	"PBSC710": {
+		"zh": "Monmouth",
+		"en": "Monmouth",
+		"py": "Monmouth",
+		"tag": "Y10C"
+	},
+	"PBSC910": {
+		"zh": "独眼巨人",
+		"en": "Cyclops",
+		"py": "dyjr",
+		"tag": "Y10C"
+	},
+	"PBSD102": {
+		"zh": "美狄亚",
+		"en": "Medea",
+		"py": "mdy",
+		"tag": "Y2D"
+	},
+	"PBSD103": {
+		"zh": "女武神",
+		"en": "Valkyrie",
+		"py": "nws",
+		"tag": "Y3D"
+	},
+	"PBSD104": {
+		"zh": "清醒",
+		"en": "Wakeful",
+		"py": "qx",
+		"tag": "Y4D"
+	},
+	"PBSD105": {
+		"zh": "阿卡斯塔",
+		"en": "Acasta",
+		"py": "akst",
+		"tag": "Y5D"
+	},
+	"PBSD106": {
+		"zh": "伊卡洛斯",
+		"en": "Icarus",
+		"py": "ykls",
+		"tag": "Y6D"
+	},
+	"PBSD107": {
+		"zh": "杰维斯",
+		"en": "Jervis",
+		"py": "jws",
+		"tag": "Y7D"
+	},
+	"PBSD108": {
+		"zh": "雷电",
+		"en": "Lightning",
+		"py": "ld",
+		"tag": "Y8D"
+	},
+	"PBSD109": {
+		"zh": "日德兰",
+		"en": "Jutland",
+		"py": "rdl",
+		"tag": "Y9D"
+	},
+	"PBSD110": {
+		"zh": "果敢",
+		"en": "Daring",
+		"py": "gg",
+		"tag": "Y10D"
+	},
+	"PBSD503": {
+		"zh": "坎贝尔敦",
+		"en": "Campbeltown",
+		"py": "kbed",
+		"tag": "Y3D"
+	},
+	"PBSD506": {
+		"zh": "勇敢",
+		"en": "Gallant",
+		"py": "yg",
+		"tag": "Y6D"
+	},
+	"PBSD510": {
+		"zh": "德鲁伊",
+		"en": "Druid",
+		"py": "dly",
+		"tag": "Y10D"
+	},
+	"PBSD517": {
+		"zh": "哥萨克人",
+		"en": "Cossack",
+		"py": "gskr",
+		"tag": "Y8D"
+	},
+	"PBSD598": {
+		"zh": "哥萨克人 B",
+		"en": "Cossack B",
+		"py": "gskr B",
+		"tag": "Y8D"
+	},
+	"PBSD605": {
+		"zh": "安东尼",
+		"en": "Anthony",
+		"py": "adn",
+		"tag": "Y5D"
+	},
+	"PBSS106": {
+		"zh": "Undine",
+		"en": "Undine",
+		"py": "Undine",
+		"tag": "Y6S"
+	},
+	"PBSS108": {
+		"zh": "Sturdy",
+		"en": "Sturdy",
+		"py": "Sturdy",
+		"tag": "Y8S"
+	},
+	"PBSS110": {
+		"zh": "Thrasher",
+		"en": "Thrasher",
+		"py": "Thrasher",
+		"tag": "Y10S"
+	},
+	"PFSA506": {
+		"zh": "贝阿恩",
+		"en": "Béarn",
+		"py": "bae",
+		"tag": "F6A"
+	},
+	"PFSB103": {
+		"zh": "杜伦尼",
+		"en": "Turenne",
+		"py": "dln",
+		"tag": "F3B"
+	},
+	"PFSB104": {
+		"zh": "孤拔",
+		"en": "Courbet",
+		"py": "gb",
+		"tag": "F4B"
+	},
+	"PFSB105": {
+		"zh": "布列塔尼",
+		"en": "Bretagne",
+		"py": "bltn",
+		"tag": "F5B"
+	},
+	"PFSB106": {
+		"zh": "诺曼底",
+		"en": "Normandie",
+		"py": "nmd",
+		"tag": "F6B"
+	},
+	"PFSB107": {
+		"zh": "里昂",
+		"en": "Lyon",
+		"py": "la",
+		"tag": "F7B"
+	},
+	"PFSB108": {
+		"zh": "黎塞留",
+		"en": "Richelieu",
+		"py": "lsl",
+		"tag": "F8B"
+	},
+	"PFSB109": {
+		"zh": "阿尔萨斯",
+		"en": "Alsace",
+		"py": "aess",
+		"tag": "F9B"
+	},
+	"PFSB110": {
+		"zh": "共和国",
+		"en": "République",
+		"py": "ghg",
+		"tag": "F10B"
+	},
+	"PFSB111": {
+		"zh": "祖国",
+		"en": "Patrie",
+		"py": "zg",
+		"tag": "F11B"
+	},
+	"PFSB506": {
+		"zh": "敦刻尔克",
+		"en": "Dunkerque",
+		"py": "dkek",
+		"tag": "F6B"
+	},
+	"PFSB507": {
+		"zh": "斯特拉斯堡",
+		"en": "Strasbourg",
+		"py": "stlsb",
+		"tag": "F7B"
+	},
+	"PFSB508": {
+		"zh": "加斯科涅",
+		"en": "Gascogne",
+		"py": "jskn",
+		"tag": "F8B"
+	},
+	"PFSB510": {
+		"zh": "勃艮第",
+		"en": "Bourgogne",
+		"py": "bgd",
+		"tag": "F10B"
+	},
+	"PFSB518": {
+		"zh": "让·巴尔",
+		"en": "Jean Bart",
+		"py": "rbe",
+		"tag": "F9B"
+	},
+	"PFSB528": {
+		"zh": "香槟",
+		"en": "Champagne",
+		"py": "xb",
+		"tag": "F8B"
+	},
+	"PFSB538": {
+		"zh": "弗兰德尔",
+		"en": "Flandre",
+		"py": "flde",
+		"tag": "F8B"
+	},
+	"PFSB596": {
+		"zh": "敦刻尔克 B",
+		"en": "Dunkerque B",
+		"py": "dkek B",
+		"tag": "F6B"
+	},
+	"PFSB599": {
+		"zh": "让·巴尔 B",
+		"en": "Jean Bart B",
+		"py": "rbe B",
+		"tag": "F9B"
+	},
+	"PFSB898": {
+		"zh": "[黎塞留]",
+		"en": "[Richelieu]",
+		"py": "lsl",
+		"tag": "F8B"
+	},
+	"PFSC101": {
+		"zh": "布甘维尔",
+		"en": "Bougainville",
+		"py": "bgwe",
+		"tag": "F1C"
+	},
+	"PFSC102": {
+		"zh": "尤里安-格拉维",
+		"en": "Jurien",
+		"py": "ylaglw",
+		"tag": "F2C"
+	},
+	"PFSC103": {
+		"zh": "弗利昂",
+		"en": "Friant",
+		"py": "fla",
+		"tag": "F3C"
+	},
+	"PFSC104": {
+		"zh": "迪盖-特鲁安",
+		"en": "Duguay-Trouin",
+		"py": "dgtla",
+		"tag": "F4C"
+	},
+	"PFSC105": {
+		"zh": "白劳易",
+		"en": "Émile Bertin",
+		"py": "bly",
+		"tag": "F5C"
+	},
+	"PFSC106": {
+		"zh": "拉加利索尼埃",
+		"en": "La Galissonnière",
+		"py": "ljlsna",
+		"tag": "F6C"
+	},
+	"PFSC107": {
+		"zh": "阿尔及利亚",
+		"en": "Algérie",
+		"py": "aejly",
+		"tag": "F7C"
+	},
+	"PFSC108": {
+		"zh": "查理-马特",
+		"en": "Charles Martel",
+		"py": "clmt",
+		"tag": "F8C"
+	},
+	"PFSC109": {
+		"zh": "路易九世",
+		"en": "Saint-Louis",
+		"py": "lyjs",
+		"tag": "F9C"
+	},
+	"PFSC110": {
+		"zh": "亨利四世",
+		"en": "Henri IV",
+		"py": "hlss",
+		"tag": "F10C"
+	},
+	"PFSC111": {
+		"zh": "孔代",
+		"en": "Condé",
+		"py": "kd",
+		"tag": "F11C"
+	},
+	"PFSC208": {
+		"zh": "瑟堡",
+		"en": "Cherbourg",
+		"py": "sb",
+		"tag": "F8C"
+	},
+	"PFSC209": {
+		"zh": "布雷斯特",
+		"en": "Brest",
+		"py": "blst",
+		"tag": "F9C"
+	},
+	"PFSC210": {
+		"zh": "马赛",
+		"en": "Marseille",
+		"py": "ms",
+		"tag": "F10C"
+	},
+	"PFSC506": {
+		"zh": "格拉斯",
+		"en": "De Grasse",
+		"py": "gls",
+		"tag": "F6C"
+	},
+	"PFSC507": {
+		"zh": "土伦",
+		"en": "Toulon",
+		"py": "tl",
+		"tag": "F7C"
+	},
+	"PFSC508": {
+		"zh": "贝亚德",
+		"en": "Bayard",
+		"py": "byd",
+		"tag": "F8C"
+	},
+	"PFSC509": {
+		"zh": "卡诺",
+		"en": "Carnot",
+		"py": "kn",
+		"tag": "F9C"
+	},
+	"PFSC510": {
+		"zh": "科尔伯特",
+		"en": "Colbert",
+		"py": "kebt",
+		"tag": "F10C"
+	},
+	"PFSC518": {
+		"zh": "让·巴尔",
+		"en": "Jean Bart",
+		"py": "rbe"
+	},
+	"PFSC810": {
+		"zh": "布伦努斯",
+		"en": "Brennus",
+		"py": "blns",
+		"tag": "F10C"
+	},
+	"PFSC896": {
+		"zh": "[拉加利索尼埃]",
+		"en": "[La Galissonnière]",
+		"py": "ljlsna",
+		"tag": "F6C"
+	},
+	"PFSD102": {
+		"zh": "加博尔德海军少尉",
+		"en": "En. Gabolde",
+		"py": "jbedhjsw",
+		"tag": "F2D"
+	},
+	"PFSD103": {
+		"zh": "燧发枪兵",
+		"en": "Fusilier",
+		"py": "sfqb",
+		"tag": "F3D"
+	},
+	"PFSD104": {
+		"zh": "狂风",
+		"en": "Bourrasque",
+		"py": "kf",
+		"tag": "F4D"
+	},
+	"PFSD105": {
+		"zh": "美洲豹",
+		"en": "Jaguar",
+		"py": "mzb",
+		"tag": "F5D"
+	},
+	"PFSD106": {
+		"zh": "猎豹",
+		"en": "Guépard",
+		"py": "lb",
+		"tag": "F6D"
+	},
+	"PFSD107": {
+		"zh": "沃克兰",
+		"en": "Vauquelin",
+		"py": "wkl",
+		"tag": "F7D"
+	},
+	"PFSD108": {
+		"zh": "空想",
+		"en": "Le Fantasque",
+		"py": "kx",
+		"tag": "F8D"
+	},
+	"PFSD109": {
+		"zh": "莫加多尔",
+		"en": "Mogador",
+		"py": "mjde",
+		"tag": "F9D"
+	},
+	"PFSD110": {
+		"zh": "克莱贝尔",
+		"en": "Kléber",
+		"py": "klbe",
+		"tag": "F10D"
+	},
+	"PFSD210": {
+		"zh": "玛索",
+		"en": "Marceau",
+		"py": "ms",
+		"tag": "F10D"
+	},
+	"PFSD504": {
+		"zh": "热风",
+		"en": "Siroco",
+		"py": "rf",
+		"tag": "F5D"
+	},
+	"PFSD506": {
+		"zh": "鹰",
+		"en": "Aigle",
+		"py": "y",
+		"tag": "F6D"
+	},
+	"PFSD508": {
+		"zh": "可怖",
+		"en": "Le Terrible",
+		"py": "kb",
+		"tag": "F8D"
+	},
+	"PFSD605": {
+		"zh": "旋风",
+		"en": "Cyclone",
+		"py": "xf",
+		"tag": "F5D"
+	},
+	"PFSD808": {
+		"zh": "无礼",
+		"en": "L'Effronté",
+		"py": "wl",
+		"tag": "F8D"
+	},
+	"PGSA104": {
+		"zh": "莱茵河",
+		"en": "Rhein",
+		"py": "lyh",
+		"tag": "D4A"
+	},
+	"PGSA106": {
+		"zh": "威悉河",
+		"en": "Weser",
+		"py": "wxh",
+		"tag": "D6A"
+	},
+	"PGSA108": {
+		"zh": "奥古斯特·冯·帕塞瓦尔",
+		"en": "A. Parseval",
+		"py": "agstfpswe",
+		"tag": "D8A"
+	},
+	"PGSA110": {
+		"zh": "M.里希特霍芬",
+		"en": "M. Richthofen",
+		"py": "Mlxthf",
+		"tag": "D10A"
+	},
+	"PGSA506": {
+		"zh": "埃里希·勒文哈尔特",
+		"en": "E. Loewenhardt",
+		"py": "alxlwhet",
+		"tag": "D6A"
+	},
+	"PGSA508": {
+		"zh": "齐柏林伯爵（旧）",
+		"en": "Graf Zeppelin (old)",
+		"py": "qblbjj",
+		"tag": "D8A"
+	},
+	"PGSA510": {
+		"zh": "沃纳·沃斯",
+		"en": "W. Voss",
+		"py": "wnws",
+		"tag": "D10A"
+	},
+	"PGSA518": {
+		"zh": "齐柏林伯爵",
+		"en": "Graf Zeppelin",
+		"py": "qblbj",
+		"tag": "D8A"
+	},
+	"PGSA598": {
+		"zh": "齐柏林伯爵 B",
+		"en": "Graf Zeppelin B",
+		"py": "qblbj B",
+		"tag": "D8A"
+	},
+	"PGSA610": {
+		"zh": "马克斯·殷麦曼",
+		"en": "M. Immelmann",
+		"py": "mksymm",
+		"tag": "D10A"
+	},
+	"PGSB001": {
+		"zh": "俾斯麦",
+		"en": "Bismarck",
+		"py": "bsm"
+	},
+	"PGSB002": {
+		"zh": "提尔皮茨",
+		"en": "Tirpitz",
+		"py": "tepc",
+		"tag": "D8B"
+	},
+	"PGSB103": {
+		"zh": "拿骚",
+		"en": "Nassau",
+		"py": "ns",
+		"tag": "D3B"
+	},
+	"PGSB104": {
+		"zh": "凯撒",
+		"en": "Kaiser",
+		"py": "ks",
+		"tag": "D4B"
+	},
+	"PGSB105": {
+		"zh": "国王",
+		"en": "König",
+		"py": "gw",
+		"tag": "D5B"
+	},
+	"PGSB106": {
+		"zh": "巴伐利亚",
+		"en": "Bayern",
+		"py": "bfly",
+		"tag": "D6B"
+	},
+	"PGSB107": {
+		"zh": "格奈森瑙",
+		"en": "Gneisenau",
+		"py": "gnsn",
+		"tag": "D7B"
+	},
+	"PGSB108": {
+		"zh": "俾斯麦",
+		"en": "Bismarck",
+		"py": "bsm",
+		"tag": "D8B"
+	},
+	"PGSB109": {
+		"zh": "腓特烈大帝",
+		"en": "F. der Grosse",
+		"py": "ftldd",
+		"tag": "D9B"
+	},
+	"PGSB110": {
+		"zh": "大选帝侯",
+		"en": "G. Kurfürst",
+		"py": "dxdh",
+		"tag": "D10B"
+	},
+	"PGSB111": {
+		"zh": "汉诺威",
+		"en": "Hannover",
+		"py": "hnw",
+		"tag": "D11B"
+	},
+	"PGSB203": {
+		"zh": "冯·德·坦恩",
+		"en": "Von der Tann",
+		"py": "fdte",
+		"tag": "D3B"
+	},
+	"PGSB204": {
+		"zh": "毛奇",
+		"en": "Moltke",
+		"py": "mq",
+		"tag": "D4B"
+	},
+	"PGSB205": {
+		"zh": "德弗林格尔",
+		"en": "Derfflinger",
+		"py": "dflge",
+		"tag": "D5B"
+	},
+	"PGSB206": {
+		"zh": "马肯森",
+		"en": "Mackensen",
+		"py": "mks",
+		"tag": "D6B"
+	},
+	"PGSB207": {
+		"zh": "海因里希亲王",
+		"en": "P. Heinrich",
+		"py": "hylxqw",
+		"tag": "D7B"
+	},
+	"PGSB208": {
+		"zh": "齐滕",
+		"en": "Zieten",
+		"py": "qt",
+		"tag": "D8B"
+	},
+	"PGSB209": {
+		"zh": "鲁普雷希特亲王",
+		"en": "P. Rupprecht",
+		"py": "lplxtqw",
+		"tag": "D9B"
+	},
+	"PGSB210": {
+		"zh": "施里芬",
+		"en": "Schlieffen",
+		"py": "slf",
+		"tag": "D10B"
+	},
+	"PGSB310": {
+		"zh": "普鲁士",
+		"en": "Preussen",
+		"py": "pls",
+		"tag": "D10B"
+	},
+	"PGSB503": {
+		"zh": "阿尔伯特国王",
+		"en": "K. Albert",
+		"py": "aebtgw",
+		"tag": "D3B"
+	},
+	"PGSB506": {
+		"zh": "艾特尔·弗里德里希亲王",
+		"en": "P. E. Friedrich",
+		"py": "atefldlxqw",
+		"tag": "D6B"
+	},
+	"PGSB507": {
+		"zh": "沙恩霍斯特",
+		"en": "Scharnhorst",
+		"py": "sehst",
+		"tag": "D7B"
+	},
+	"PGSB508": {
+		"zh": "奥丁",
+		"en": "Odin",
+		"py": "ad",
+		"tag": "D8B"
+	},
+	"PGSB509": {
+		"zh": "波美拉尼亚",
+		"en": "Pommern",
+		"py": "bmlny",
+		"tag": "D9B"
+	},
+	"PGSB518": {
+		"zh": "勃兰登堡",
+		"en": "Brandenburg",
+		"py": "bldb",
+		"tag": "D8B"
+	},
+	"PGSB528": {
+		"zh": "安哈尔特",
+		"en": "Anhalt",
+		"py": "ahet",
+		"tag": "D8B"
+	},
+	"PGSB597": {
+		"zh": "沙恩霍斯特 B",
+		"en": "Scharnhorst B",
+		"py": "sehst B",
+		"tag": "D7B"
+	},
+	"PGSB598": {
+		"zh": "提尔皮茨 B",
+		"en": "Tirpitz B",
+		"py": "tepc B",
+		"tag": "D8B"
+	},
+	"PGSB599": {
+		"zh": "波美拉尼亚 B",
+		"en": "Pommern B",
+		"py": "bmlny B",
+		"tag": "D9B"
+	},
+	"PGSB610": {
+		"zh": "梅克伦堡",
+		"en": "Mecklenburg",
+		"py": "mklb",
+		"tag": "D10B"
+	},
+	"PGSB910": {
+		"zh": "[大选帝侯]",
+		"en": "[G. Kurfürst]",
+		"py": "dxdh",
+		"tag": "D10B"
+	},
+	"PGSB999": {
+		"zh": "汉诺威（旧）",
+		"en": "Hannover (old)",
+		"py": "hnwj",
+		"tag": "D11B"
+	},
+	"PGSC001": {
+		"zh": "鼬",
+		"en": "Hermelin",
+		"py": "y",
+		"tag": "D1C"
+	},
+	"PGSC002": {
+		"zh": "德累斯顿",
+		"en": "Dresden",
+		"py": "dlsd",
+		"tag": "D2C"
+	},
+	"PGSC103": {
+		"zh": "科尔贝格",
+		"en": "Kolberg",
+		"py": "kebg",
+		"tag": "D3C"
+	},
+	"PGSC104": {
+		"zh": "卡尔斯鲁厄",
+		"en": "Karlsruhe",
+		"py": "kesle",
+		"tag": "D4C"
+	},
+	"PGSC105": {
+		"zh": "柯尼斯堡",
+		"en": "Königsberg",
+		"py": "knsb",
+		"tag": "D5C"
+	},
+	"PGSC106": {
+		"zh": "纽伦堡",
+		"en": "Nürnberg",
+		"py": "nlb",
+		"tag": "D6C"
+	},
+	"PGSC107": {
+		"zh": "约克",
+		"en": "Yorck",
+		"py": "yk",
+		"tag": "D7C"
+	},
+	"PGSC108": {
+		"zh": "希佩尔上将",
+		"en": "Hipper",
+		"py": "xpesj",
+		"tag": "D8C"
+	},
+	"PGSC109": {
+		"zh": "罗恩",
+		"en": "Roon",
+		"py": "le",
+		"tag": "D9C"
+	},
+	"PGSC110": {
+		"zh": "兴登堡",
+		"en": "Hindenburg",
+		"py": "xdb",
+		"tag": "D10C"
+	},
+	"PGSC111": {
+		"zh": "克劳塞维茨",
+		"en": "Clausewitz",
+		"py": "klswc",
+		"tag": "D11C"
+	},
+	"PGSC502": {
+		"zh": "埃姆登",
+		"en": "Emden",
+		"py": "amd",
+		"tag": "D2C"
+	},
+	"PGSC506": {
+		"zh": "海军上将施佩伯爵",
+		"en": "Graf Spee",
+		"py": "hjsjspbj",
+		"tag": "D6C"
+	},
+	"PGSC507": {
+		"zh": "慕尼黑",
+		"en": "München",
+		"py": "mnh",
+		"tag": "D7C"
+	},
+	"PGSC508": {
+		"zh": "欧根亲王",
+		"en": "Prinz Eugen",
+		"py": "ogqw",
+		"tag": "D8C"
+	},
+	"PGSC509": {
+		"zh": "齐格菲",
+		"en": "Siegfried",
+		"py": "qgf",
+		"tag": "D9C"
+	},
+	"PGSC516": {
+		"zh": "Leipzig",
+		"en": "Leipzig",
+		"py": "Leipzig",
+		"tag": "D6C"
+	},
+	"PGSC517": {
+		"zh": "魏玛",
+		"en": "Weimar",
+		"py": "wm",
+		"tag": "D7C"
+	},
+	"PGSC518": {
+		"zh": "美因茨",
+		"en": "Mainz",
+		"py": "myc",
+		"tag": "D8C"
+	},
+	"PGSC519": {
+		"zh": "埃吉尔",
+		"en": "Ägir",
+		"py": "aje",
+		"tag": "D9C"
+	},
+	"PGSC529": {
+		"zh": "施罗德",
+		"en": "Schröder",
+		"py": "sld",
+		"tag": "D9C"
+	},
+	"PGSC706": {
+		"zh": "HSF海军上将施佩伯爵",
+		"en": "HSF Graf Spee",
+		"py": "HSFhjsjspbj",
+		"tag": "D6C"
+	},
+	"PGSC718": {
+		"zh": "Cross of Dorn",
+		"en": "Cross of Dorn",
+		"py": "Cross of Dorn",
+		"tag": "D8C"
+	},
+	"PGSC910": {
+		"zh": "[兴登堡]",
+		"en": "[Hindenburg]",
+		"py": "xdb",
+		"tag": "D10C"
+	},
+	"PGSD102": {
+		"zh": "V-25",
+		"en": "V-25",
+		"py": "V25",
+		"tag": "D2D"
+	},
+	"PGSD103": {
+		"zh": "G-101",
+		"en": "G-101",
+		"py": "G101",
+		"tag": "D3D"
+	},
+	"PGSD104": {
+		"zh": "V-170",
+		"en": "V-170",
+		"py": "V170",
+		"tag": "D4D"
+	},
+	"PGSD105": {
+		"zh": "T-22",
+		"en": "T-22",
+		"py": "T22",
+		"tag": "D5D"
+	},
+	"PGSD106": {
+		"zh": "恩斯特-盖德",
+		"en": "Gaede",
+		"py": "estgd",
+		"tag": "D6D"
+	},
+	"PGSD107": {
+		"zh": "莱伯勒希特-马斯",
+		"en": "Maass",
+		"py": "lblxtms",
+		"tag": "D7D"
+	},
+	"PGSD108": {
+		"zh": "Z-23",
+		"en": "Z-23",
+		"py": "Z23",
+		"tag": "D8D"
+	},
+	"PGSD109": {
+		"zh": "Z-46",
+		"en": "Z-46",
+		"py": "Z46",
+		"tag": "D9D"
+	},
+	"PGSD110": {
+		"zh": "Z-52",
+		"en": "Z-52",
+		"py": "Z52",
+		"tag": "D10D"
+	},
+	"PGSD207": {
+		"zh": "Z-31",
+		"en": "Z-31",
+		"py": "Z31",
+		"tag": "D7D"
+	},
+	"PGSD208": {
+		"zh": "G.J.梅克尔",
+		"en": "G. J. Maerker",
+		"py": "GJmke",
+		"tag": "D8D"
+	},
+	"PGSD209": {
+		"zh": "菲利克斯·舒尔茨",
+		"en": "F. Schultz",
+		"py": "flkssec",
+		"tag": "D9D"
+	},
+	"PGSD210": {
+		"zh": "埃尔宾",
+		"en": "Elbing",
+		"py": "aeb",
+		"tag": "D10D"
+	},
+	"PGSD506": {
+		"zh": "T-61",
+		"en": "T-61",
+		"py": "T61",
+		"tag": "D6D"
+	},
+	"PGSD508": {
+		"zh": "Z-39",
+		"en": "Z-39",
+		"py": "Z39",
+		"tag": "D7D"
+	},
+	"PGSD516": {
+		"zh": "卡尔·冯·勋伯格",
+		"en": "K. Schönberg",
+		"py": "kefxbg",
+		"tag": "D6D"
+	},
+	"PGSD518": {
+		"zh": "Z-35",
+		"en": "Z-35",
+		"py": "Z35",
+		"tag": "D8D"
+	},
+	"PGSD519": {
+		"zh": "Z-44",
+		"en": "Z-44",
+		"py": "Z44",
+		"tag": "D9D"
+	},
+	"PGSD529": {
+		"zh": "ZF-6",
+		"en": "ZF-6",
+		"py": "ZF6",
+		"tag": "D9D"
+	},
+	"PGSS106": {
+		"zh": "U-69 (old)",
+		"en": "U-69 (old)",
+		"py": "U69 old",
+		"tag": "D6S"
+	},
+	"PGSS108": {
+		"zh": "U-190 (old)",
+		"en": "U-190 (old)",
+		"py": "U190 old",
+		"tag": "D8S"
+	},
+	"PGSS110": {
+		"zh": "U-2501 (old)",
+		"en": "U-2501 (old)",
+		"py": "U2501 old",
+		"tag": "D10S"
+	},
+	"PGSS206": {
+		"zh": "U-69",
+		"en": "U-69",
+		"py": "U69",
+		"tag": "D6S"
+	},
+	"PGSS208": {
+		"zh": "U-190",
+		"en": "U-190",
+		"py": "U190",
+		"tag": "D8S"
+	},
+	"PGSS210": {
+		"zh": "U-2501",
+		"en": "U-2501",
+		"py": "U2501",
+		"tag": "D10S"
+	},
+	"PGSS510": {
+		"zh": "U-4501",
+		"en": "U-4501",
+		"py": "U4501",
+		"tag": "D10S"
+	},
+	"PGSX799": {
+		"zh": "U-96",
+		"en": "U-96",
+		"py": "U96"
+	},
+	"PHSC101": {
+		"zh": "范·金斯伯根",
+		"en": "Van Kinsbergen",
+		"py": "fjsbg",
+		"tag": "H1C"
+	},
+	"PHSC102": {
+		"zh": "海尔德兰",
+		"en": "Gelderland",
+		"py": "hedl",
+		"tag": "H2C"
+	},
+	"PHSC103": {
+		"zh": "爪哇",
+		"en": "Java",
+		"py": "zw",
+		"tag": "H3C"
+	},
+	"PHSC104": {
+		"zh": "德·鲁伊特",
+		"en": "De Ruyter",
+		"py": "dlyt",
+		"tag": "H4C"
+	},
+	"PHSC105": {
+		"zh": "西里伯斯",
+		"en": "Celebes",
+		"py": "xlbs",
+		"tag": "H5C"
+	},
+	"PHSC106": {
+		"zh": "凯敦",
+		"en": "Kijkduin",
+		"py": "kd",
+		"tag": "H6C"
+	},
+	"PHSC107": {
+		"zh": "团结",
+		"en": "Eendracht",
+		"py": "tj",
+		"tag": "H7C"
+	},
+	"PHSC108": {
+		"zh": "哈勒姆",
+		"en": "Haarlem",
+		"py": "hlm",
+		"tag": "H8C"
+	},
+	"PHSC109": {
+		"zh": "约翰·德·维特",
+		"en": "Johan de Witt",
+		"py": "yhdwt",
+		"tag": "H9C"
+	},
+	"PHSC110": {
+		"zh": "金狮",
+		"en": "Gouden Leeuw",
+		"py": "js",
+		"tag": "H10C"
+	},
+	"PHSC508": {
+		"zh": "七省",
+		"en": "De 7 Provinciën",
+		"py": "qs",
+		"tag": "H8C"
+	},
+	"PHSD509": {
+		"zh": "格罗宁根",
+		"en": "Groningen",
+		"py": "glng",
+		"tag": "H9D"
+	},
+	"PHSD610": {
+		"zh": "特龙普",
+		"en": "Tromp",
+		"py": "tlp",
+		"tag": "H10D"
+	},
+	"PISA508": {
+		"zh": "天鹰",
+		"en": "Aquila",
+		"py": "ty",
+		"tag": "I8A"
+	},
+	"PISB104": {
+		"zh": "但丁·阿利格伊切里",
+		"en": "D. Alighieri",
+		"py": "ddalgyql",
+		"tag": "I4B"
+	},
+	"PISB105": {
+		"zh": "加富尔伯爵",
+		"en": "Cavour",
+		"py": "jfebj",
+		"tag": "I5B"
+	},
+	"PISB106": {
+		"zh": "安德烈亚·多里亚",
+		"en": "Andrea Doria",
+		"py": "adlydly",
+		"tag": "I6B"
+	},
+	"PISB107": {
+		"zh": "弗朗切斯科·卡拉乔洛",
+		"en": "F. Caracciolo",
+		"py": "flqskklql",
+		"tag": "I7B"
+	},
+	"PISB108": {
+		"zh": "维托里奥·维内托",
+		"en": "V. Veneto",
+		"py": "wtlawnt",
+		"tag": "I8B"
+	},
+	"PISB109": {
+		"zh": "勒班陀",
+		"en": "Lepanto",
+		"py": "lbt",
+		"tag": "I9B"
+	},
+	"PISB110": {
+		"zh": "克里斯托弗·哥伦布",
+		"en": "C. Colombo",
+		"py": "klstfglb",
+		"tag": "I10B"
+	},
+	"PISB505": {
+		"zh": "尤里乌斯-恺撒",
+		"en": "Giulio Cesare",
+		"py": "ylwsks",
+		"tag": "I5B"
+	},
+	"PISB508": {
+		"zh": "罗马",
+		"en": "Roma",
+		"py": "lm",
+		"tag": "I8B"
+	},
+	"PISB509": {
+		"zh": "马可波罗",
+		"en": "Marco Polo",
+		"py": "mkbl",
+		"tag": "I9B"
+	},
+	"PISB519": {
+		"zh": "朱塞佩·威尔第",
+		"en": "Giuseppe Verdi",
+		"py": "zspwed",
+		"tag": "I9B"
+	},
+	"PISB708": {
+		"zh": "AL 利托里奥",
+		"en": "AL Littorio",
+		"py": "AL ltla",
+		"tag": "I8B"
+	},
+	"PISB805": {
+		"zh": "尤尼乌斯·布鲁图斯",
+		"en": "Giunio Bruto",
+		"py": "ynwsblts",
+		"tag": "I6B"
+	},
+	"PISC101": {
+		"zh": "厄立特里亚",
+		"en": "Eritrea",
+		"py": "eltly",
+		"tag": "I1C"
+	},
+	"PISC102": {
+		"zh": "尼诺·比西奥",
+		"en": "Nino Bixio",
+		"py": "nnbxa",
+		"tag": "I2C"
+	},
+	"PISC103": {
+		"zh": "塔兰托",
+		"en": "Taranto",
+		"py": "tlt",
+		"tag": "I3C"
+	},
+	"PISC104": {
+		"zh": "阿尔贝托·迪·朱桑诺",
+		"en": "Giussano",
+		"py": "aebtdzsn",
+		"tag": "I4C"
+	},
+	"PISC105": {
+		"zh": "莱蒙多•蒙德库克利",
+		"en": "Montecuccoli",
+		"py": "lmdmdkkl",
+		"tag": "I5C"
+	},
+	"PISC106": {
+		"zh": "特伦托",
+		"en": "Trento",
+		"py": "tlt",
+		"tag": "I6C"
+	},
+	"PISC107": {
+		"zh": "扎拉",
+		"en": "Zara",
+		"py": "zl",
+		"tag": "I7C"
+	},
+	"PISC108": {
+		"zh": "阿马尔菲",
+		"en": "Amalfi",
+		"py": "amef",
+		"tag": "I8C"
+	},
+	"PISC109": {
+		"zh": "布林迪西",
+		"en": "Brindisi",
+		"py": "bldx",
+		"tag": "I9C"
+	},
+	"PISC110": {
+		"zh": "威尼斯",
+		"en": "Venezia",
+		"py": "wns",
+		"tag": "I10C"
+	},
+	"PISC505": {
+		"zh": "热那亚",
+		"en": "Genova",
+		"py": "rny",
+		"tag": "I5C"
+	},
+	"PISC506": {
+		"zh": "奥斯塔公爵",
+		"en": "Duca d'Aosta",
+		"py": "astgj",
+		"tag": "I6C"
+	},
+	"PISC507": {
+		"zh": "阿布鲁齐公爵",
+		"en": "Abruzzi",
+		"py": "ablqgj",
+		"tag": "I7C"
+	},
+	"PISC510": {
+		"zh": "那不勒斯",
+		"en": "Napoli",
+		"py": "nbls",
+		"tag": "I10C"
+	},
+	"PISC607": {
+		"zh": "戈里齐亚",
+		"en": "Gorizia",
+		"py": "glqy",
+		"tag": "I7C"
+	},
+	"PISD102": {
+		"zh": "库尔塔托内",
+		"en": "Curtatone",
+		"py": "kettn",
+		"tag": "I2D"
+	},
+	"PISD103": {
+		"zh": "纳扎里奥·萨乌罗",
+		"en": "N. Sauro",
+		"py": "nzlaswl",
+		"tag": "I3D"
+	},
+	"PISD104": {
+		"zh": "图尔比内",
+		"en": "Turbine",
+		"py": "tebn",
+		"tag": "I4D"
+	},
+	"PISD105": {
+		"zh": "西北风",
+		"en": "Maestrale",
+		"py": "xbf",
+		"tag": "I5D"
+	},
+	"PISD106": {
+		"zh": "阿维埃尔",
+		"en": "Aviere",
+		"py": "awae",
+		"tag": "I6D"
+	},
+	"PISD107": {
+		"zh": "卢卡·塔里戈",
+		"en": "L. Tarigo",
+		"py": "lktlg",
+		"tag": "I7D"
+	},
+	"PISD108": {
+		"zh": "维托里奥·库尼贝尔蒂",
+		"en": "V. Cuniberti",
+		"py": "wtlaknbed",
+		"tag": "I8D"
+	},
+	"PISD109": {
+		"zh": "亚得里亚",
+		"en": "Adriatico",
+		"py": "ydly",
+		"tag": "I9D"
+	},
+	"PISD110": {
+		"zh": "阿蒂略·莱戈洛",
+		"en": "A. Regolo",
+		"py": "adllgl",
+		"tag": "I10D"
+	},
+	"PISD506": {
+		"zh": "狮子",
+		"en": "Leone",
+		"py": "sz",
+		"tag": "I6D"
+	},
+	"PISD507": {
+		"zh": "FR25",
+		"en": "FR25",
+		"py": "FR25",
+		"tag": "I7D"
+	},
+	"PISD509": {
+		"zh": "保罗·埃米利奥",
+		"en": "Paolo Emilio",
+		"py": "blamla",
+		"tag": "I9D"
+	},
+	"PJSA002": {
+		"zh": "凤翔（旧）",
+		"en": "Hōshō (old)",
+		"py": "fxj",
+		"tag": "R4A"
+	},
+	"PJSA006": {
+		"zh": "瑞凤（旧）",
+		"en": "Zuihō (old)",
+		"py": "rfj",
+		"tag": "R5A"
+	},
+	"PJSA009": {
+		"zh": "龙骧（旧）",
+		"en": "Ryūjō (old)",
+		"py": "lxj",
+		"tag": "R6A"
+	},
+	"PJSA011": {
+		"zh": "飞龙（旧）",
+		"en": "Hiryū (old)",
+		"py": "flj",
+		"tag": "R7A"
+	},
+	"PJSA012": {
+		"zh": "翔鹤（旧）",
+		"en": "Shōkaku (old)",
+		"py": "xhj",
+		"tag": "R8A"
+	},
+	"PJSA015": {
+		"zh": "大凤（旧）",
+		"en": "Taihō (old)",
+		"py": "dfj",
+		"tag": "R9A"
+	},
+	"PJSA017": {
+		"zh": "白龙（旧）",
+		"en": "Hakuryū (old)",
+		"py": "blj",
+		"tag": "R10A"
+	},
+	"PJSA104": {
+		"zh": "凤翔",
+		"en": "Hōshō",
+		"py": "fx",
+		"tag": "R4A"
+	},
+	"PJSA106": {
+		"zh": "龙骧",
+		"en": "Ryūjō",
+		"py": "lx",
+		"tag": "R6A"
+	},
+	"PJSA108": {
+		"zh": "翔鹤",
+		"en": "Shōkaku",
+		"py": "xh",
+		"tag": "R8A"
+	},
+	"PJSA110": {
+		"zh": "白龙",
+		"en": "Hakuryū",
+		"py": "bl",
+		"tag": "R10A"
+	},
+	"PJSA111": {
+		"zh": "赤龙",
+		"en": "Sekiryu",
+		"py": "cl",
+		"tag": "R11A"
+	},
+	"PJSA507": {
+		"zh": "加贺（旧）",
+		"en": "Kaga (old)",
+		"py": "jhj",
+		"tag": "R7A"
+	},
+	"PJSA518": {
+		"zh": "加贺",
+		"en": "Kaga",
+		"py": "jh",
+		"tag": "R8A"
+	},
+	"PJSA598": {
+		"zh": "加贺 B",
+		"en": "Kaga B",
+		"py": "jh B",
+		"tag": "R8A"
+	},
+	"PJSA917": {
+		"zh": "[白龙]",
+		"en": "[Hakuryū]",
+		"py": "bl",
+		"tag": "R10A"
+	},
+	"PJSB001": {
+		"zh": "河内",
+		"en": "Kawachi",
+		"py": "hn",
+		"tag": "R3B"
+	},
+	"PJSB003": {
+		"zh": "妙义",
+		"en": "Myōgi",
+		"py": "my",
+		"tag": "R4B"
+	},
+	"PJSB006": {
+		"zh": "扶桑",
+		"en": "Fusō",
+		"py": "fs",
+		"tag": "R6B"
+	},
+	"PJSB007": {
+		"zh": "金刚",
+		"en": "Kongō",
+		"py": "jg",
+		"tag": "R5B"
+	},
+	"PJSB008": {
+		"zh": "石锤",
+		"en": "Ishizuchi",
+		"py": "sc",
+		"tag": "R4B"
+	},
+	"PJSB010": {
+		"zh": "长门",
+		"en": "Nagato",
+		"py": "cm",
+		"tag": "R7B"
+	},
+	"PJSB011": {
+		"zh": "三笠",
+		"en": "Mikasa",
+		"py": "sl",
+		"tag": "R2B"
+	},
+	"PJSB013": {
+		"zh": "天城",
+		"en": "Amagi",
+		"py": "tc",
+		"tag": "R8B"
+	},
+	"PJSB018": {
+		"zh": "大和",
+		"en": "Yamato",
+		"py": "dh",
+		"tag": "R10B"
+	},
+	"PJSB021": {
+		"zh": "出云",
+		"en": "Izumo",
+		"py": "cy",
+		"tag": "R9B"
+	},
+	"PJSB111": {
+		"zh": "萨摩",
+		"en": "Satsuma",
+		"py": "sm",
+		"tag": "R11B"
+	},
+	"PJSB506": {
+		"zh": "陆奥",
+		"en": "Mutsu",
+		"py": "la",
+		"tag": "R6B"
+	},
+	"PJSB507": {
+		"zh": "爱鹰",
+		"en": "Ashitaka",
+		"py": "ay",
+		"tag": "R7B"
+	},
+	"PJSB508": {
+		"zh": "纪伊",
+		"en": "Kii",
+		"py": "jy",
+		"tag": "R8B"
+	},
+	"PJSB509": {
+		"zh": "武藏",
+		"en": "Musashi",
+		"py": "wc",
+		"tag": "R9B"
+	},
+	"PJSB510": {
+		"zh": "敷岛",
+		"en": "Shikishima",
+		"py": "fd",
+		"tag": "R10B"
+	},
+	"PJSB517": {
+		"zh": "日向",
+		"en": "Hyūga",
+		"py": "rx",
+		"tag": "R7B"
+	},
+	"PJSB519": {
+		"zh": "肥前",
+		"en": "Hizen",
+		"py": "fq",
+		"tag": "R9B"
+	},
+	"PJSB526": {
+		"zh": "伊势",
+		"en": "Ise",
+		"py": "ys",
+		"tag": "R6B"
+	},
+	"PJSB529": {
+		"zh": "石见",
+		"en": "Iwami",
+		"py": "sj",
+		"tag": "R9B"
+	},
+	"PJSB700": {
+		"zh": "ARP Yamato",
+		"en": "ARP Yamato",
+		"py": "ARP Yamato",
+		"tag": "R10B"
+	},
+	"PJSB705": {
+		"zh": "ARP Kongō",
+		"en": "ARP Kongō",
+		"py": "ARP Kong",
+		"tag": "R5B"
+	},
+	"PJSB706": {
+		"zh": "ARP Kirishima",
+		"en": "ARP Kirishima",
+		"py": "ARP Kirishima",
+		"tag": "R5B"
+	},
+	"PJSB707": {
+		"zh": "ARP Haruna",
+		"en": "ARP Haruna",
+		"py": "ARP Haruna",
+		"tag": "R5B"
+	},
+	"PJSB708": {
+		"zh": "ARP Hiei",
+		"en": "ARP Hiei",
+		"py": "ARP Hiei",
+		"tag": "R5B"
+	},
+	"PJSB715": {
+		"zh": "HSF 比叡",
+		"en": "HSF Hiei",
+		"py": "HSF br",
+		"tag": "R5B"
+	},
+	"PJSB799": {
+		"zh": "ARP Kirishima",
+		"en": "ARP Kirishima",
+		"py": "ARP Kirishima",
+		"tag": "R5B"
+	},
+	"PJSB801": {
+		"zh": "河内",
+		"en": "Kawachi",
+		"py": "hn"
+	},
+	"PJSB802": {
+		"zh": "河内",
+		"en": "Kawachi",
+		"py": "hn"
+	},
+	"PJSB878": {
+		"zh": "Ignis Purgatio",
+		"en": "Ignis Purgatio",
+		"py": "Ignis Purgatio",
+		"tag": "R8B"
+	},
+	"PJSB888": {
+		"zh": "Ragnarok",
+		"en": "Ragnarok",
+		"py": "Ragnarok",
+		"tag": "R8B"
+	},
+	"PJSB906": {
+		"zh": "伊势2",
+		"en": "Ise 2",
+		"py": "ys2",
+		"tag": "R6B"
+	},
+	"PJSB916": {
+		"zh": "伊势3",
+		"en": "Ise 3",
+		"py": "ys3",
+		"tag": "R6B"
+	},
+	"PJSB918": {
+		"zh": "[大和]",
+		"en": "[Yamato]",
+		"py": "dh",
+		"tag": "R10B"
+	},
+	"PJSB999": {
+		"zh": "萨摩（旧）",
+		"en": "Satsuma (old)",
+		"py": "smj",
+		"tag": "R11B"
+	},
+	"PJSC004": {
+		"zh": "夕张",
+		"en": "Yūbari",
+		"py": "xz",
+		"tag": "R4C"
+	},
+	"PJSC005": {
+		"zh": "古鹰",
+		"en": "Furutaka",
+		"py": "gy",
+		"tag": "R5C"
+	},
+	"PJSC006": {
+		"zh": "古鹰",
+		"en": "Furutaka",
+		"py": "gy"
+	},
+	"PJSC007": {
+		"zh": "青叶",
+		"en": "Aoba",
+		"py": "qy",
+		"tag": "R6C"
+	},
+	"PJSC008": {
+		"zh": "妙高",
+		"en": "Myōkō",
+		"py": "mg",
+		"tag": "R7C"
+	},
+	"PJSC009": {
+		"zh": "最上",
+		"en": "Mogami",
+		"py": "zs",
+		"tag": "R8C"
+	},
+	"PJSC012": {
+		"zh": "伊吹",
+		"en": "Ibuki",
+		"py": "yc",
+		"tag": "R9C"
+	},
+	"PJSC013": {
+		"zh": "球磨",
+		"en": "Kuma",
+		"py": "qm",
+		"tag": "R4C"
+	},
+	"PJSC014": {
+		"zh": "北上",
+		"en": "Kitakami",
+		"py": "bs",
+		"tag": "R10C"
+	},
+	"PJSC015": {
+		"zh": "天龙",
+		"en": "Tenryū",
+		"py": "tl",
+		"tag": "R3C"
+	},
+	"PJSC018": {
+		"zh": "利根",
+		"en": "Tone",
+		"py": "lg",
+		"tag": "R8C"
+	},
+	"PJSC026": {
+		"zh": "岩城 Alpha",
+		"en": "Iwaki A",
+		"py": "yc Alpha",
+		"tag": "R4C"
+	},
+	"PJSC034": {
+		"zh": "藏王",
+		"en": "Zaō",
+		"py": "cw",
+		"tag": "R10C"
+	},
+	"PJSC035": {
+		"zh": "筑摩",
+		"en": "Chikuma",
+		"py": "zm",
+		"tag": "R2C"
+	},
+	"PJSC037": {
+		"zh": "桥立",
+		"en": "Hashidate",
+		"py": "ql",
+		"tag": "R1C"
+	},
+	"PJSC038": {
+		"zh": "爱宕",
+		"en": "Atago",
+		"py": "ad",
+		"tag": "R8C"
+	},
+	"PJSC205": {
+		"zh": "阿贺野",
+		"en": "Agano",
+		"py": "ahy",
+		"tag": "R5C"
+	},
+	"PJSC206": {
+		"zh": "五濑",
+		"en": "Gokase",
+		"py": "wl",
+		"tag": "R6C"
+	},
+	"PJSC207": {
+		"zh": "雄物",
+		"en": "Omono",
+		"py": "xw",
+		"tag": "R7C"
+	},
+	"PJSC208": {
+		"zh": "四万十",
+		"en": "Shimanto",
+		"py": "sws",
+		"tag": "R8C"
+	},
+	"PJSC209": {
+		"zh": "高梁",
+		"en": "Takahashi",
+		"py": "gl",
+		"tag": "R9C"
+	},
+	"PJSC210": {
+		"zh": "淀",
+		"en": "Yodo",
+		"py": "d",
+		"tag": "R10C"
+	},
+	"PJSC503": {
+		"zh": "香取",
+		"en": "Katori",
+		"py": "xq",
+		"tag": "R3C"
+	},
+	"PJSC505": {
+		"zh": "矢矧",
+		"en": "Yahagi",
+		"py": "ss",
+		"tag": "R5C"
+	},
+	"PJSC507": {
+		"zh": "十胜",
+		"en": "Tokachi",
+		"py": "ss",
+		"tag": "R7C"
+	},
+	"PJSC510": {
+		"zh": "吾妻",
+		"en": "Azuma",
+		"py": "wq",
+		"tag": "R9C"
+	},
+	"PJSC517": {
+		"zh": "摩耶",
+		"en": "Maya",
+		"py": "my",
+		"tag": "R7C"
+	},
+	"PJSC519": {
+		"zh": "AL 吾妻",
+		"en": "AL Azuma",
+		"py": "AL wq",
+		"tag": "R9C"
+	},
+	"PJSC520": {
+		"zh": "吉野",
+		"en": "Yoshino",
+		"py": "jy",
+		"tag": "R10C"
+	},
+	"PJSC590": {
+		"zh": "吉野 B",
+		"en": "Yoshino B",
+		"py": "jy B",
+		"tag": "R10C"
+	},
+	"PJSC598": {
+		"zh": "爱宕 B",
+		"en": "Atago B",
+		"py": "ad B",
+		"tag": "R8C"
+	},
+	"PJSC610": {
+		"zh": "北上",
+		"en": "Kitakami",
+		"py": "bs",
+		"tag": "R10C"
+	},
+	"PJSC705": {
+		"zh": "ARP Myōkō",
+		"en": "ARP Myōkō",
+		"py": "ARP Myk",
+		"tag": "R7C"
+	},
+	"PJSC707": {
+		"zh": "ARP Ashigara",
+		"en": "ARP Ashigara",
+		"py": "ARP Ashigara",
+		"tag": "R7C"
+	},
+	"PJSC708": {
+		"zh": "ARP Takao",
+		"en": "ARP Takao",
+		"py": "ARP Takao",
+		"tag": "R8C"
+	},
+	"PJSC709": {
+		"zh": "ARP Haguro",
+		"en": "ARP Haguro",
+		"py": "ARP Haguro",
+		"tag": "R7C"
+	},
+	"PJSC717": {
+		"zh": "南方神龙",
+		"en": "S. Dragon",
+		"py": "nfsl",
+		"tag": "R7C"
+	},
+	"PJSC718": {
+		"zh": "ARP Maya",
+		"en": "ARP Maya",
+		"py": "ARP Maya",
+		"tag": "R8C"
+	},
+	"PJSC727": {
+		"zh": "东方神龙",
+		"en": "E. Dragon",
+		"py": "dfsl",
+		"tag": "R7C"
+	},
+	"PJSC737": {
+		"zh": "ARP Nachi",
+		"en": "ARP Nachi",
+		"py": "ARP Nachi",
+		"tag": "R7C"
+	},
+	"PJSC799": {
+		"zh": "ARP Takao",
+		"en": "ARP Takao",
+		"py": "ARP Takao"
+	},
+	"PJSC810": {
+		"zh": "藏王 P",
+		"en": "Zaō P",
+		"py": "cw P",
+		"tag": "R10C"
+	},
+	"PJSC837": {
+		"zh": "桥立",
+		"en": "Hashidate",
+		"py": "ql"
+	},
+	"PJSC838": {
+		"zh": "桥立",
+		"en": "Hashidate",
+		"py": "ql"
+	},
+	"PJSC918": {
+		"zh": "利根2",
+		"en": "Tone 2",
+		"py": "lg2",
+		"tag": "R8C"
+	},
+	"PJSC919": {
+		"zh": "利根3",
+		"en": "Tone 3",
+		"py": "lg3",
+		"tag": "R8C"
+	},
+	"PJSC934": {
+		"zh": "[藏王]",
+		"en": "[Zaō]",
+		"py": "cw",
+		"tag": "R10C"
+	},
+	"PJSD001": {
+		"zh": "橘",
+		"en": "Tachibana",
+		"py": "j",
+		"tag": "R2D"
+	},
+	"PJSD002": {
+		"zh": "海风",
+		"en": "Umikaze",
+		"py": "hf",
+		"tag": "R2D"
+	},
+	"PJSD003": {
+		"zh": "矶风",
+		"en": "Isokaze",
+		"py": "jf",
+		"tag": "R4D"
+	},
+	"PJSD004": {
+		"zh": "峰风",
+		"en": "Minekaze",
+		"py": "ff",
+		"tag": "R5D"
+	},
+	"PJSD005": {
+		"zh": "睦月 (旧)",
+		"en": "Mutsuki (old)",
+		"py": "my j",
+		"tag": "R6D"
+	},
+	"PJSD006": {
+		"zh": "初春 (old)",
+		"en": "Hatsuharu (old)",
+		"py": "cc old",
+		"tag": "R7D"
+	},
+	"PJSD007": {
+		"zh": "吹雪 (old)",
+		"en": "Fubuki (old)",
+		"py": "cx old",
+		"tag": "R8D"
+	},
+	"PJSD010": {
+		"zh": "阳炎 (old)",
+		"en": "Kagerō (old)",
+		"py": "yy old",
+		"tag": "R9D"
+	},
+	"PJSD012": {
+		"zh": "岛风",
+		"en": "Shimakaze",
+		"py": "df",
+		"tag": "R10D"
+	},
+	"PJSD014": {
+		"zh": "橘 Lima",
+		"en": "Tachibana L",
+		"py": "j Lima",
+		"tag": "R2D"
+	},
+	"PJSD017": {
+		"zh": "风神",
+		"en": "Fūjin",
+		"py": "fs",
+		"tag": "R5D"
+	},
+	"PJSD024": {
+		"zh": "若竹",
+		"en": "Wakatake",
+		"py": "rz",
+		"tag": "R3D"
+	},
+	"PJSD025": {
+		"zh": "神风",
+		"en": "Kamikaze",
+		"py": "sf",
+		"tag": "R5D"
+	},
+	"PJSD026": {
+		"zh": "神风 R",
+		"en": "Kamikaze R",
+		"py": "sf R",
+		"tag": "R5D"
+	},
+	"PJSD105": {
+		"zh": "睦月",
+		"en": "Mutsuki",
+		"py": "my",
+		"tag": "R5D"
+	},
+	"PJSD106": {
+		"zh": "吹雪",
+		"en": "Fubuki",
+		"py": "cx",
+		"tag": "R6D"
+	},
+	"PJSD107": {
+		"zh": "晓",
+		"en": "Akatsuki",
+		"py": "x",
+		"tag": "R7D"
+	},
+	"PJSD108": {
+		"zh": "秋月",
+		"en": "Akizuki",
+		"py": "qy",
+		"tag": "R8D"
+	},
+	"PJSD111": {
+		"zh": "山雾",
+		"en": "Yamagiri",
+		"py": "sw",
+		"tag": "R11D"
+	},
+	"PJSD206": {
+		"zh": "初春",
+		"en": "Hatsuharu",
+		"py": "cc",
+		"tag": "R6D"
+	},
+	"PJSD207": {
+		"zh": "白露",
+		"en": "Shiratsuyu",
+		"py": "bl",
+		"tag": "R7D"
+	},
+	"PJSD208": {
+		"zh": "阳炎",
+		"en": "Kagerō",
+		"py": "yy",
+		"tag": "R8D"
+	},
+	"PJSD209": {
+		"zh": "夕云",
+		"en": "Yūgumo",
+		"py": "xy",
+		"tag": "R9D"
+	},
+	"PJSD210": {
+		"zh": "春云",
+		"en": "Harugumo",
+		"py": "cy",
+		"tag": "R10D"
+	},
+	"PJSD219": {
+		"zh": "北风",
+		"en": "Kitakaze",
+		"py": "bf",
+		"tag": "R9D"
+	},
+	"PJSD503": {
+		"zh": "Disabled: 矶风",
+		"en": "Disabled: Isokaze",
+		"py": "Disabled jf"
+	},
+	"PJSD504": {
+		"zh": "Disabled: 峰风",
+		"en": "Disabled: Minekaze",
+		"py": "Disabled ff"
+	},
+	"PJSD507": {
+		"zh": "夕立",
+		"en": "Yūdachi",
+		"py": "xl",
+		"tag": "R7D"
+	},
+	"PJSD510": {
+		"zh": "疾风",
+		"en": "Hayate",
+		"py": "jf",
+		"tag": "R10D"
+	},
+	"PJSD518": {
+		"zh": "朝潮",
+		"en": "Asashio",
+		"py": "cc",
+		"tag": "R8D"
+	},
+	"PJSD528": {
+		"zh": "HSF 晴风 II",
+		"en": "HSF Harekaze II",
+		"py": "HSF qf II",
+		"tag": "R8D"
+	},
+	"PJSD598": {
+		"zh": "朝潮 B",
+		"en": "Asashio B",
+		"py": "cc B",
+		"tag": "R8D"
+	},
+	"PJSD706": {
+		"zh": "东云",
+		"en": "Shinonome",
+		"py": "dy",
+		"tag": "R6D"
+	},
+	"PJSD708": {
+		"zh": "HSF 晴风",
+		"en": "HSF Harekaze",
+		"py": "HSF qf",
+		"tag": "R8D"
+	},
+	"PJSD718": {
+		"zh": "AL 雪风",
+		"en": "AL Yukikaze",
+		"py": "AL xf",
+		"tag": "R8D"
+	},
+	"PJSD803": {
+		"zh": "矶风",
+		"en": "Isokaze",
+		"py": "jf"
+	},
+	"PJSD912": {
+		"zh": "[岛风]",
+		"en": "[Shimakaze]",
+		"py": "df",
+		"tag": "R10D"
+	},
+	"PJSS508": {
+		"zh": "I-58",
+		"en": "I-58",
+		"py": "I58",
+		"tag": "R8S"
+	},
+	"PJSS518": {
+		"zh": "I-56",
+		"en": "I-56",
+		"py": "I56",
+		"tag": "R8S"
+	},
+	"PJSX701": {
+		"zh": "ARP I-401",
+		"en": "ARP I-401",
+		"py": "ARP I401",
+		"tag": "R11A"
+	},
+	"PJSX702": {
+		"zh": "ARP I-401",
+		"en": "ARP I-401",
+		"py": "ARP I401",
+		"tag": "R11A"
+	},
+	"PJSX799": {
+		"zh": "707R",
+		"en": "707R",
+		"py": "707R"
+	},
+	"PRSA104": {
+		"zh": "共青团员",
+		"en": "Komsomolets",
+		"py": "gqty",
+		"tag": "S4A"
+	},
+	"PRSA106": {
+		"zh": "谢罗夫",
+		"en": "Serov",
+		"py": "xlf",
+		"tag": "S6A"
+	},
+	"PRSA108": {
+		"zh": "胜利",
+		"en": "Pobeda",
+		"py": "sl",
+		"tag": "S8A"
+	},
+	"PRSA110": {
+		"zh": "纳希莫夫",
+		"en": "Nakhimov",
+		"py": "nxmf",
+		"tag": "S10A"
+	},
+	"PRSA508": {
+		"zh": "契卡洛夫",
+		"en": "Chkalov",
+		"py": "qklf",
+		"tag": "S8A"
+	},
+	"PRSB001": {
+		"zh": "沙皇尼古拉一世",
+		"en": "Nikolai I",
+		"py": "shnglys",
+		"tag": "S4B"
+	},
+	"PRSB103": {
+		"zh": "苏沃洛夫公爵",
+		"en": "Knyaz Suvorov",
+		"py": "swlfgj",
+		"tag": "S3B"
+	},
+	"PRSB104": {
+		"zh": "甘古特",
+		"en": "Gangut",
+		"py": "ggt",
+		"tag": "S4B"
+	},
+	"PRSB105": {
+		"zh": "彼得大帝",
+		"en": "Pyotr Velikiy",
+		"py": "bddd",
+		"tag": "S5B"
+	},
+	"PRSB106": {
+		"zh": "伊兹梅尔",
+		"en": "Izmail",
+		"py": "yzme",
+		"tag": "S6B"
+	},
+	"PRSB107": {
+		"zh": "锡诺普",
+		"en": "Sinop",
+		"py": "xnp",
+		"tag": "S7B"
+	},
+	"PRSB108": {
+		"zh": "符拉迪沃斯托克",
+		"en": "Vladivostok",
+		"py": "fldwstk",
+		"tag": "S8B"
+	},
+	"PRSB109": {
+		"zh": "苏联",
+		"en": "Sov. Soyuz",
+		"py": "sl",
+		"tag": "S9B"
+	},
+	"PRSB110": {
+		"zh": "克里姆林",
+		"en": "Kremlin",
+		"py": "klml",
+		"tag": "S10B"
+	},
+	"PRSB111": {
+		"zh": "Ushakov",
+		"en": "Ushakov",
+		"py": "Ushakov",
+		"tag": "S11B"
+	},
+	"PRSB505": {
+		"zh": "十月革命",
+		"en": "Okt. Revolutsiya",
+		"py": "sygm",
+		"tag": "S5B"
+	},
+	"PRSB508": {
+		"zh": "波尔塔瓦",
+		"en": "Poltava",
+		"py": "betw",
+		"tag": "S7B"
+	},
+	"PRSB510": {
+		"zh": "光荣",
+		"en": "Slava",
+		"py": "gr",
+		"tag": "S10B"
+	},
+	"PRSB516": {
+		"zh": "新罗西斯克",
+		"en": "Novorossiysk",
+		"py": "xlxsk",
+		"tag": "S6B"
+	},
+	"PRSB518": {
+		"zh": "列宁",
+		"en": "Lenin",
+		"py": "ln",
+		"tag": "S8B"
+	},
+	"PRSB528": {
+		"zh": "博罗季诺",
+		"en": "Borodino",
+		"py": "bljn",
+		"tag": "S8B"
+	},
+	"PRSB538": {
+		"zh": "弗拉基米尔·伊里奇·列宁",
+		"en": "V. I. Lenin",
+		"py": "fljmeylqln",
+		"tag": "S8B"
+	},
+	"PRSB709": {
+		"zh": "AL 苏维埃罗西亚",
+		"en": "AL Sov. Rossiya",
+		"py": "AL swalxy",
+		"tag": "S9B"
+	},
+	"PRSC001": {
+		"zh": "阿芙乐尔",
+		"en": "Aurora",
+		"py": "afle",
+		"tag": "S3C"
+	},
+	"PRSC002": {
+		"zh": "狄安娜",
+		"en": "Diana",
+		"py": "dan",
+		"tag": "S2C"
+	},
+	"PRSC003": {
+		"zh": "摩尔曼斯克",
+		"en": "Murmansk",
+		"py": "memsk",
+		"tag": "S5C"
+	},
+	"PRSC010": {
+		"zh": "狄安娜 L",
+		"en": "Diana L",
+		"py": "dan L",
+		"tag": "S2C"
+	},
+	"PRSC101": {
+		"zh": "海雕",
+		"en": "Orlan",
+		"py": "hd",
+		"tag": "S1C"
+	},
+	"PRSC102": {
+		"zh": "诺维克",
+		"en": "Novik",
+		"py": "nwk",
+		"tag": "S2C"
+	},
+	"PRSC103": {
+		"zh": "博加特里",
+		"en": "Bogatyr",
+		"py": "bjtl",
+		"tag": "S3C"
+	},
+	"PRSC104": {
+		"zh": "斯维特拉那",
+		"en": "Svietlana",
+		"py": "swtln",
+		"tag": "S4C"
+	},
+	"PRSC105": {
+		"zh": "基洛夫 (OLD)",
+		"en": "Kirov (OLD)",
+		"py": "jlf OLD",
+		"tag": "S5C"
+	},
+	"PRSC106": {
+		"zh": "布琼尼",
+		"en": "Budyonny",
+		"py": "bqn",
+		"tag": "S6C"
+	},
+	"PRSC107": {
+		"zh": "肖尔斯",
+		"en": "Shchors",
+		"py": "xes",
+		"tag": "S7C"
+	},
+	"PRSC108": {
+		"zh": "恰巴耶夫",
+		"en": "Chapayev",
+		"py": "qbyf",
+		"tag": "S8C"
+	},
+	"PRSC109": {
+		"zh": "迪米特里-顿斯科伊",
+		"en": "Dm. Donskoi",
+		"py": "dmtldsky",
+		"tag": "S9C"
+	},
+	"PRSC110": {
+		"zh": "莫斯科",
+		"en": "Moskva",
+		"py": "msk",
+		"tag": "S10C"
+	},
+	"PRSC208": {
+		"zh": "塔林",
+		"en": "Tallinn",
+		"py": "tl",
+		"tag": "S8C"
+	},
+	"PRSC209": {
+		"zh": "里加",
+		"en": "Riga",
+		"py": "lj",
+		"tag": "S9C"
+	},
+	"PRSC210": {
+		"zh": "亚历山大·涅夫斯基",
+		"en": "A. Nevsky",
+		"py": "ylsdnfsj",
+		"tag": "S10C"
+	},
+	"PRSC215": {
+		"zh": "科托夫斯基",
+		"en": "Kotovsky",
+		"py": "ktfsj",
+		"tag": "S5C"
+	},
+	"PRSC310": {
+		"zh": "彼得罗巴甫洛夫斯克",
+		"en": "Petropavlovsk",
+		"py": "bdlbflfsk",
+		"tag": "S10C"
+	},
+	"PRSC503": {
+		"zh": "奥列格",
+		"en": "Oleg",
+		"py": "alg",
+		"tag": "S3C"
+	},
+	"PRSC505": {
+		"zh": "红色克里米亚",
+		"en": "Krasny Krym",
+		"py": "hsklmy",
+		"tag": "S5C"
+	},
+	"PRSC506": {
+		"zh": "莫洛托夫",
+		"en": "Molotov",
+		"py": "mltf",
+		"tag": "S6C"
+	},
+	"PRSC508": {
+		"zh": "米哈伊尔·库图佐夫",
+		"en": "Kutuzov",
+		"py": "mhyektzf",
+		"tag": "S8C"
+	},
+	"PRSC509": {
+		"zh": "喀琅施塔得",
+		"en": "Kronshtadt",
+		"py": "klstd",
+		"tag": "S9C"
+	},
+	"PRSC510": {
+		"zh": "斯大林格勒",
+		"en": "Stalingrad",
+		"py": "sdlgl",
+		"tag": "S10C"
+	},
+	"PRSC513": {
+		"zh": "瓦良格",
+		"en": "Varyag",
+		"py": "wlg",
+		"tag": "S3C"
+	},
+	"PRSC515": {
+		"zh": "米高扬",
+		"en": "Mikoyan",
+		"py": "mgy",
+		"tag": "S5C"
+	},
+	"PRSC518": {
+		"zh": "拉佐",
+		"en": "Lazo",
+		"py": "lz",
+		"tag": "S7C"
+	},
+	"PRSC520": {
+		"zh": "斯大林格勒 #2",
+		"en": "STALINGRAD #2",
+		"py": "sdlgl 2",
+		"tag": "S10C"
+	},
+	"PRSC523": {
+		"zh": "AL 阿芙乐尔",
+		"en": "AL Avrora",
+		"py": "AL afle",
+		"tag": "S3C"
+	},
+	"PRSC525": {
+		"zh": "基洛夫",
+		"en": "Kirov",
+		"py": "jlf",
+		"tag": "S5C"
+	},
+	"PRSC528": {
+		"zh": "奥恰科夫",
+		"en": "Ochakov",
+		"py": "aqkf",
+		"tag": "S8C"
+	},
+	"PRSC538": {
+		"zh": "彼得罗·巴格拉季昂",
+		"en": "P. Bagration",
+		"py": "bdlbglja",
+		"tag": "S8C"
+	},
+	"PRSC548": {
+		"zh": "巴格拉季昂",
+		"en": "Bagration",
+		"py": "bglja",
+		"tag": "S8C"
+	},
+	"PRSC606": {
+		"zh": "马卡罗夫海军上将",
+		"en": "Makarov",
+		"py": "mklfhjsj",
+		"tag": "S6C"
+	},
+	"PRSC610": {
+		"zh": "斯摩棱斯克",
+		"en": "Smolensk",
+		"py": "smlsk",
+		"tag": "S10C"
+	},
+	"PRSC710": {
+		"zh": "塞瓦斯托波尔",
+		"en": "Sevastopol",
+		"py": "swstbe",
+		"tag": "S10C"
+	},
+	"PRSC910": {
+		"zh": "[莫斯科]",
+		"en": "[Moskva]",
+		"py": "msk",
+		"tag": "S10C"
+	},
+	"PRSC999": {
+		"zh": "测试战舰",
+		"en": "Test Ship",
+		"py": "cszj",
+		"tag": "S10C"
+	},
+	"PRSD001": {
+		"zh": "轰鸣",
+		"en": "Gremyashchy",
+		"py": "hm",
+		"tag": "S5D"
+	},
+	"PRSD102": {
+		"zh": "守卫",
+		"en": "Storozhevoi",
+		"py": "sw",
+		"tag": "S2D"
+	},
+	"PRSD103": {
+		"zh": "无理",
+		"en": "Derzki",
+		"py": "wl",
+		"tag": "S3D"
+	},
+	"PRSD104": {
+		"zh": "伊贾斯拉夫",
+		"en": "Izyaslav",
+		"py": "yjslf",
+		"tag": "S4D"
+	},
+	"PRSD105": {
+		"zh": "愤怒 (OLD)",
+		"en": "Gnevny (OLD)",
+		"py": "fn OLD",
+		"tag": "S5D"
+	},
+	"PRSD106": {
+		"zh": "火力 (OLD)",
+		"en": "Ognevoi (OLD)",
+		"py": "hl OLD",
+		"tag": "S6D"
+	},
+	"PRSD107": {
+		"zh": "无畏",
+		"en": "Udaloi",
+		"py": "ww",
+		"tag": "S9D"
+	},
+	"PRSD108": {
+		"zh": "塔什干 (OLD)",
+		"en": "Tashkent (OLD)",
+		"py": "tsg OLD",
+		"tag": "S8D"
+	},
+	"PRSD109": {
+		"zh": "基辅 (OLD)",
+		"en": "Kiev (OLD)",
+		"py": "jf OLD",
+		"tag": "S7D"
+	},
+	"PRSD110": {
+		"zh": "哈巴罗夫斯克",
+		"en": "Khabarovsk",
+		"py": "hblfsk",
+		"tag": "S10D"
+	},
+	"PRSD111": {
+		"zh": "佐尔基",
+		"en": "Zorkiy",
+		"py": "zej",
+		"tag": "S11D"
+	},
+	"PRSD205": {
+		"zh": "巴铎夫斯基",
+		"en": "Podvoisky",
+		"py": "bdfsj",
+		"tag": "S5D"
+	},
+	"PRSD206": {
+		"zh": "愤怒",
+		"en": "Gnevny",
+		"py": "fn",
+		"tag": "S6D"
+	},
+	"PRSD207": {
+		"zh": "明斯克",
+		"en": "Minsk",
+		"py": "msk",
+		"tag": "S7D"
+	},
+	"PRSD208": {
+		"zh": "火力",
+		"en": "Ognevoi",
+		"py": "hl",
+		"tag": "S8D"
+	},
+	"PRSD209": {
+		"zh": "谨慎",
+		"en": "Osmotritelny",
+		"py": "js"
+	},
+	"PRSD210": {
+		"zh": "雷暴",
+		"en": "Grozovoi",
+		"py": "lb",
+		"tag": "S10D"
+	},
+	"PRSD308": {
+		"zh": "基辅",
+		"en": "Kiev",
+		"py": "jf",
+		"tag": "S8D"
+	},
+	"PRSD310": {
+		"zh": "纳霍德卡",
+		"en": "Nakhodka",
+		"py": "nhdk"
+	},
+	"PRSD409": {
+		"zh": "塔什干",
+		"en": "Tashkent",
+		"py": "tsg",
+		"tag": "S9D"
+	},
+	"PRSD410": {
+		"zh": "德尔尼",
+		"en": "Delny",
+		"py": "den",
+		"tag": "S10D"
+	},
+	"PRSD505": {
+		"zh": "猎人",
+		"en": "Okhotnik",
+		"py": "lr",
+		"tag": "S5D"
+	},
+	"PRSD507": {
+		"zh": "列宁格勒",
+		"en": "Leningrad",
+		"py": "lngl",
+		"tag": "S7D"
+	},
+	"PRSD709": {
+		"zh": "不惧",
+		"en": "Neustrashimy",
+		"py": "bj",
+		"tag": "S9D"
+	},
+	"PRSD810": {
+		"zh": "DD R-10",
+		"en": "DD R-10",
+		"py": "DD R10",
+		"tag": "S10D"
+	},
+	"PRSD910": {
+		"zh": "[雷暴]",
+		"en": "[Grozovoi]",
+		"py": "lb",
+		"tag": "S10D"
+	},
+	"PRSS106": {
+		"zh": "S-1",
+		"en": "S-1",
+		"py": "S1",
+		"tag": "S6S"
+	},
+	"PRSS108": {
+		"zh": "L-20",
+		"en": "L-20",
+		"py": "L20",
+		"tag": "S8S"
+	},
+	"PRSS110": {
+		"zh": "K-1",
+		"en": "K-1",
+		"py": "K1",
+		"tag": "S10S"
+	},
+	"PRSS508": {
+		"zh": "S-189",
+		"en": "S-189",
+		"py": "S189",
+		"tag": "S8S"
+	},
+	"PRSS999": {
+		"zh": "测试潜艇1",
+		"en": "Test Sub 1",
+		"py": "csqt1",
+		"tag": "S10S"
+	},
+	"PRSX799": {
+		"zh": "B-4",
+		"en": "B-4",
+		"py": "B4"
+	},
+	"PSSC506": {
+		"zh": "加那利",
+		"en": "Canarias",
+		"py": "jnl",
+		"tag": "S6C"
+	},
+	"PSSD510": {
+		"zh": "阿尔瓦罗·德·巴赞",
+		"en": "Álvaro de Bazán",
+		"py": "aewldbz",
+		"tag": "S10D"
+	},
+	"PUSB507": {
+		"zh": "育空",
+		"en": "Yukon",
+		"py": "yk",
+		"tag": "E7B"
+	},
+	"PUSC506": {
+		"zh": "珀斯",
+		"en": "Perth",
+		"py": "ps",
+		"tag": "E6C"
+	},
+	"PUSC516": {
+		"zh": "迈索尔",
+		"en": "Mysore",
+		"py": "mse",
+		"tag": "E6C"
+	},
+	"PUSD503": {
+		"zh": "吸血鬼",
+		"en": "Vampire",
+		"py": "xxg",
+		"tag": "E3D"
+	},
+	"PUSD507": {
+		"zh": "海达人",
+		"en": "Haida",
+		"py": "hdr",
+		"tag": "E7D"
+	},
+	"PUSD510": {
+		"zh": "吸血鬼II",
+		"en": "Vampire II",
+		"py": "xxgII",
+		"tag": "E10D"
+	},
+	"PUSD517": {
+		"zh": "休伦",
+		"en": "Huron",
+		"py": "xl",
+		"tag": "E7D"
+	},
+	"PVSB505": {
+		"zh": "里约热内卢",
+		"en": "Rio de Janeiro",
+		"py": "lyrnl",
+		"tag": "V5B"
+	},
+	"PVSB508": {
+		"zh": "大西洋",
+		"en": "Atlântico",
+		"py": "dxy",
+		"tag": "V8B"
+	},
+	"PVSC502": {
+		"zh": "阿布瑞尤海军上将",
+		"en": "Alte Abreu",
+		"py": "abryhjsj",
+		"tag": "V2C"
+	},
+	"PVSC507": {
+		"zh": "七月九日",
+		"en": "Nueve de Julio",
+		"py": "qyjr",
+		"tag": "V7C"
+	},
+	"PVSD506": {
+		"zh": "茹鲁阿",
+		"en": "Juruá",
+		"py": "rla",
+		"tag": "V6D"
+	},
+	"PWSB504": {
+		"zh": "联合力量",
+		"en": "Viribus Unitis",
+		"py": "lhll",
+		"tag": "W5B"
+	},
+	"PWSC101": {
+		"zh": "狮鹫",
+		"en": "Gryf",
+		"py": "sj",
+		"tag": "W1C"
+	},
+	"PWSD102": {
+		"zh": "塔特拉",
+		"en": "Tátra",
+		"py": "ttl",
+		"tag": "W2D"
+	},
+	"PWSD103": {
+		"zh": "罗慕路斯",
+		"en": "Romulus",
+		"py": "lmls",
+		"tag": "W3D"
+	},
+	"PWSD104": {
+		"zh": "克拉斯·霍恩",
+		"en": "Klas Horn",
+		"py": "klshe",
+		"tag": "W4D"
+	},
+	"PWSD105": {
+		"zh": "维斯比",
+		"en": "Visby",
+		"py": "wsb",
+		"tag": "W5D"
+	},
+	"PWSD106": {
+		"zh": "韦斯特罗斯",
+		"en": "Västerås",
+		"py": "wstls",
+		"tag": "W6D"
+	},
+	"PWSD107": {
+		"zh": "斯科讷",
+		"en": "Skåne",
+		"py": "skn",
+		"tag": "W7D"
+	},
+	"PWSD108": {
+		"zh": "厄兰",
+		"en": "Öland",
+		"py": "el",
+		"tag": "W8D"
+	},
+	"PWSD109": {
+		"zh": "东约特兰",
+		"en": "Östergötland",
+		"py": "dytl",
+		"tag": "W9D"
+	},
+	"PWSD110": {
+		"zh": "哈兰",
+		"en": "Halland",
+		"py": "hl",
+		"tag": "W10D"
+	},
+	"PWSD111": {
+		"zh": "达拉纳",
+		"en": "Dalarna",
+		"py": "dln",
+		"tag": "W11D"
+	},
+	"PWSD501": {
+		"zh": "闪电",
+		"en": "Błyskawica",
+		"py": "sd",
+		"tag": "W7D"
+	},
+	"PWSD508": {
+		"zh": "奥坎",
+		"en": "Orkan",
+		"py": "ak",
+		"tag": "W8D"
+	},
+	"PWSD509": {
+		"zh": "贝洛斯",
+		"en": "Velos",
+		"py": "bls",
+		"tag": "W9D"
+	},
+	"PWSD510": {
+		"zh": "弗里斯兰",
+		"en": "Friesland",
+		"py": "flsl",
+		"tag": "W9D"
+	},
+	"PWSD610": {
+		"zh": "斯莫兰",
+		"en": "Småland",
+		"py": "sml",
+		"tag": "W10D"
+	},
+	"PWSD710": {
+		"zh": "朗纳尔",
+		"en": "Ragnar",
+		"py": "lne",
+		"tag": "W10D"
+	},
+	"PWSD910": {
+		"zh": "拉普兰",
+		"en": "Lappland",
+		"py": "lpl",
+		"tag": "W10D"
+	},
+	"PXSA001": {
+		"zh": "Luftwaffe",
+		"en": "Luftwaffe",
+		"py": "Luftwaffe",
+		"tag": "X4A"
+	},
+	"PXSA002": {
+		"zh": "Air Force",
+		"en": "Air Force",
+		"py": "Air Force",
+		"tag": "X4A"
+	},
+	"PXSA003": {
+		"zh": "诺比利",
+		"en": "Nobilium",
+		"py": "nbl",
+		"tag": "X8A"
+	},
+	"PXSA004": {
+		"zh": "戈尔贡",
+		"en": "The Great Gorgon",
+		"py": "geg",
+		"tag": "X8A"
+	},
+	"PXSA005": {
+		"zh": "地狱航母",
+		"en": "Hellcarrier",
+		"py": "dyhm",
+		"tag": "X7A"
+	},
+	"PXSA807": {
+		"zh": "突击者",
+		"en": "Ranger",
+		"py": "tjz",
+		"tag": "X6A"
+	},
+	"PXSB001": {
+		"zh": "豺狼",
+		"en": "Jackal",
+		"py": "cl",
+		"tag": "X3B"
+	},
+	"PXSB002": {
+		"zh": "Rasputin",
+		"en": "Rasputin",
+		"py": "Rasputin",
+		"tag": "X7B"
+	},
+	"PXSB003": {
+		"zh": "范海辛",
+		"en": "Zikasa",
+		"py": "fhx",
+		"tag": "X2B"
+	},
+	"PXSB004": {
+		"zh": "马格努-S",
+		"en": "Magnu-S",
+		"py": "mgnS",
+		"tag": "X8B"
+	},
+	"PXSB005": {
+		"zh": "瓦尔加斯",
+		"en": "Varg",
+		"py": "wejs",
+		"tag": "X7B"
+	},
+	"PXSB006": {
+		"zh": "自由卫士",
+		"en": "Paris",
+		"py": "zyws",
+		"tag": "X7B"
+	},
+	"PXSB007": {
+		"zh": "万象陨灭",
+		"en": "Alldestroyer",
+		"py": "wxym",
+		"tag": "X7B"
+	},
+	"PXSB008": {
+		"zh": "利维坦",
+		"en": "Leviathan",
+		"py": "lwt",
+		"tag": "X7B"
+	},
+	"PXSB009": {
+		"zh": "蝎尾",
+		"en": "Scorpioid",
+		"py": "xw",
+		"tag": "X10B"
+	},
+	"PXSB010": {
+		"zh": "小牛",
+		"en": "Maverick",
+		"py": "xn",
+		"tag": "X9B"
+	},
+	"PXSB011": {
+		"zh": "鳄龙",
+		"en": "Crocosaur",
+		"py": "el",
+		"tag": "X10B"
+	},
+	"PXSB015": {
+		"zh": "龙虾眼",
+		"en": "Lobster-Eyed",
+		"py": "lxy",
+		"tag": "X10B"
+	},
+	"PXSB101": {
+		"zh": "Avenger",
+		"en": "Avenger",
+		"py": "Avenger",
+		"tag": "X10B"
+	},
+	"PXSB103": {
+		"zh": "Heracles",
+		"en": "Heracles",
+		"py": "Heracles",
+		"tag": "X9B"
+	},
+	"PXSC001": {
+		"zh": "伊戈尔",
+		"en": "Igor",
+		"py": "yge",
+		"tag": "X3C"
+	},
+	"PXSC002": {
+		"zh": "圣甲虫",
+		"en": "Scarab",
+		"py": "sjc",
+		"tag": "X7C"
+	},
+	"PXSC003": {
+		"zh": "苏亚托扎",
+		"en": "Svyatozar",
+		"py": "sytz",
+		"tag": "X8C"
+	},
+	"PXSC004": {
+		"zh": "银河",
+		"en": "Galaxy",
+		"py": "yh",
+		"tag": "X7C"
+	},
+	"PXSC005": {
+		"zh": "扎雅",
+		"en": "Zaya",
+		"py": "zy",
+		"tag": "X7C"
+	},
+	"PXSC006": {
+		"zh": "诺玛",
+		"en": "Norma",
+		"py": "nm",
+		"tag": "X7C"
+	},
+	"PXSC007": {
+		"zh": "阿芙乐尔",
+		"en": "Aurora",
+		"py": "afle",
+		"tag": "X7C"
+	},
+	"PXSC009": {
+		"zh": "章鱼",
+		"en": "Octopus",
+		"py": "zy",
+		"tag": "X7C"
+	},
+	"PXSC010": {
+		"zh": "世纪之鹰",
+		"en": "Century Hawk",
+		"py": "sjzy",
+		"tag": "X7C"
+	},
+	"PXSC011": {
+		"zh": "章鱼怪",
+		"en": "Octodroid",
+		"py": "zyg",
+		"tag": "X10C"
+	},
+	"PXSC012": {
+		"zh": "锈夜",
+		"en": "Rust Nightfall",
+		"py": "xy",
+		"tag": "X9C"
+	},
+	"PXSC013": {
+		"zh": "化石",
+		"en": "Fossil",
+		"py": "hs",
+		"tag": "X10C"
+	},
+	"PXSC016": {
+		"zh": "刺脊",
+		"en": "Thornridge",
+		"py": "cj",
+		"tag": "X10C"
+	},
+	"PXSC101": {
+		"zh": "Valkyrie",
+		"en": "Valkyrie",
+		"py": "Valkyrie",
+		"tag": "X9C"
+	},
+	"PXSC102": {
+		"zh": "Gale",
+		"en": "Gale",
+		"py": "Gale",
+		"tag": "X9C"
+	},
+	"PXSC503": {
+		"zh": "战舰",
+		"en": "Ship",
+		"py": "zj",
+		"tag": "X1C"
+	},
+	"PXSD001": {
+		"zh": "布莱德",
+		"en": "Blade",
+		"py": "bld",
+		"tag": "X3D"
+	},
+	"PXSD002": {
+		"zh": "食尸鬼",
+		"en": "Ghoul",
+		"py": "ssg",
+		"tag": "X7D"
+	},
+	"PXSD003": {
+		"zh": "浦岛",
+		"en": "Urashima",
+		"py": "pd",
+		"tag": "X8D"
+	},
+	"PXSD004": {
+		"zh": "翔空烈焰",
+		"en": "FlyFire",
+		"py": "xkly",
+		"tag": "X7D"
+	},
+	"PXSD005": {
+		"zh": "翠兰行星",
+		"en": "Blue Aster",
+		"py": "clxx",
+		"tag": "X7D"
+	},
+	"PXSD007": {
+		"zh": "鱼雷快艇",
+		"en": "Schnellboot",
+		"py": "ylkt",
+		"tag": "X1D"
+	},
+	"PXSD008": {
+		"zh": "钢鼠",
+		"en": "Steel Rat",
+		"py": "gs",
+		"tag": "X7D"
+	},
+	"PXSD009": {
+		"zh": "剃刀蠕虫",
+		"en": "Razorworm",
+		"py": "tdrc",
+		"tag": "X7D"
+	},
+	"PXSD010": {
+		"zh": "天体",
+		"en": "Celestial",
+		"py": "tt",
+		"tag": "X7D"
+	},
+	"PXSD011": {
+		"zh": "彗星轨迹",
+		"en": "Comet Trace",
+		"py": "hxgj",
+		"tag": "X7D"
+	},
+	"PXSD012": {
+		"zh": "漫游者",
+		"en": "Rover",
+		"py": "myz",
+		"tag": "X7D"
+	},
+	"PXSD013": {
+		"zh": "梅塞尔",
+		"en": "Messer",
+		"py": "mse",
+		"tag": "X8D"
+	},
+	"PXSD014": {
+		"zh": "情欲",
+		"en": "Carnal",
+		"py": "qy",
+		"tag": "X8D"
+	},
+	"PXSD015": {
+		"zh": "原子之怒",
+		"en": "Atomic Rage",
+		"py": "yzzn",
+		"tag": "X8D"
+	},
+	"PXSD016": {
+		"zh": "海上恶魔",
+		"en": "Sea Devil",
+		"py": "hsem",
+		"tag": "X9D"
+	},
+	"PXSD017": {
+		"zh": "手术刀",
+		"en": "Lancet",
+		"py": "ssd",
+		"tag": "X9D"
+	},
+	"PXSD018": {
+		"zh": "水汐",
+		"en": "Mizu-Jet",
+		"py": "sx",
+		"tag": "X9D"
+	},
+	"PXSD019": {
+		"zh": "鬼魅",
+		"en": "Stealthedo",
+		"py": "gm",
+		"tag": "X10D"
+	},
+	"PXSD020": {
+		"zh": "海镰",
+		"en": "Seascythe",
+		"py": "hl",
+		"tag": "X10D"
+	},
+	"PXSD021": {
+		"zh": "轰鸣",
+		"en": "Rumble",
+		"py": "hm",
+		"tag": "X10D"
+	},
+	"PXSD022": {
+		"zh": "垂钓者",
+		"en": "Angler",
+		"py": "cdz",
+		"tag": "X10D"
+	},
+	"PXSD023": {
+		"zh": "钢制手术刀",
+		"en": "Steel Lancet",
+		"py": "gzssd",
+		"tag": "X9D"
+	},
+	"PXSD024": {
+		"zh": "突变的夫斯克",
+		"en": "Mutantovsk",
+		"py": "tbdfsk",
+		"tag": "X10D"
+	},
+	"PXSD025": {
+		"zh": "牙刃",
+		"en": "Fangblade",
+		"py": "yr",
+		"tag": "X10D"
+	},
+	"PXSD102": {
+		"zh": "Whirlwind",
+		"en": "Whirlwind",
+		"py": "Whirlwind",
+		"tag": "X10D"
+	},
+	"PXSD103": {
+		"zh": "Hector",
+		"en": "Hector",
+		"py": "Hector",
+		"tag": "X10D"
+	},
+	"PXSS107": {
+		"zh": "拉链潜艇",
+		"en": "Zipper Sub",
+		"py": "llqt",
+		"tag": "X7S"
+	},
+	"PXSS207": {
+		"zh": "海狮",
+		"en": "Seelöwe",
+		"py": "hs",
+		"tag": "X10S"
+	},
+	"PXSS307": {
+		"zh": "隼",
+		"en": "Gerfalcon",
+		"py": "s",
+		"tag": "X7S"
+	},
+	"PXSS407": {
+		"zh": "梭鱼",
+		"en": "Barracuda",
+		"py": "sy",
+		"tag": "X7S"
+	},
+	"PXSS507": {
+		"zh": "虎鲸",
+		"en": "Killer Whale",
+		"py": "hj",
+		"tag": "X10S"
+	},
+	"PXSX001": {
+		"zh": "Transylvania",
+		"en": "Transylvania",
+		"py": "Transylvania",
+		"tag": "X5A"
+	},
+	"PXSX013": {
+		"zh": "挑战",
+		"en": "Challenge",
+		"py": "tz"
+	},
+	"PXSX016": {
+		"zh": "哥利亚",
+		"en": "Goliath",
+		"py": "gly",
+		"tag": "X2A"
+	},
+	"PXSX017": {
+		"zh": "卡博特",
+		"en": "Caboteur",
+		"py": "kbt",
+		"tag": "X2A"
+	},
+	"PXSX023": {
+		"zh": "洛里纳",
+		"en": "Lorina",
+		"py": "lln",
+		"tag": "X2A"
+	},
+	"PXSX024": {
+		"zh": "野樱莓",
+		"en": "Aronia",
+		"py": "yym",
+		"tag": "X2A"
+	},
+	"PXSX025": {
+		"zh": "梅德韦皇后",
+		"en": "Medway Queen",
+		"py": "mdwhh",
+		"tag": "X2A"
+	},
+	"PXSX026": {
+		"zh": "坎特伯雷",
+		"en": "Canterbury",
+		"py": "ktbl",
+		"tag": "X2A"
+	},
+	"PXSX033": {
+		"zh": "布雷舰",
+		"en": "Minelayer",
+		"py": "blj",
+		"tag": "X2A"
+	},
+	"PXSX034": {
+		"zh": "约翰·卡特林",
+		"en": "John Cattling",
+		"py": "yhktl",
+		"tag": "X2A"
+	},
+	"PXSX035": {
+		"zh": "登陆舰 1",
+		"en": "Landing Ship 1",
+		"py": "dlj 1",
+		"tag": "X2A"
+	},
+	"PXSX037": {
+		"zh": "大发",
+		"en": "Daihatsu",
+		"py": "df",
+		"tag": "X2A"
+	},
+	"PXSX039": {
+		"zh": "LST 325",
+		"en": "LST 325",
+		"py": "LST 325",
+		"tag": "X2A"
+	},
+	"PXSX040": {
+		"zh": "护卫 8",
+		"en": "Escort 8",
+		"py": "hw 8",
+		"tag": "X2A"
+	},
+	"PXSX043": {
+		"zh": "梅德韦皇后",
+		"en": "Medway Queen",
+		"py": "mdwhh",
+		"tag": "X2A"
+	},
+	"PXSX044": {
+		"zh": "西马隆",
+		"en": "Cimarron civil",
+		"py": "xml",
+		"tag": "X5A"
+	},
+	"PXSX045": {
+		"zh": "自由",
+		"en": "Liberty civil",
+		"py": "zy",
+		"tag": "X5A"
+	},
+	"PXSX501": {
+		"zh": "Liberty",
+		"en": "Liberty",
+		"py": "Liberty",
+		"tag": "X6A"
+	},
+	"PXSX743": {
+		"zh": "英塔尼亚女皇",
+		"en": "Intania Queen",
+		"py": "ytnynh",
+		"tag": "X11A"
+	},
+	"PXSX815": {
+		"zh": "博格",
+		"en": "Bogue",
+		"py": "bg",
+		"tag": "X5A"
+	},
+	"PZSA508": {
+		"zh": "三藏",
+		"en": "Sanzang",
+		"py": "sc",
+		"tag": "C8A"
+	},
+	"PZSB509": {
+		"zh": "八戒",
+		"en": "Bajie",
+		"py": "bj",
+		"tag": "C9B"
+	},
+	"PZSB519": {
+		"zh": "悟净",
+		"en": "Wujing",
+		"py": "wj",
+		"tag": "C9B"
+	},
+	"PZSC101": {
+		"zh": "成安",
+		"en": "Chengan",
+		"py": "ca",
+		"tag": "C1C"
+	},
+	"PZSC105": {
+		"zh": "重庆",
+		"en": "Chungking",
+		"py": "zq",
+		"tag": "C5C"
+	},
+	"PZSC106": {
+		"zh": "拉赫马特",
+		"en": "Rahmat",
+		"py": "lhmt",
+		"tag": "C6C"
+	},
+	"PZSC107": {
+		"zh": "春蓬",
+		"en": "Chumphon",
+		"py": "cp",
+		"tag": "C7C"
+	},
+	"PZSC108": {
+		"zh": "哈尔滨",
+		"en": "Harbin",
+		"py": "heb",
+		"tag": "C8C"
+	},
+	"PZSC109": {
+		"zh": "世宗",
+		"en": "Sejong",
+		"py": "sz",
+		"tag": "C9C"
+	},
+	"PZSC110": {
+		"zh": "济南",
+		"en": "Jinan",
+		"py": "jn",
+		"tag": "C10C"
+	},
+	"PZSC506": {
+		"zh": "黄河",
+		"en": "Huanghe",
+		"py": "hh",
+		"tag": "C6C"
+	},
+	"PZSC508": {
+		"zh": "伊里安",
+		"en": "Irian",
+		"py": "yla",
+		"tag": "C8C"
+	},
+	"PZSC509": {
+		"zh": "大连",
+		"en": "Dalian",
+		"py": "dl",
+		"tag": "C9C"
+	},
+	"PZSC518": {
+		"zh": "悟空",
+		"en": "Wukong",
+		"py": "wk",
+		"tag": "C8C"
+	},
+	"PZSD102": {
+		"zh": "龙江",
+		"en": "Longjiang",
+		"py": "lj",
+		"tag": "C2D"
+	},
+	"PZSD103": {
+		"zh": "帕禳",
+		"en": "Phra Ruang",
+		"py": "pr",
+		"tag": "C3D"
+	},
+	"PZSD104": {
+		"zh": "沈阳",
+		"en": "Shenyang",
+		"py": "sy",
+		"tag": "C4D"
+	},
+	"PZSD105": {
+		"zh": "建威",
+		"en": "Jianwei",
+		"py": "jw",
+		"tag": "C5D"
+	},
+	"PZSD106": {
+		"zh": "抚顺",
+		"en": "Fushun",
+		"py": "fs",
+		"tag": "C6D"
+	},
+	"PZSD107": {
+		"zh": "加札马达",
+		"en": "Gadjah Mada",
+		"py": "jzmd",
+		"tag": "C7D"
+	},
+	"PZSD108": {
+		"zh": "咸阳",
+		"en": "Hsienyang",
+		"py": "xy",
+		"tag": "C8D"
+	},
+	"PZSD109": {
+		"zh": "忠武",
+		"en": "Chung Mu",
+		"py": "zw",
+		"tag": "C9D"
+	},
+	"PZSD110": {
+		"zh": "岳阳",
+		"en": "Yueyang",
+		"py": "yy",
+		"tag": "C10D"
+	},
+	"PZSD208": {
+		"zh": "西利旺义",
+		"en": "Siliwangi",
+		"py": "xlwy",
+		"tag": "C8D"
+	},
+	"PZSD506": {
+		"zh": "鞍山",
+		"en": "Anshan",
+		"py": "as",
+		"tag": "C6D"
+	},
+	"PZSD508": {
+		"zh": "洛阳",
+		"en": "Loyang",
+		"py": "ly",
+		"tag": "C8D"
+	},
+	"PZSD518": {
+		"zh": "汾阳",
+		"en": "Fenyang",
+		"py": "fy",
+		"tag": "C8D"
+	},
+	"PZSD598": {
+		"zh": "洛阳 B",
+		"en": "Loyang B",
+		"py": "ly B",
+		"tag": "C8D"
+	},
+	"PZSD718": {
+		"zh": "Ship Smasha",
+		"en": "Ship Smasha",
+		"py": "Ship Smasha",
+		"tag": "C8D"
+	}
+}

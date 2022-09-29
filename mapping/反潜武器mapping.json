@@ -1,0 +1,17 @@
+{
+    "名字":"(.index + .upgrade.hull)",
+    "类型":".group",
+    "等级":".level",
+    "舰种":".species",
+    "国家":".nation",
+    "空袭可用数量":".asChargesNum",
+    "空袭中队飞机":".asNumInAttack",
+    "空袭飞机载弹":".asNumInPlane",
+    "空袭标伤":".asAlphaDamage",
+    "空袭最大距离":".asMaxDist",
+    "空袭装填时间":".asReloadTime",
+    "深弹可用数量":".dcChargesNum",
+    "深弹炸弹数量":".dcNumInAttack",
+    "深弹标伤":".dcAlphaDamage",
+    "深弹装填时间":".dcReloadTime"
+}
