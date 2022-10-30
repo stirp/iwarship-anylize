@@ -32,8 +32,8 @@ printProgressPlus 10
 set lines (jq -r '.[].index' $inputJson)
 set lineSize (count $lines)
 for lineName in $lines
-    set tempName (jq -r ".$lineName.zh" $nameFile)
-    if test -z $tempName
+    set tempName (jq -r "."(echo $lineName | tr A-Z a-z)".zh" $nameFile)
+    if test $tempName != null
         sed -i  "s/$lineName/"$tempName"/g" $outputJson
     end
     printProgressPlus (math "1/$lineSize * 40")
