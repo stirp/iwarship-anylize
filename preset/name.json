@@ -203,21 +203,21 @@
 		"tag": "m10b"
 	},
 	"pasb208": {
-		"zh": "nebraska",
+		"zh": "内布拉斯加",
 		"en": "nebraska",
-		"py": "nebraska",
+		"py": "nblsj",
 		"tag": "m8b"
 	},
 	"pasb209": {
-		"zh": "delaware",
+		"zh": "特拉华",
 		"en": "delaware",
-		"py": "delaware",
+		"py": "tlh",
 		"tag": "m9b"
 	},
 	"pasb210": {
-		"zh": "louisiana",
+		"zh": "路易斯安那",
 		"en": "louisiana",
-		"py": "louisiana",
+		"py": "lysan",
 		"tag": "m10b"
 	},
 	"pasb505": {
@@ -293,9 +293,9 @@
 		"tag": "m8b"
 	},
 	"pasb599": {
-		"zh": "kearsarge b",
+		"zh": "奇尔沙治b",
 		"en": "kearsarge b",
-		"py": "kearsargeb",
+		"py": "qeszb",
 		"tag": "m9b"
 	},
 	"pasb705": {
@@ -348,6 +348,12 @@
 		"zh": "[蒙大拿]",
 		"en": "[montana]",
 		"py": "mdn",
+		"tag": "m10b"
+	},
+	"pasb990": {
+		"zh": "新罕布什尔",
+		"en": "new hampshire",
+		"py": "xhbse",
 		"tag": "m10b"
 	},
 	"pasc001": {
@@ -698,6 +704,12 @@
 		"en": "sims",
 		"py": "xms",
 		"tag": "m7d"
+	},
+	"pasd111": {
+		"zh": "约书亚·汉弗莱斯",
+		"en": "j. humphreys",
+		"py": "ysyhfls",
+		"tag": "m11d"
 	},
 	"pasd502": {
 		"zh": "史密斯",
@@ -1379,9 +1391,9 @@
 		"tag": "y10s"
 	},
 	"pbss508": {
-		"zh": "alliance",
+		"zh": "联盟",
 		"en": "alliance",
-		"py": "alliance",
+		"py": "lm",
 		"tag": "y8s"
 	},
 	"pfsa506": {
@@ -1530,7 +1542,7 @@
 	},
 	"pfsc105": {
 		"zh": "白劳易",
-		"en": "Émile bertin",
+		"en": "émile bertin",
 		"py": "bly",
 		"tag": "f5c"
 	},
@@ -1617,6 +1629,12 @@
 		"en": "colbert",
 		"py": "kebt",
 		"tag": "f10c"
+	},
+	"pfsc516": {
+		"zh": "杜布雷",
+		"en": "dupleix",
+		"py": "dbl",
+		"tag": "f6c"
 	},
 	"pfsc518": {
 		"zh": "让·巴尔",
@@ -1783,6 +1801,12 @@
 		"zh": "马克斯·殷麦曼",
 		"en": "m. immelmann",
 		"py": "mksymm",
+		"tag": "d10a"
+	},
+	"pgsa990": {
+		"zh": "奥托·李林塔尔",
+		"en": "o. lilienthal",
+		"py": "atllte",
 		"tag": "d10a"
 	},
 	"pgsb001": {
@@ -2098,7 +2122,7 @@
 	},
 	"pgsc519": {
 		"zh": "埃吉尔",
-		"en": "Ägir",
+		"en": "ägir",
 		"py": "aje",
 		"tag": "d9c"
 	},
@@ -2109,9 +2133,9 @@
 		"tag": "d9c"
 	},
 	"pgsc598": {
-		"zh": "mainz b",
+		"zh": "美因茨b",
 		"en": "mainz b",
-		"py": "mainzb",
+		"py": "mycb",
 		"tag": "d8c"
 	},
 	"pgsc706": {
@@ -2246,6 +2270,18 @@
 		"py": "zf6",
 		"tag": "d9d"
 	},
+	"pgsd610": {
+		"zh": "z-42",
+		"en": "z-42",
+		"py": "z42",
+		"tag": "d10d"
+	},
+	"pgsd990": {
+		"zh": "吕贝克",
+		"en": "lübeck",
+		"py": "lbk",
+		"tag": "d10d"
+	},
 	"pgss106": {
 		"zh": "u-69 (old)",
 		"en": "u-69 (old)",
@@ -2359,6 +2395,12 @@
 		"py": "qs",
 		"tag": "h8c"
 	},
+	"phsc990": {
+		"zh": "弗赖海特",
+		"en": "vrijheid",
+		"py": "flht",
+		"tag": "h10c"
+	},
 	"phsd509": {
 		"zh": "格罗宁根",
 		"en": "groningen",
@@ -2455,6 +2497,12 @@
 		"py": "ynwsblts",
 		"tag": "i6b"
 	},
+	"pisb990": {
+		"zh": "亚美瑞格·韦斯普奇",
+		"en": "a. vespucci",
+		"py": "ymrgwspq",
+		"tag": "i10b"
+	},
 	"pisc101": {
 		"zh": "厄立特里亚",
 		"en": "eritrea",
@@ -2540,9 +2588,9 @@
 		"tag": "i10c"
 	},
 	"pisc590": {
-		"zh": "napoli b",
+		"zh": "那不勒斯b",
 		"en": "napoli b",
-		"py": "napolib",
+		"py": "nblsb",
 		"tag": "i10c"
 	},
 	"pisc607": {
@@ -2550,6 +2598,12 @@
 		"en": "gorizia",
 		"py": "glqy",
 		"tag": "i7c"
+	},
+	"pisc990": {
+		"zh": "拉韦纳",
+		"en": "ravenna",
+		"py": "lwn",
+		"tag": "i10c"
 	},
 	"pisd102": {
 		"zh": "库尔塔托内",
@@ -3390,9 +3444,9 @@
 		"tag": "r8d"
 	},
 	"pjsd596": {
-		"zh": "shinonome b",
+		"zh": "东云b",
 		"en": "shinonome b",
-		"py": "shinonomeb",
+		"py": "dyb",
 		"tag": "r6d"
 	},
 	"pjsd598": {
@@ -3490,10 +3544,16 @@
 		"tag": "s8a"
 	},
 	"prsa598": {
-		"zh": "chkalov b",
+		"zh": "契卡洛夫b",
 		"en": "chkalov b",
-		"py": "chkalovb",
+		"py": "qklfb",
 		"tag": "s8a"
+	},
+	"prsa990": {
+		"zh": "奥尔洛夫",
+		"en": "orlov",
+		"py": "aelf",
+		"tag": "s10a"
 	},
 	"prsb001": {
 		"zh": "沙皇尼古拉一世",
@@ -3550,9 +3610,9 @@
 		"tag": "s10b"
 	},
 	"prsb111": {
-		"zh": "admiral ushakov",
-		"en": "admiral ushakov",
-		"py": "admiral ushakov",
+		"zh": "乌沙科夫",
+		"en": "ushakov",
+		"py": "wskf",
 		"tag": "s11b"
 	},
 	"prsb505": {
@@ -3831,6 +3891,12 @@
 		"py": "msk",
 		"tag": "s10c"
 	},
+	"prsc990": {
+		"zh": "彼得罗扎沃茨克",
+		"en": "petrozavodsk",
+		"py": "bdlzwck",
+		"tag": "s10c"
+	},
 	"prsc999": {
 		"zh": "测试战舰",
 		"en": "test ship",
@@ -4034,7 +4100,7 @@
 	},
 	"pssd510": {
 		"zh": "阿尔瓦罗·德·巴赞",
-		"en": "Álvaro de bazán",
+		"en": "álvaro de bazán",
 		"py": "aewldbz",
 		"tag": "s10d"
 	},
@@ -4051,10 +4117,16 @@
 		"tag": "e6c"
 	},
 	"pusc509": {
-		"zh": "hector",
+		"zh": "赫克托耳",
 		"en": "hector",
-		"py": "hector",
+		"py": "hkte",
 		"tag": "e9c"
+	},
+	"pusc510": {
+		"zh": "布里斯班",
+		"en": "brisbane",
+		"py": "blsb",
+		"tag": "e10c"
 	},
 	"pusc516": {
 		"zh": "迈索尔",
@@ -4166,13 +4238,13 @@
 	},
 	"pwsd108": {
 		"zh": "厄兰",
-		"en": "Öland",
+		"en": "öland",
 		"py": "el",
 		"tag": "w8d"
 	},
 	"pwsd109": {
 		"zh": "东约特兰",
-		"en": "Östergötland",
+		"en": "östergötland",
 		"py": "dytl",
 		"tag": "w9d"
 	},
@@ -4230,6 +4302,12 @@
 		"py": "lpl",
 		"tag": "w10d"
 	},
+	"pwsd990": {
+		"zh": "南曼兰",
+		"en": "södermanland",
+		"py": "nml",
+		"tag": "w10d"
+	},
 	"pxsa001": {
 		"zh": "luftwaffe",
 		"en": "luftwaffe",
@@ -4273,10 +4351,10 @@
 		"tag": "x3b"
 	},
 	"pxsb002": {
-		"zh": "rasputin",
+		"zh": "拉斯普京",
 		"en": "rasputin",
-		"py": "rasputin",
-		"tag": "x7b"
+		"py": "lspj",
+		"tag": "x9b"
 	},
 	"pxsb003": {
 		"zh": "范海辛",
@@ -4288,13 +4366,13 @@
 		"zh": "马格努-s",
 		"en": "magnu-s",
 		"py": "mgns",
-		"tag": "x8b"
+		"tag": "x10b"
 	},
 	"pxsb005": {
 		"zh": "瓦尔加斯",
 		"en": "varg",
 		"py": "wejs",
-		"tag": "x7b"
+		"tag": "x9b"
 	},
 	"pxsb006": {
 		"zh": "自由卫士",
@@ -4312,7 +4390,7 @@
 		"zh": "利维坦",
 		"en": "leviathan",
 		"py": "lwt",
-		"tag": "x7b"
+		"tag": "x9b"
 	},
 	"pxsb009": {
 		"zh": "蝎尾",
@@ -4360,13 +4438,13 @@
 		"zh": "圣甲虫",
 		"en": "scarab",
 		"py": "sjc",
-		"tag": "x7c"
+		"tag": "x9c"
 	},
 	"pxsc003": {
 		"zh": "苏亚托扎",
 		"en": "svyatozar",
 		"py": "sytz",
-		"tag": "x8c"
+		"tag": "x10c"
 	},
 	"pxsc004": {
 		"zh": "银河",
@@ -4396,7 +4474,7 @@
 		"zh": "章鱼",
 		"en": "octopus",
 		"py": "zy",
-		"tag": "x7c"
+		"tag": "x9c"
 	},
 	"pxsc010": {
 		"zh": "世纪之鹰",
@@ -4456,13 +4534,13 @@
 		"zh": "食尸鬼",
 		"en": "ghoul",
 		"py": "ssg",
-		"tag": "x7d"
+		"tag": "x9d"
 	},
 	"pxsd003": {
 		"zh": "浦岛",
 		"en": "urashima",
 		"py": "pd",
-		"tag": "x8d"
+		"tag": "x10d"
 	},
 	"pxsd004": {
 		"zh": "翔空烈焰",
@@ -4486,13 +4564,13 @@
 		"zh": "钢鼠",
 		"en": "steel rat",
 		"py": "gs",
-		"tag": "x7d"
+		"tag": "x9d"
 	},
 	"pxsd009": {
 		"zh": "剃刀蠕虫",
 		"en": "razorworm",
 		"py": "tdrc",
-		"tag": "x7d"
+		"tag": "x9d"
 	},
 	"pxsd010": {
 		"zh": "天体",
@@ -4633,9 +4711,9 @@
 		"tag": "x10s"
 	},
 	"pxsx001": {
-		"zh": "transylvania",
+		"zh": "特兰西瓦尼亚",
 		"en": "transylvania",
-		"py": "transylvania",
+		"py": "tlxwny",
 		"tag": "x5a"
 	},
 	"pxsx013": {
@@ -4770,9 +4848,9 @@
 		"tag": "c9b"
 	},
 	"pzsb529": {
-		"zh": "sun yat-sen",
+		"zh": "载之",
 		"en": "sun yat-sen",
-		"py": "sun yatsen",
+		"py": "zz",
 		"tag": "c9b"
 	},
 	"pzsc101": {
@@ -4818,9 +4896,9 @@
 		"tag": "c10c"
 	},
 	"pzsc503": {
-		"zh": "ning hai",
+		"zh": "宁海",
 		"en": "ning hai",
-		"py": "ning hai",
+		"py": "nh",
 		"tag": "c3c"
 	},
 	"pzsc506": {
@@ -4900,6 +4978,12 @@
 		"en": "yueyang",
 		"py": "yy",
 		"tag": "c10d"
+	},
+	"pzsd111": {
+		"zh": "昆明",
+		"en": "kunming",
+		"py": "km",
+		"tag": "c11d"
 	},
 	"pzsd208": {
 		"zh": "西利旺义",
