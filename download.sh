@@ -1,4 +1,5 @@
 #!/bin/bash
+curl -s 'https://iwarship.net/wowsdb/data/get-ship-data/specials?ptMode=true'  -H "cookie: $1" -H "user-agent: $2"  > temp/特色.json
 curl -s 'https://iwarship.net/wowsdb/data/get-ship-data/torpedoes?ptMode=true' -H "cookie: $1" -H "user-agent: $2" > temp/鱼雷.json
 curl -s 'https://iwarship.net/wowsdb/data/get-ship-data/aircraft?ptMode=true'  -H "cookie: $1" -H "user-agent: $2"  > temp/飞机.json
 curl -s 'https://iwarship.net/wowsdb/data/get-ship-data/hull?ptMode=true'  -H "cookie: $1" -H "user-agent: $2"  > temp/船体.json

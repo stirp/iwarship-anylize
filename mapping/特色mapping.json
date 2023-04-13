@@ -1,0 +1,9 @@
+{
+    "名字": ".index",
+    "类型": ".group",
+    "等级": ".level",
+    "舰种": ".species",
+    "国家": ".nation",
+    "特色-狂暴模式": ".specials.rageMode",
+    "特色-爆发模式": ".specials.burstMode"
+}
