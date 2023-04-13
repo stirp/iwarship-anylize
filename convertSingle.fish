@@ -40,7 +40,7 @@ for lineName in $lines
     printProgressPlus (math "1/$lineSize * 40")
 end
 
-set i18nLines (jq -r 'map(.i18nkey|values) | add| values | unique | .[]' $outputJson)
+set i18nLines (jq -r 'map(.i18nkey|values) | add| values | unique | map(select(. != null)) | .[]' $outputJson)
 set i18nLineSize (count $i18nLines)
 for i18nkey in $i18nLines
     set lowerI18nKey (echo $i18nkey | tr A-Z a-z)
