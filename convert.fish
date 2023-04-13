@@ -1,5 +1,7 @@
 #!/usr/bin/fish
 mkdir -p temp
+./downloadI18n.sh
+./downloadShipName.sh
 ./download.sh $argv[1] $argv[2]
 ./convertSingle.fish 船体
 ./convertSingle.fish 反潜武器
