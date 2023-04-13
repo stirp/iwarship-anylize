@@ -32,8 +32,8 @@ printProgressPlus 10
 set lines (jq -r '.[].index' $inputJson)
 set lineSize (count $lines)
 for lineName in $lines
-    set tempName (jq -r ".$lineName.zh" $nameFile)
-    # set tempName (jq -r "."(echo $lineName | tr A-Z a-z)".zh" $nameFile)
+    #set tempName (jq -r ".$lineName.zh" $nameFile)
+    set tempName (jq -r "."(echo $lineName | tr A-Z a-z)".zh" $nameFile)
     if test $tempName != null
         sed -i  "s/$lineName/"$tempName"/g" $outputJson
     end
@@ -43,7 +43,8 @@ end
 set i18nLines (jq -r 'map(.i18nkey|values) | add| values | unique | .[]' $outputJson)
 set i18nLineSize (count $i18nLines)
 for i18nkey in $i18nLines
-    sed -i  "s|$i18nkey|"(jq -r ".$i18nkey | gsub(\"\n\";\" \")" $i18nFile)"|g" $outputJson
+    set lowerI18nKey (echo $i18nkey | tr A-Z a-z)
+    sed -i  "s|$i18nkey|"(jq -r ".$lowerI18nKey | gsub(\"\n\";\" \")" $i18nFile)"|g" $outputJson
     printProgressPlus (math "1/$i18nLineSize * 40")
 end
 if test $i18nLineSize -eq 0
