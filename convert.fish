@@ -2,7 +2,8 @@
 mkdir -p temp
 ./downloadI18n.sh
 ./downloadShipName.sh
-./download.sh $argv[1] $argv[2]
+# ./download.sh $argv[1] $argv[2]
+./download.sh 
 ./convertSingle.fish 空袭
 ./convertSingle.fish 特色
 ./convertSingle.fish 飞机
