@@ -25,7 +25,7 @@
     "弹种":".ammoType",
     "标伤":".alphaDamage",
     "点火率":".burnProb",
-    "穿深":".piercing",
+    "穿深":"(.piercing | if type == \"array\" then join(\"|\") else . end)",
     "跳弹角最小":".ricochetAt[0]",
     "跳弹角最大":".ricochetAt[1]",
     "漏水系数":".uwCritical",
