@@ -4,7 +4,7 @@
     "等级":".level",
     "舰种":".species",
     "国家":".nation",
-    "进程面板秒伤":".nearPortDamage",
+    "近程面板秒伤":".nearPortDamage",
     "近程伤害":".nearAreaDamage",
     "近程命中率":".nearHitChance",
     "近程射程":".nearMaxDistance",
