@@ -2,3 +2,6 @@ preset/i18n.json
 preset/name.json
 temp/
 *.csv
+.claude
+.bmad-core
+.spec-workflow
