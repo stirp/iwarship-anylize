@@ -11,10 +11,7 @@ set outputCsv "$name""Flat.csv"
 set nameFile "preset/name.json"
 set i18nFile "preset/i18n.json"
 
-set mapping (echo "{"(for line in (jq -r 'to_entries | map("\"" + .key + "\":" + .value + ",")[]
- ' $mappingJson)
-    printf $line
-end)"}")
+set mapping (jq -r '"{" + (to_entries | map("\"" + .key + "\":" + .value) | join(",")) + "}"' $mappingJson)
 function printProgressPlus
     set i (math $i + $argv[1])
     if  test $i -lt 100
