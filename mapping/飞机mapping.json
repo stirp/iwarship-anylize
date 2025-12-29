@@ -1,5 +1,5 @@
 {
-    "名字":"(.index + .upgrade.air)",
+    "名字":"(.index + (.upgrade.air // \"\"))",
     "类型":".group",
     "等级":".level",
     "舰种":".species",

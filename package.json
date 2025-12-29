@@ -1,0 +1,23 @@
+{
+  "name": "iwarship-anylize",
+  "version": "1.0.0",
+  "description": "战舰世界数据抓取工具 - Node.js 版本",
+  "type": "module",
+  "main": "fetch-data.js",
+  "scripts": {
+    "fetch": "node fetch-data.js",
+    "fetch:cookie": "node fetch-data.js --cookie custom-cookie.txt"
+  },
+  "keywords": [
+    "wows",
+    "iwarship",
+    "data-scraper",
+    "csv-exporter"
+  ],
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "iconv-lite": "^0.6.3",
+    "csv-stringify": "^6.4.0"
+  }
+}
