@@ -4,5 +4,6 @@ temp/
 .bmad-core
 .spec-workflow
 cookie.txt
+node_modules/
 preset/i18n.json
 preset/name.json
