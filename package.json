@@ -6,7 +6,8 @@
   "main": "fetch-data.js",
   "scripts": {
     "fetch": "node fetch-data.js",
-    "fetch:cookie": "node fetch-data.js --cookie custom-cookie.txt"
+    "fetch:cookie": "node fetch-data.js --cookie custom-cookie.txt",
+    "export": "node export.js"
   },
   "keywords": [
     "wows",
@@ -17,7 +18,8 @@
   "author": "",
   "license": "MIT",
   "dependencies": {
+    "csv-stringify": "^6.4.0",
     "iconv-lite": "^0.6.3",
-    "csv-stringify": "^6.4.0"
+    "xlsx": "^0.18.5"
   }
 }

@@ -1,0 +1,16 @@
+{
+    "类型": ".group",
+    "等级": ".level",
+    "舰种": ".species",
+    "国籍": ".nation",
+    "名称": ".index",
+    "声波射程": ".waveDistance",
+    "声波装填": ".waveReloadTime",
+    "声波速度": ".waveSpeed",
+    "声波宽度": ".waveWidth",
+    "声波隐蔽": ".waveVisibility",
+    "高亮区持续时间": ".sectorLifeTime",
+    "高亮区双ping持续时间": ".sectorLifeTime2",
+    "高亮区宽度": ".sectorWidth",
+    "高亮区刷新时间": ".sectorAlertTime"
+}
