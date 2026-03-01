@@ -176,7 +176,7 @@ async function main() {
   let indexData
   if (options.skipPreset) {
     console.log('⚠️ 跳过预设下载，使用现有文件')
-    indexData = { versionId: 369 } // 默认值
+    indexData = { versionId: 369, gameVersion: '' } // 默认值
   } else {
     indexData = await fetchIndexData(cookieString)
 
@@ -281,7 +281,8 @@ async function main() {
     }
 
     const indexPath = join(outputDir, 'index.html')
-    generateHTML(htmlData, indexPath)
+    const gameVersion = indexData.gameVersion || ''
+    generateHTML(htmlData, indexPath, gameVersion)
 
     // 为每个类别生成独立页面
     for (const [apiKey, categoryName] of Object.entries(categoryMapping)) {
