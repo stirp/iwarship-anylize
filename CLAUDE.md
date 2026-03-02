@@ -2,61 +2,72 @@
 
 ## 项目愿景
 
-本项目用于《战舰世界》(World of Warships) 数据的自动化抓取、转换与分析。通过从 iwarship.net 网站获取原始游戏数据，经过映射转换后输出为标准化的 CSV 格式，便于后续数据分析和可视化。
+本项目用于《战舰世界》(World of Warships) 数据的自动化抓取、转换与分析。通过从 iwarship.net 网站获取原始游戏数据，经过映射转换后输出为标准化的 **HTML** 交互式网页格式，便于后续数据分析和可视化。
 
 ## 架构总览
 
-本项目采用 **Shell 脚本 + Fish 脚本 + jq/Perl 文本处理** 的轻量级数据管道架构，无需复杂的依赖，仅依赖系统工具（curl、jq、sed、perl）即可运行。
+本项目采用 **Node.js + ESM 模块** 的现代化数据管道架构。
 
 ### 模块结构图
 
 ```mermaid
 graph TD
-    A["(根) iwarship-anylize"] --> B["mapping/ 映射配置"]
-    A --> C["preset/ 预设数据"]
-    A --> D["脚本工具"]
-    D --> D1["download.sh 数据下载"]
-    D --> D2["downloadI18n.sh 翻译下载"]
-    D --> D3["downloadShipName.sh 舰名下载"]
-    D --> D4["convert.fish 主转换流程"]
-    D --> D5["convertSingle.fish 单文件转换"]
+    A["(根) iwarship-anylize"] --> B["lib/ 核心模块"]
+    A --> C["output/ HTML输出"]
 
-    click B "./mapping/CLAUDE.md" "查看 mapping 模块文档"
-    click C "./preset/CLAUDE.md" "查看 preset 模块文档"
-    click D "./scripts/CLAUDE.md" "查看 scripts 模块文档"
+    B --> B1["mappings.js 映射配置"]
+    B --> B2["html-writer.js HTML生成"]
+    B --> B3["fetcher.js HTTP请求"]
+    B --> B4["cookie.js Cookie处理"]
+
+    click B "./lib/CLAUDE.md" "查看 lib 模块文档"
 ```
 
 ## 模块索引
 
 | 模块 | 路径 | 职责 |
 |------|------|------|
-| **mapping** | `mapping/` | 存放12个JSON映射文件，定义原始数据字段到CSV输出的转换规则 |
-| **preset** | `preset/` | 存放预下载的i18n翻译和舰船名称映射，供转换脚本引用 |
-| **scripts** | 根目录脚本 | 数据抓取、转换流程的Shell/Fish脚本集合 |
+| **lib** | `lib/` | Node.js 核心模块集合，包含映射配置和输出功能 |
+| **output** | `output/` | HTML 交互式网页输出目录 |
 
 ## 运行与开发
 
 ### 环境依赖
 
-- **必须**: `curl`, `jq`, `bash`, `fish`, `sed`, `perl`
-- **可选**: `git` (版本控制)
+- **必须**: Node.js (v14+), npm
 
 ### 快速开始
 
 ```bash
-# 完整转换流程 (需要 curl 访问 iwarship.net)
-./convert.fish
+# 1. 安装依赖
+npm install
 
-# 或分步骤执行：
-./downloadI18n.sh   # 下载国际化数据
-./downloadShipName.sh  # 下载舰船名称
-./download.sh       # 下载原始游戏数据
-./convertSingle.fish <数据类别>  # 转换单个类别
+# 2. 配置 Cookie
+cp cookie.txt.example cookie.txt
+# 编辑 cookie.txt，填入您的 Cookie
+
+# 3. 运行抓取
+node fetch-data.js
+# 或带参数
+node fetch-data.js -c my-cookie.txt -o ./output
 ```
 
-### 数据类别列表
+### 命令行选项
 
-支持转换的数据类别（对应 mapping/ 下的映射文件）：
+| 选项 | 说明 | 默认值 |
+|------|------|--------|
+| `-c, --cookie <file>` | Cookie 文件路径 | cookie.txt |
+| `-o, --output <dir>` | 输出目录 | output |
+| `-h, --help` | 显示帮助 | - |
+| `-v, --verbose` | 详细输出 | - |
+
+### 输出格式
+
+- **位置**: `output/` 目录
+- **格式**: Bootstrap 5 + Bootstrap Table 交互式表格
+- **功能**: 支持筛选、排序、分页
+
+### 数据类别列表
 
 | 类别 | 说明 |
 |------|------|
@@ -71,42 +82,43 @@ graph TD
 | 副炮 | 副炮武器数据 |
 | 火炮 | 主炮武器数据 |
 | 船体 | 舰船船体属性 |
+| 声呐 | 声呐设备数据 |
 
 ## 测试策略
 
 本项目无自动化测试套件。验证方式：
 
-1. **手动检查输出 CSV** - 确认字段完整性
+1. **手动检查输出 HTML** - 确认字段完整性
 2. **比对原始 JSON** - 确保映射正确
-3. **运行时观察进度条** - convertSingle.fish 显示处理进度
+3. **运行时观察日志** - 查看数据抓取进度
 
 ## 编码规范
 
-- **Fish 脚本**: 使用 `set` 声明变量，`math` 进行计算，`printf` 控制输出
-- **Shell 脚本**: 使用标准 `#!/bin/bash`，依赖 `jq` 进行 JSON 处理
-- **映射文件**: JSON 格式，key 为输出CSV列名，value 为 jq 路径表达式
-- **字符编码**: CSV 使用 UTF-8 BOM (`\xEF\xBB\xBF` 前缀)
+- **JavaScript**: 使用 ESM (`import`/`export`)
+- **Node.js**: 依赖原生模块 (fs, https, path, url)
+- **映射配置**: 直接在 `lib/mappings.js` 中定义
+- **字符编码**: UTF-8
 
 ## AI 使用指引
 
 ### 添加新数据类别
 
-1. 在 `mapping/` 下创建 `<类别名>mapping.json`，定义字段映射
-2. 在 `convert.fish` 中添加 `./convertSingle.fish <类别名>`
-3. 映射语法参考现有文件，如 `mapping/船体mapping.json`
+1. 在 `lib/mappings.js` 中添加该类别的映射配置对象
+2. 在 `fetch-data.js` 中添加该类别的抓取逻辑
 
 ### 修改映射字段
 
-编辑对应的 `mapping/*.json` 文件，添加/删除/修改 key-value 对即可。
+编辑 `lib/mappings.js` 中对应的映射对象即可。
 
-### 调试转换脚本
+### 调试数据抓取
 
-```fish
-# 查看中间JSON结构
-jq '.' temp/船体.json | head -100
+```javascript
+// 查看抓取的原始数据
+console.log(JSON.stringify(rawData, null, 2))
 
-# 调试映射表达式
-jq 'map(.health)' temp/船体.json
+// 调试映射
+const mapping = getMapping('船体')
+console.log(mapping)
 ```
 
 ## 变更记录 (Changelog)
@@ -114,3 +126,5 @@ jq 'map(.health)' temp/船体.json
 | 时间 | 操作 | 说明 |
 |------|------|------|
 | 2025-12-30 00:48:37 | 初始化 | 项目文档初始化，生成 CLAUDE.md |
+| 2026-03-03 00:00:00 | 更新 | 添加 lib/ 模块文档，更新 HTML 输出说明 |
+| 2026-03-03 | 重构 | 移除 mapping/ 和 preset/ 目录，映射配置移至 lib/mappings.js |
