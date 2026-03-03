@@ -23,7 +23,7 @@ import { fileURLToPath } from 'url'
 // 导入模块
 import { loadCookie, isValidCookie } from './lib/cookie.js'
 import { fetchIndexData, fetchFullData } from './lib/index-fetcher.js'
-import { loadMapping, transformData } from './lib/csv-writer.js'
+import { loadMapping, transformData, setPresets } from './lib/csv-writer.js'
 import { generateHTML, generateCategoryHTML } from './lib/html-writer.js'
 // preset 数据在内存中使用，不写入文件
 
@@ -152,6 +152,9 @@ async function main() {
 
   const indexData = await fetchIndexData(cookieString)
 
+  // 设置预设数据供转换函数使用
+  setPresets(indexData.shipName, indexData.i18n)
+
   const versionId = indexData.versionId || 369
 
   // 3. 获取全量数据
@@ -162,18 +165,18 @@ async function main() {
 
   // API Key 到 类别名的映射
   const categoryMapping = {
-    'airSupport': '空袭',
-    'specials': '特色',
-    'aircraft': '飞机',
-    'torpedoes': '鱼雷',
-    'asw': '反潜武器',
-    'penetration': '弹道穿深',
-    'ability': '消耗品',
-    'airDefense': '防空',
-    'atba': '副炮',
-    'artillery': '火炮',
     'hull': '船体',
-    'pingerGun': '声呐'
+    'artillery': '火炮',
+    'torpedoes': '鱼雷',
+    'aircraft': '飞机',
+    'atba': '副炮',
+    'airSupport': '空袭',
+    'airDefense': '防空',
+    'pingerGun': '声呐',
+    'asw': '反潜武器',
+    'ability': '消耗品',
+    'penetration': '弹道穿深',
+    'specials': '特色'
   }
 
   // 4. 生成网页（需要先转换数据）
