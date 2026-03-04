@@ -21,18 +21,15 @@ import { join, dirname } from 'path'
 import { fileURLToPath } from 'url'
 
 // 导入模块
-import { loadCookie, isValidCookie } from './lib/cookie.js'
 import { fetchIndexData, fetchFullData } from './lib/index-fetcher.js'
 import { loadMapping, transformData, setPresets } from './lib/csv-writer.js'
-import { generateHTML, generateCategoryHTML } from './lib/html-writer.js'
+import { generateHTML } from './lib/html-writer.js'
 // preset 数据在内存中使用，不写入文件
 
 const __filename = fileURLToPath(import.meta.url)
 const __dirname = dirname(__filename)
 
 // 默认配置
-const DEFAULT_COOKIE_FILE = 'cookie.txt'
-// preset 数据在内存中使用
 const DEFAULT_OUTPUT_DIR = 'output'
 
 /**
@@ -46,7 +43,6 @@ function showHelp() {
   node fetch-data.js [选项]
 
 选项:
-  -c, --cookie <file>  Cookie 文件路径 (默认: cookie.txt)
   -o, --output <dir>   输出目录 (默认: output)
       --no-html        不生成网页
   -h, --help           显示帮助信息
@@ -54,7 +50,6 @@ function showHelp() {
 
 示例:
   node fetch-data.js
-  node fetch-data.js --cookie my-cookie.txt
   node fetch-data.js --no-html
 `)
 }
@@ -65,7 +60,6 @@ function showHelp() {
 function parseArgs() {
   const args = process.argv.slice(2)
   const options = {
-    cookieFile: DEFAULT_COOKIE_FILE,
     outputDir: DEFAULT_OUTPUT_DIR,
     verbose: false,
     generateHTML: true
@@ -81,11 +75,6 @@ function parseArgs() {
 
     if (arg === '-v' || arg === '--verbose') {
       options.verbose = true
-      continue
-    }
-
-    if ((arg === '-c' || arg === '--cookie') && i + 1 < args.length) {
-      options.cookieFile = args[++i]
       continue
     }
 
@@ -122,7 +111,6 @@ async function main() {
 
   // 显示配置
   console.log('📋 配置:')
-  console.log(`   Cookie 文件: ${options.cookieFile}`)
   console.log(`   输出目录:   ${options.outputDir}`)
   console.log(`   生成网页:   ${options.generateHTML ? '是' : '否'}`)
   console.log('')
@@ -138,19 +126,7 @@ async function main() {
   // 2. 获取 index 页面数据 (I18N, shipName, versionId)
   console.log('🔄 步骤 1: 获取初始化数据...\n')
 
-  // 加载 cookie
-  let cookieString = ''
-  try {
-    const cookies = loadCookie(options.cookieFile)
-    cookieString = Object.entries(cookies)
-      .map(([k, v]) => `${k}=${v}`)
-      .join('; ')
-    console.log('🔐 已加载 Cookie')
-  } catch (e) {
-    console.log('⚠️ 无法加载 Cookie，将使用匿名请求')
-  }
-
-  const indexData = await fetchIndexData(cookieString)
+  const indexData = await fetchIndexData()
 
   // 设置预设数据供转换函数使用
   setPresets(indexData.shipName, indexData.i18n)
@@ -202,13 +178,6 @@ async function main() {
     const indexPath = join(outputDir, 'index.html')
     const gameVersion = indexData.gameVersion || ''
     generateHTML(htmlData, indexPath, gameVersion)
-
-    // 为每个类别生成独立页面
-    for (const [apiKey, categoryName] of Object.entries(categoryMapping)) {
-      if (htmlData[categoryName]) {
-        generateCategoryHTML(categoryName, htmlData[categoryName], join(outputDir, `${categoryName}.html`))
-      }
-    }
   }
 
   console.log('')

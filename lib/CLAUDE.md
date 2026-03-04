@@ -14,7 +14,6 @@
 
 | 文件 | 用途 |
 |------|------|
-| `cookie.js` | Cookie 读取与解析 |
 | `fetcher.js` | HTTP 请求封装 |
 | `csv-writer.js` | CSV 文件生成 |
 | `excel-writer.js` | Excel 文件生成 |

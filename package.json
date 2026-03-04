@@ -6,7 +6,6 @@
   "main": "fetch-data.js",
   "scripts": {
     "fetch": "node fetch-data.js",
-    "fetch:cookie": "node fetch-data.js --cookie custom-cookie.txt",
     "export": "node export.js"
   },
   "keywords": [

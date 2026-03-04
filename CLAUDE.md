@@ -18,7 +18,7 @@ graph TD
     B --> B1["mappings.js 映射配置"]
     B --> B2["html-writer.js HTML生成"]
     B --> B3["fetcher.js HTTP请求"]
-    B --> B4["cookie.js Cookie处理"]
+    B --> B4["index-fetcher.js 数据抓取"]
 
     click B "./lib/CLAUDE.md" "查看 lib 模块文档"
 ```
@@ -42,21 +42,16 @@ graph TD
 # 1. 安装依赖
 npm install
 
-# 2. 配置 Cookie
-cp cookie.txt.example cookie.txt
-# 编辑 cookie.txt，填入您的 Cookie
-
-# 3. 运行抓取
+# 2. 运行抓取
 node fetch-data.js
 # 或带参数
-node fetch-data.js -c my-cookie.txt -o ./output
+node fetch-data.js -o ./output
 ```
 
 ### 命令行选项
 
 | 选项 | 说明 | 默认值 |
 |------|------|--------|
-| `-c, --cookie <file>` | Cookie 文件路径 | cookie.txt |
 | `-o, --output <dir>` | 输出目录 | output |
 | `-h, --help` | 显示帮助 | - |
 | `-v, --verbose` | 详细输出 | - |
