@@ -22,8 +22,9 @@ import { fileURLToPath } from 'url'
 
 // 导入模块
 import { fetchIndexData, fetchFullData } from './lib/index-fetcher.js'
-import { loadMapping, transformData, setPresets } from './lib/csv-writer.js'
+import { loadMapping, transformData, setPresets, getChineseName, getEnglishName } from './lib/csv-writer.js'
 import { generateHTML } from './lib/html-writer.js'
+import { generateMarkdown } from './lib/markdown-writer.js'
 // preset 数据在内存中使用，不写入文件
 
 const __filename = fileURLToPath(import.meta.url)
@@ -45,12 +46,14 @@ function showHelp() {
 选项:
   -o, --output <dir>   输出目录 (默认: output)
       --no-html        不生成网页
+      --no-markdown    不生成 Markdown 文件
   -h, --help           显示帮助信息
   -v, --verbose        详细输出模式
 
 示例:
   node fetch-data.js
   node fetch-data.js --no-html
+  node fetch-data.js --no-markdown
 `)
 }
 
@@ -62,7 +65,8 @@ function parseArgs() {
   const options = {
     outputDir: DEFAULT_OUTPUT_DIR,
     verbose: false,
-    generateHTML: true
+    generateHTML: true,
+    generateMarkdown: true
   }
 
   for (let i = 0; i < args.length; i++) {
@@ -92,6 +96,11 @@ function parseArgs() {
       options.generateHTML = false
       continue
     }
+
+    if (arg === '--no-markdown') {
+      options.generateMarkdown = false
+      continue
+    }
   }
 
   return options
@@ -113,6 +122,7 @@ async function main() {
   console.log('📋 配置:')
   console.log(`   输出目录:   ${options.outputDir}`)
   console.log(`   生成网页:   ${options.generateHTML ? '是' : '否'}`)
+  console.log(`   生成Markdown: ${options.generateMarkdown ? '是' : '否'}`)
   console.log('')
 
   // 1. 确保输出目录存在
@@ -178,12 +188,39 @@ async function main() {
     const indexPath = join(outputDir, 'index.html')
     const gameVersion = indexData.gameVersion || ''
     generateHTML(htmlData, indexPath, gameVersion)
+
+    // 生成 Markdown 文件
+    if (options.generateMarkdown) {
+      console.log('')
+      console.log('🔄 步骤 6: 生成 Markdown 文件...\n')
+      // 导入 mappings
+      const { 船体, 火炮, 鱼雷, 飞机, 副炮, 空袭, 防空, 声呐, 反潜武器, 消耗品, 弹道穿深, 特色 } = await import('./lib/mappings.js')
+      const mappings = {
+        '船体': 船体,
+        '火炮': 火炮,
+        '鱼雷': 鱼雷,
+        '飞机': 飞机,
+        '副炮': 副炮,
+        '空袭': 空袭,
+        '防空': 防空,
+        '声呐': 声呐,
+        '反潜武器': 反潜武器,
+        '消耗品': 消耗品,
+        '弹道穿深': 弹道穿深,
+        '特色': 特色
+      }
+      const gameVersion = indexData.gameVersion || '未知版本'
+      generateMarkdown(fullData, mappings, outputDir, gameVersion, getChineseName, getEnglishName)
+    }
   }
 
   console.log('')
   console.log('📁 输出文件:')
   if (options.generateHTML) {
     console.log(`   网页:    ${outputDir}/index.html`)
+  }
+  if (options.generateMarkdown) {
+    console.log(`   Markdown: ${outputDir}/obsidian`)
   }
   console.log('')
   console.log('💡 提示: 在 HTML 页面中点击"导出"按钮可下载 CSV')
