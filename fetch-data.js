@@ -25,6 +25,7 @@ import { fetchIndexData, fetchFullData } from './lib/index-fetcher.js'
 import { loadMapping, transformData, setPresets, getChineseName, getEnglishName } from './lib/csv-writer.js'
 import { generateHTML } from './lib/html-writer.js'
 import { generateMarkdown } from './lib/markdown-writer.js'
+import { mappings } from './lib/mappings.js'
 // preset 数据在内存中使用，不写入文件
 
 const __filename = fileURLToPath(import.meta.url)
@@ -141,7 +142,7 @@ async function main() {
   // 设置预设数据供转换函数使用
   setPresets(indexData.shipName, indexData.i18n)
 
-  const versionId = indexData.versionId || 369
+  const versionId = indexData.versionId
 
   // 3. 获取全量数据
   console.log('')
@@ -187,40 +188,24 @@ async function main() {
 
     const indexPath = join(outputDir, 'index.html')
     const gameVersion = indexData.gameVersion || ''
-    generateHTML(htmlData, indexPath, gameVersion)
-
-    // 生成 Markdown 文件
-    if (options.generateMarkdown) {
-      console.log('')
-      console.log('🔄 步骤 6: 生成 Markdown 文件...\n')
-      // 导入 mappings
-      const { 船体, 火炮, 鱼雷, 飞机, 副炮, 空袭, 防空, 声呐, 反潜武器, 消耗品, 弹道穿深, 特色 } = await import('./lib/mappings.js')
-      const mappings = {
-        '船体': 船体,
-        '火炮': 火炮,
-        '鱼雷': 鱼雷,
-        '飞机': 飞机,
-        '副炮': 副炮,
-        '空袭': 空袭,
-        '防空': 防空,
-        '声呐': 声呐,
-        '反潜武器': 反潜武器,
-        '消耗品': 消耗品,
-        '弹道穿深': 弹道穿深,
-        '特色': 特色
-      }
-      const gameVersion = indexData.gameVersion || '未知版本'
-      generateMarkdown(fullData, mappings, outputDir, gameVersion, getChineseName, getEnglishName)
+    if (!generateHTML(htmlData, indexPath, gameVersion)) {
+      throw new Error('网页生成失败')
     }
   }
 
+  if (options.generateMarkdown) {
+    console.log('')
+    console.log('🔄 步骤 6: 生成 Markdown 文件...\n')
+    const gameVersion = indexData.gameVersion || '未知版本'
+    generateMarkdown(fullData, mappings, outputDir, gameVersion, getChineseName, getEnglishName)
+  }
   console.log('')
   console.log('📁 输出文件:')
   if (options.generateHTML) {
     console.log(`   网页:    ${outputDir}/index.html`)
   }
   if (options.generateMarkdown) {
-    console.log(`   Markdown: ${outputDir}/obsidian`)
+    console.log(`   Markdown: ${outputDir}/战舰世界数据${indexData.gameVersion || '未知版本'}`)
   }
   console.log('')
   console.log('💡 提示: 在 HTML 页面中点击"导出"按钮可下载 CSV')

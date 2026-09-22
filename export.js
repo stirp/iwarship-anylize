@@ -168,7 +168,9 @@ async function main() {
     }
 
     const excelPath = join(outputDir, 'wows-data.xlsx')
-    await exportDataToExcel(data, mappings, excelPath)
+    if (!exportDataToExcel(data, mappings, excelPath)) {
+      throw new Error('Excel 导出失败')
+    }
   }
 
   // 生成网页
@@ -176,7 +178,9 @@ async function main() {
     console.log('🌐 生成网页...')
 
     const indexPath = join(outputDir, 'index.html')
-    generateHTML(data, indexPath)
+    if (!generateHTML(data, indexPath)) {
+      throw new Error('网页生成失败')
+    }
 
     // 为每个类别生成独立页面
     for (const [cat, records] of Object.entries(data)) {
