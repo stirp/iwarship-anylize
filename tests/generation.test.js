@@ -30,6 +30,8 @@ test('范围参数规范化，拒绝未知和不兼容选项', () => {
   assert.throws(() => parseOptions(['--soruce', 'gameparams']))
   assert.throws(() => parseOptions(['--ships']))
   assert.equal(parse([])['model-mode'], 'embedded')
+  assert.equal(parse(['--source', 'gameparams']).ref, 'master')
+  assert.equal(parse(['--source', 'gameparams', '--ref', 'custom-ref']).ref, 'custom-ref')
   assert.throws(() => parse(['--model-mode', 'server']), /model-mode/)
 })
 
