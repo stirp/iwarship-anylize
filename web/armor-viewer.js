@@ -348,12 +348,13 @@ async function loadModel(file) {
     const mismatches = comparisons.filter(result => result.status === 'mismatch').length
     details($('model-stats'), { 装甲板: state.armorMeshes.length, '装甲三角面': decoded.armor?.totals?.triangles ?? '未标注',
       '参数一致': comparisons.filter(result => result.status === 'match').length, '参数差异': mismatches })
-    $('model-config').textContent = decoded.armor ? `舰体配置：${decoded.armor.ship.hull_component || '未标注'} · ${decoded.armor.ship.hull_upgrade || shipData.modelInfo?.hullSelection || ''}` : '未提供舰船配置'
-    $('model-notice').textContent = !decoded.armor ? '此文件没有支持的装甲元数据，仅显示外观，无法读取装甲厚度。'
+    const armorGeometry = shipData.modelInfo?.geometry === 'armor'
+    $('model-config').textContent = decoded.armor ? `舰体配置：${decoded.armor.ship.hull_component || '未标注'} · ${decoded.armor.ship.hull_upgrade || shipData.modelInfo?.hullSelection || ''}` : `舰体配置：${shipData.modelInfo?.hullSelection || '未标注（导出器默认）'}`
+    $('model-notice').textContent = !decoded.armor ? `此文件没有支持的装甲元数据，仅显示${armorGeometry ? '装甲几何' : '模型几何'}，无法读取装甲厚度。`
       : decoded.armor.origin?.components === 'unavailable' ? 'Toolkit 装甲：保留逐层厚度；原始 JSON 未标注舰船编号和完整组件，请确认文件对应当前舰船。仅含装甲几何，无法与参数逐项对照。'
         : mismatches ? `有 ${mismatches} 块装甲与本批次参数不同，点击查看具体差异。` : '三维厚度来自模型；参数一致不等于模型版本完全一致。'
     $('load-panel').hidden = true
-    $('scene-state').textContent = decoded.armor ? '装甲视图 · 点击装甲板' : '外观视图 · 无厚度数据'
+    $('scene-state').textContent = decoded.armor ? '装甲视图 · 点击装甲板' : `${armorGeometry ? '装甲几何' : '模型'}视图 · 无厚度数据`
     viewport.dataset.state = 'ready'
     viewport.dataset.plateCount = state.armorMeshes.length
   } catch (error) {

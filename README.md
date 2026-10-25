@@ -50,7 +50,7 @@ GameParams 支持编号、ID、内部英文名称及 `zh_sg` 简体中文名匹�
 | `--python <程序>` | 指定 Python 3.10+ 程序路径；省略时 Windows 检测 `py -3`、`python`、`python3`，其他系统检测 `python3`、`python` |
 | `--models-dir <目录>` | 打包 `<舰船编号>.armor.json`、`.glb` 或 `.zst`；装甲 JSON 优先，自动转换为 GLB |
 | `--game-dir <目录>` | 从本地游戏目录导出装甲，与 `--models-dir` 二选一；需要 `--wowsunpack` |
-| `--wowsunpack <程序>` | 支持 `export-ship --armor-json` 的兼容导出器，如 WoWS Toolbox 的 `wowsunpack_armor.exe` |
+| `--wowsunpack <程序>` | 官方或兼容导出器路径；省略时从 PATH 调用 `wowsunpack`，自动识别 `--contents` / `--armor-json` |
 | `--model-hull <配置>` | 本地游戏导出时选择舰体，如 `A`、`B`；省略使用导出器默认配置 |
 | `--model-mode <模式>` | 默认 `embedded`，生成时下载或打包模型；`manual` 只打包参数，查看时手动选择模型 |
 | `--no-3d` | 不生成独立 3D 查看器；`--no-html` 同时关闭查看器 |
@@ -157,15 +157,17 @@ npm run fetch -- --source gameparams --ships PJSB510 --categories armor \
 
 ### 从本地游戏导出装甲（Windows）
 
-需要完整游戏安装目录（含 `bin` 和 `res_packages`），以及支持 `--armor-json` 的 Toolkit 兼容导出器。官方 `landaire/wows-toolkit` v1.0.2 的普通 `wowsunpack.exe` 只导出 GLB，不提供该接口；可以使用 [WoWS Toolbox](https://github.com/Ch0m1n/WoWS-Toolbox/releases) 随附的 `Backend/wowsunpack_armor.exe`。本项目不会自动下载或安装这个程序。
+需要完整游戏安装目录（含 `bin` 和 `res_packages`），以及官方 `wowsunpack` 或支持 `--armor-json` 的兼容导出器。本项目自动检测 `export-ship --help`：有 `--armor-json` 时优先导出逐面厚度 JSON；否则使用官方 `--contents armor --no-textures` 导出装甲几何 GLB。后者没有兼容厚度元数据时仅显示几何，不能点击查询装甲厚度。本项目不会自动下载或安装导出器。
 
-先检查实际工具是否支持所需接口：
+如果 `wowsunpack` 已加入 PATH，在项目目录运行以下命令，即可批量导出全部所选区域的舰船装甲模型并打包到网页，无需单独执行 PowerShell 循环：
 
 ```powershell
-& "C:/Tools/WoWS-Toolbox/Backend/wowsunpack_armor.exe" export-ship --help
+npm run fetch -- --source gameparams --regions ASIA --categories hull,armor --game-dir "D:/Games/World_of_Warships"
 ```
 
-帮助中应包含 `--armor-json`。然后在本项目运行，路径按实际安装位置替换：
+不指定 `--ships` 为本批次参数中包含装甲记录的全部舰船；增加 `--ships PJSB510,PZSB529` 可只导出指定舰船。默认串行执行，显示 `当前数量/总数`，每舰超时为 10 分钟。单舰失败会继续下一艘，最终打印成功/失败数量，并将失败原因及日志路径记入 `manifest.json` 的 `viewer.modelFailures`；部分模型失败仍保留已完成表格和模型。
+
+导出器不在 PATH 时，增加 `--wowsunpack "C:/Tools/wowsunpack.exe"`。需要逐面厚度交互时，可指定 [WoWS Toolbox](https://github.com/Ch0m1n/WoWS-Toolbox/releases) 随附的兼容导出器：
 
 ```powershell
 npm run fetch -- --source gameparams --ships PJSB510 --categories hull,armor --game-dir "D:/Games/World_of_Warships" --wowsunpack "C:/Tools/WoWS-Toolbox/Backend/wowsunpack_armor.exe" --python py
@@ -173,7 +175,9 @@ npm run fetch -- --source gameparams --ships PJSB510 --categories hull,armor --g
 
 支持 `--model-hull A` 或 `--model-hull B` 指定舰体；也可通过 `--interactive` 选择模型来源 `game`。只导出本批次选中的舰船，因此补齐模型站 404 的舰船时，将 `--ships` 换成相应编号即可。游戏目录中也没有该舰资源时，会记录失败并保留手动导入入口。
 
-生成器先检查导出能力，再调用 `export-ship --no-textures --armor-json`。原始输出保存在批次的 `armor/toolkit/` 下，每次使用独立目录；JSON 转换为含装甲元数据的 GLB 后打包到舰船数据脚本。导出不修改游戏目录，单舰超时为 10 分钟。此路径生成的是**装甲几何**，不包含外观纹理；查看页面仍可直接双击、断网使用。
+原始输出保存在批次的 `armor/toolkit/<舰船编号>-*/` 下，包括最终 `<舰船编号>.glb` 和每舰 `export.log`；兼容模式还保留 `armor.json`。模型校验通过才计为成功并打包，普通模式的失败或残缺文件不会作为完成模型使用。每批次重新导出，使用独立目录，不跨批次跳过旧模型，避免游戏更新后误用旧文件。导出不修改游戏目录，此路径仅导出装甲几何，不包含外观纹理；查看页面仍可直接双击、断网使用。
+
+每艘船仅导出一个舰体配置，省略 `--model-hull` 时使用工具默认配置，不会遍历全部 A/B 变体。本地导出需要选择 GameParams 的 `armor` 类别并启用 HTML 和 3D 查看器。
 
 模型来源与参数来源独立：上面的命令默认下载公开 GameParams。如需与本机版本保持一致，还应提供从该客户端解包的 `--gameparams` 和 `--game-version`。
 
