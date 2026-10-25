@@ -9,6 +9,7 @@ import { fetchIndexData, fetchFullData } from './lib/index-fetcher.js'
 import { setPresets, transformData, loadMapping, getChineseName } from './lib/csv-writer.js'
 import { prepareGameParams, readGameParams } from './lib/sources/gameparams.js'
 import { buildGameParamsRows } from './lib/gameparams-tables.js'
+import { prepareTranslations } from './lib/sources/translations.js'
 import { createOutputDirectory, writeOutput } from './lib/output.js'
 import { resolvePython } from './lib/python.js'
 
@@ -49,6 +50,8 @@ async function generateGameParams(options, root, categories) {
   // 下载前确认解释器可用，使用实际程序路径绕过启动器和系统别名。
   options = { ...options, python: await resolvePython(options.python) }
   const input = await prepareGameParams(options, root)
+  const translations = await prepareTranslations(options, input, root)
+  options = { ...options, translationsPath: translations.path }
   let currentRegion
   let directory
   let tables
@@ -64,12 +67,12 @@ async function generateGameParams(options, root, categories) {
       tables = Object.fromEntries(categories.map(category => [category, []]))
     }
     if (event.event === 'record') {
-      for (const { category, row } of buildGameParamsRows(event, categories)) tables[category].push(row)
+      for (const { category, row } of buildGameParamsRows(event, categories, translations.dictionary)) tables[category].push(row)
       if (options.verbose) appendFileSync(join(directory, 'raw.jsonl'), `${JSON.stringify(event)}\n`)
     } else if (event.event === 'end') {
       await writeOutput(tables, directory, { source: 'gameparams', gameVersion: input.gameVersion, region: currentRegion,
-        provenance: input.provenance,
-        note: 'GameParams 原始参数；英文字段保持游戏原始单位，未应用配装加成。装甲各层独立展示，不相加。'
+        provenance: { ...input.provenance, translations: translations.provenance },
+        note: '舰名使用 zh_sg 简体中文；未应用配装加成。装甲每舰一行，汇总所有配置的有效厚度范围，各层不相加。空值表示无可归类参数，不代表零装甲；参数不能确定实际外露面积，完整分层数据见 data/armor-details.json。'
       }, options)
       tables = null
     }

@@ -11,7 +11,7 @@ import { generateHTML } from '../lib/html-writer.js'
 const fixture = resolve('tests/fixtures/gameparams.json')
 const python = process.env.TEST_PYTHON || 'python3'
 const parse = args => validateOptions(parseOptions(args))
-const run = (args, extra = []) => spawnSync(process.execPath, [...extra, 'fetch-data.js', '--model-mode', 'manual', ...args], {
+const run = (args, extra = []) => spawnSync(process.execPath, [...extra, 'fetch-data.js', '--translations', resolve('tests/fixtures/translations.json'), '--model-mode', 'manual', ...args], {
   encoding: 'utf8', timeout: 30000
 })
 const files = directory => readdirSync(directory, { withFileTypes: true }).flatMap(entry => {
@@ -46,9 +46,10 @@ test('完整生成两区域，只包含选中舰船、类别与相关弹药，�
   assert.deepEqual(manifests.map(item => item.region).sort(), ['ASIA', 'EU'])
   const asia = manifests.find(item => item.region === 'ASIA')
   assert.equal(asia.counts.hull, 2)
-  assert.equal(asia.counts.armor, 5)
+  assert.equal(asia.counts.armor, 1)
+  assert.equal(asia.armorDetails.count, 5)
   assert.equal(asia.counts.projectiles, 1)
-  const armor = JSON.parse(readFileSync(generated.find(path => path.includes('/ASIA/') && path.endsWith('/armor.json'))))
+  const armor = JSON.parse(readFileSync(generated.find(path => path.includes('/ASIA/') && path.endsWith('/armor-details.json'))))
   assert.equal(armor.find(row => row['参数键'] === 65597 && row['配置'] === 'A_Hull')['厚度(mm)'], 410)
   assert.equal(armor.find(row => row['参数键'] === 131133)['层'], 2)
   assert.equal(armor.find(row => row['参数键'] === 1)['厚度(mm)'], 0)
@@ -160,7 +161,7 @@ with open(sys.argv[2],'wb') as stream:stream.write(zlib.compress(pickle.dumps(ro
     '--categories', 'armor', '--ships', 'PJSB510', '--no-html', '--no-markdown', '--output', output])
   assert.equal(result.status, 0, result.stderr)
   const manifest = JSON.parse(readFileSync(files(output).find(file => file.endsWith('manifest.json'))))
-  assert.equal(manifest.counts.armor, 5)
+  assert.equal(manifest.counts.armor, 1)
 })
 
 test('输出路径不能越界，HTML 安全嵌入文本且显示后续记录独有字段', () => {

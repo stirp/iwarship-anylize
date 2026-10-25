@@ -155,17 +155,17 @@ test('共享消耗品按配置追踪飞机和弹药，多舰合并引用，全�
   assert.deepEqual(projectilesOnly.map(item => item.row['编号']).sort(), ['SHELL_AP', 'SHELL_Default'])
 })
 
-test('只导出 iwarship 飞机类别仍生成航母 3D 页面，飞机实体编号不会成为舰船', async () => {
+test('非装甲分类不生成 3D 入口，飞机实体编号不会成为舰船', async () => {
   const root = mkdtempSync(join(tmpdir(), 'wows-aircraft-viewer-'))
   const result = spawnSync(process.execPath, ['--import', resolve('tests/fixtures/mock-iwarship.js'), 'fetch-data.js',
     '--source', 'iwarship', '--categories', 'aircraft', '--ships', 'PJSA110', '--model-mode', 'manual', '--output', root], { encoding: 'utf8' })
   assert.equal(result.status, 0, result.stderr)
   const paths = files(root)
   const manifest = JSON.parse(readFileSync(paths.find(path => path.endsWith('manifest.json'))))
-  assert.equal(manifest.viewer.ships, 1)
-  assert.ok(paths.some(path => path.endsWith('armor/ships/PJSA110.js')))
+  assert.equal(manifest.viewer, null)
+  assert.ok(!paths.some(path => path.endsWith('armor/ships/PJSA110.js')))
   const html = readFileSync(paths.find(path => path.endsWith('index.html') && !path.includes('/armor/')), 'utf8')
-  assert.ok(html.includes('armor/index.html?ship=PJSA110'))
+  assert.ok(!html.includes('armor/index.html?ship=PJSA110'))
   const planes = await generateArmorViewer({ aircraft: [{ 编号: 'PJPA001' }] }, join(root, 'planes'),
     { source: 'gameparams' }, { generateHTML: true, 'model-mode': 'manual' })
   assert.equal(planes, null)

@@ -33,7 +33,7 @@ npm run fetch -- --source gameparams --regions ASIA,EU --categories armor \
   --ships PJSB510 --no-html --no-markdown
 ```
 
-GameParams 仅支持编号、ID 或内部英文名称匹配，例如 `PJSB510`、`Shikishima`；iwarship 额外支持中文名。多个关键词为“或”关系，使用大小写不敏感的子串匹配。
+GameParams 支持编号、ID、内部英文名称及 `zh_sg` 简体中文名匹配，例如 `PJSB510`、`Shikishima`、`敷岛`。iwarship 使用其提供的中文名。多个关键词为“或”关系，使用大小写不敏感的子串匹配。
 
 ## 运行选项
 
@@ -44,10 +44,14 @@ GameParams 仅支持编号、ID 或内部英文名称匹配，例如 `PJSB510`�
 | `--categories <类别>` | 中文名称或英文键，逗号分隔；默认该来源支持的全部类别 |
 | `--ships <关键词>` | 舰船编号或名称关键词，逗号分隔；默认全部舰船 |
 | `--gameparams <路径>` | 本地 `.data` 或原始 GameParams JSON；不指定时下载公开文件 |
+| `--translations <路径>` | 本地 `lang.json`（含 `zh_sg`）或独立 `IDS_` 词条字典；省略时自动下载 |
 | `--game-version <版本>` | 本地 GameParams 必填；公开数据可手动指定版本标签 |
 | `--ref <Git引用>` | 公开数据的提交、标签或分支，默认 `master`；下载前固定到实际提交 |
 | `--python <程序>` | 指定 Python 3.10+ 程序路径；省略时 Windows 检测 `py -3`、`python`、`python3`，其他系统检测 `python3`、`python` |
-| `--models-dir <目录>` | 将该目录下的 `<舰船编号>.glb` 或 `.zst` 打包到查看器；不指定时使用公开模型 |
+| `--models-dir <目录>` | 打包 `<舰船编号>.armor.json`、`.glb` 或 `.zst`；装甲 JSON 优先，自动转换为 GLB |
+| `--game-dir <目录>` | 从本地游戏目录导出装甲，与 `--models-dir` 二选一；需要 `--wowsunpack` |
+| `--wowsunpack <程序>` | 支持 `export-ship --armor-json` 的兼容导出器，如 WoWS Toolbox 的 `wowsunpack_armor.exe` |
+| `--model-hull <配置>` | 本地游戏导出时选择舰体，如 `A`、`B`；省略使用导出器默认配置 |
 | `--model-mode <模式>` | 默认 `embedded`，生成时下载或打包模型；`manual` 只打包参数，查看时手动选择模型 |
 | `--no-3d` | 不生成独立 3D 查看器；`--no-html` 同时关闭查看器 |
 | `-o, --output <目录>` | 输出根目录，默认项目下 `output`；支持绝对路径 |
@@ -88,24 +92,32 @@ npm run fetch -- --source gameparams --ships PJSB510 --categories armor --python
 
 支持以上类别中的基础参数（不含派生的 `penetration`），另外提供：
 
-- `armor`：舰体及挂载组件的装甲参数键、层、材质编号和毫米厚度；保留零值，各层不相加。区域语义及空间位置仍需模型网格。
+- `armor`：每艘船一行的关键部位厚度范围，便于排序、检索和横向比较；原始逐层参数另存为 `data/armor-details.json`。
 - `projectiles`：弹药基础参数，如弹重、初速、风阻、伤害和引信。
 - `crew`：舰长及技能参数。
 - `modernizations`：升级品参数。
 
-网页和 `data/*.json` 输出已选取的基础字段。英文字段保留游戏原始名称和单位，例如火炮 `maxDist` 为原始距离、`barrelDiameter` 为原始口径，不能直接当成 iwarship 的同名展示值。不会填造配装后的最大值、最小值或穿深结果。`--verbose` 额外保存筛选后的组件和实体原始片段，便于查阅未进入基础表的字段。
+网页和 `data/*.json` 使用中文基础字段。明确的单位在表头标注：舰船航速为节、隐蔽距离为千米、射程为米；炮管及弹丸口径从米换算为毫米，起火概率与防空命中率换算为百分数。防空光环拆为距离、每周期伤害、伤害周期、命中率、爆炸云伤害及数量，不将原始周期伤害冒充每秒伤害。未确认单位的字段保留原始量纲。升级品已识别修正项展开为中文系数/加数列，未释义项列出原键；舰长显示基本特性和技能数量，避免把整棵技能树铺成数千列。`--verbose` 保存筛选后的原始组件和实体，供查阅未进入基础表的字段。
+
+舰名优先使用 wowsinfo/data 的 `live/app/lang/lang.json` 中 `zh_sg` 词条，例如 `PZSB529` 对应“载之”。公开 GameParams 与词条固定到同一提交，并校验词条大小及 Git blob 哈希，缓存至 `output/.cache/translations/<提交>/`。本地参数默认使用 `--ref` 对应词条，版本未必一致；可以通过 `--translations` 指定配套词条并完全离线生成。缺词时回退内部名；下载失败会提示，原因记录在 manifest 中。词条用于生成阶段，打开 HTML 不再下载词条。飞机、弹药等实体使用独立的实体类别字段，不进入舰种、舰船类型筛选。
+
+装甲表默认显示舰艏外板、舰艉外板、中段甲板、上层建筑、侧舷装甲，各有“最薄/最厚”数值列，单位为毫米。“列”菜单还能显示核心区侧壁、甲板、横隔壁、倾斜装甲、主炮塔正面/顶部、炮座、防雷凸舱。侧舷范围包含可识别的核心区侧装甲；核心区列再单独细分。所有舰体及武器配置合并为同舰一行，并列出配置范围，不指定某个配置为完全体。不同层独立取范围，绝不相加；零值保留在明细，但不进入有效厚度范围，缺失部位显示空白。
+
+部位编号依据 [wows-toolkit v1.0.2 的客户端碰撞材质表](https://github.com/landaire/wows-toolkit/blob/v1.0.2/crates/wowsunpack/src/game_params/ttx/armor_materials.rs)。除能够明确归类的侧舷、甲板过渡材质外，跨区域或未知材质保留在明细并计入“未归类有效参数数”。这是一份**参数厚度范围**：可能含内层和未使用材质，不能从 GameParams 判断外露面积、实际使用的网格或等效防护，需结合对应配置的 3D 模型。
+
+分类参考 [装甲穿透机制](https://wiki.wargaming.net/en/Ship:Armor_Penetration)：舰艏/舰艉板涉及碾压（口径大于板厚的 14.3 倍），甲板影响下落弹路径，核心区侧壁、甲板、横隔壁和倾斜装甲影响核心区命中路径；炮塔与炮座另列。多层装甲不能简单相加，凸舱厚度也不能当作防雷减伤率。
 
 选择舰船后，飞机、弹药、消耗品、舰长和升级品实体限于这些舰船的参数引用链；消耗品按实体名与配置名共同筛选，仅追踪所选配置引用的飞机和弹药。多舰共享的配置合并输出。这不等同于计算所有适用的舰长或可安装升级品。需要全量实体目录时不设置 `--ships`。未装备的武器类别或没有引用的实体会生成空数组，不伪造记录。
 
-命名区域与默认参数组分别输出：`ASIA` 等对应原始区域，空名称组使用 `DEFAULT`。单区域 JSON 和旧式单区域参数只能选择 `DEFAULT`，不会假定它来自 ASIA。所有舰体、武器组件配置分别保留，不自动挑选“完全体”。
+命名区域与默认参数组分别输出：`ASIA` 等对应原始区域，空名称组使用 `DEFAULT`。单区域 JSON 和旧式单区域参数只能选择 `DEFAULT`，不会假定它来自 ASIA。除装甲汇总表外，各舰体、武器组件配置分别保留，不自动挑选“完全体”。
 
 原始文件仍需解压并反序列化到内存，筛选不是随机读取：目前样本约 17 MB，解压二进制约 89 MB。筛选后才序列化输出，避免展开全区域 JSON。输入及解压数据设有 512 MiB 上限；更大的完整 JSON 请改用 `.data` 或先导出单区域 JSON。
 
-GameParams 本身没有网格及纹理；独立 3D 查看器使用另外提供的模型文件，不从参数值推造舰体形状。当前未集成本地游戏目录的自动模型解包，可将外部工具导出的模型交给查看器。
+GameParams 本身没有网格及纹理；独立 3D 查看器使用另外提供的模型文件，不从参数值推造舰体形状。可通过 `--game-dir` 调用兼容 Toolkit 导出器读取本地游戏资源，也可导入已经导出的模型或逐三角面装甲 JSON。
 
 ## 独立 3D 装甲查看器
 
-默认随 HTML 一起生成。直接双击批次目录的 `index.html`，通过顶部入口或舰船记录的“3D 装甲”列打开独立页面；也可直接双击 `armor/index.html`，在查看器内切换本批次舰船。无需启动服务或修改浏览器安全设置。
+选择 `armor` 类别且有装甲数据时，默认随 HTML 一起生成。直接双击批次目录的 `index.html`，在“装甲”分类通过每舰的“3D 装甲”列打开独立页面；其他分类不显示入口。也可直接双击 `armor/index.html`，在查看器内切换本批次舰船。无需启动服务或修改浏览器安全设置。
 
 ```bash
 # 生成参数、装甲表和独立查看器，同时下载并打包所选舰船模型
@@ -132,16 +144,42 @@ npm run fetch -- --source gameparams --ships PJSB510 --categories armor --model-
 ### 本地模型
 
 ```bash
-# /path/to/models/PJSB510.glb 或 PJSB510.zst
+# /path/to/models/PJSB510.armor.json、PJSB510.glb 或 PJSB510.zst
 npm run fetch -- --source gameparams --ships PJSB510 --categories armor \
   --models-dir "/path/to/models"
 ```
 
-只打包本批次涉及的舰船模型。同编号优先使用 `.glb`，缺失时提示并保留手动打开入口。也可在查看器中点击“打开本地模型”，文件在浏览器内读取，不上传。`--models-dir` 与 `--model-mode manual` 不能同时使用。
+只打包本批次涉及的舰船模型。同编号优先使用 `.armor.json`，其次 `.glb`、`.zst`；已有装甲 JSON 损坏时明确报错，不用普通外观模型掩盖转换失败。缺失时提示并保留手动打开入口。也可在查看器中点击“打开本地模型”，选择 GLB、ZST 或 Toolkit 原始装甲 JSON，文件在浏览器内读取，不上传。`--models-dir` 与 `--model-mode manual` 不能同时使用。
 
 支持自包含的 GLB 2.0 及其 Zstandard 压缩文件。完整厚度交互要求 `extras.wows_armor.schema = wows-armor-export/1`，且网格原语带有对应 `plate_index`。普通 GLB 可以显示外观，但不会凭颜色猜测装甲厚度。`wows-toolkit` 或 Toolbox 输出不一定包含这个 schema，需要保留或适配元数据，不能只按扩展名判断兼容。
 
 单个模型文件上限 100 MiB，解压后上限 256 MiB；浏览器需支持 WebGL 2。首次使用可先用敷岛 `PJSB510` 验证链路。
+
+### 从本地游戏导出装甲（Windows）
+
+需要完整游戏安装目录（含 `bin` 和 `res_packages`），以及支持 `--armor-json` 的 Toolkit 兼容导出器。官方 `landaire/wows-toolkit` v1.0.2 的普通 `wowsunpack.exe` 只导出 GLB，不提供该接口；可以使用 [WoWS Toolbox](https://github.com/Ch0m1n/WoWS-Toolbox/releases) 随附的 `Backend/wowsunpack_armor.exe`。本项目不会自动下载或安装这个程序。
+
+先检查实际工具是否支持所需接口：
+
+```powershell
+& "C:/Tools/WoWS-Toolbox/Backend/wowsunpack_armor.exe" export-ship --help
+```
+
+帮助中应包含 `--armor-json`。然后在本项目运行，路径按实际安装位置替换：
+
+```powershell
+npm run fetch -- --source gameparams --ships PJSB510 --categories hull,armor --game-dir "D:/Games/World_of_Warships" --wowsunpack "C:/Tools/WoWS-Toolbox/Backend/wowsunpack_armor.exe" --python py
+```
+
+支持 `--model-hull A` 或 `--model-hull B` 指定舰体；也可通过 `--interactive` 选择模型来源 `game`。只导出本批次选中的舰船，因此补齐模型站 404 的舰船时，将 `--ships` 换成相应编号即可。游戏目录中也没有该舰资源时，会记录失败并保留手动导入入口。
+
+生成器先检查导出能力，再调用 `export-ship --no-textures --armor-json`。原始输出保存在批次的 `armor/toolkit/` 下，每次使用独立目录；JSON 转换为含装甲元数据的 GLB 后打包到舰船数据脚本。导出不修改游戏目录，单舰超时为 10 分钟。此路径生成的是**装甲几何**，不包含外观纹理；查看页面仍可直接双击、断网使用。
+
+模型来源与参数来源独立：上面的命令默认下载公开 GameParams。如需与本机版本保持一致，还应提供从该客户端解包的 `--gameparams` 和 `--game-version`。
+
+已经导出原始装甲 JSON 时，将它命名为 `PJSB510.armor.json` 放入 `--models-dir` 指定的目录，也可直接在查看器中打开。接受的 schema 为 `wowsunpack-interactive-armor/v1`，不是 Toolbox 二次处理后的 `wows-toolbox-armor-viewer/v3`。转换器逐面读取 `material_id`、`model_index`、`thickness_mm`，保留隐藏标记和炮塔矩阵，相关层列表不会相加成当前厚度。
+
+此 JSON 没有舰船编号、完整舰体组件及炮塔组件标识，导入时需确认文件对应所选舰船；页面显示模型厚度，但明确标记无法与参数逐项对照。转换后的编号来自导出请求或所选舰船，不代表独立核验过模型身份。
 
 ## 输出结构
 
@@ -158,9 +196,11 @@ output/
       viewer.js
       viewer.css
       ships/PJSB510.js        # 单舰装甲参数及内嵌模型；manual 模式仅参数
+      toolkit/PJSB510-*/      # 仅 --game-dir：原始导出及转换后的 GLB
     data/
       hull.json
-      armor.json
+      armor.json              # 每舰一行的数值汇总
+      armor-details.json      # 原始配置、部件、材质、层及厚度，供 3D 对照
     markdown/
       船体/PJSB510.md
       装甲/PJSB510.md

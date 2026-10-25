@@ -1,0 +1,35 @@
+{
+  "schema": "wowsunpack-interactive-armor/v1",
+  "axis_forward": "-Z",
+  "axis_up": "Y",
+  "meshes": [
+    {
+      "name": "HullArmor",
+      "positions": [[-2,0,-4], [2,0,-4], [2,2,4], [-2,2,4]],
+      "indices": [0,1,2, 0,2,3, 0,1,3],
+      "triangle_info": [
+        {"model_index":1,"triangle_index":0,"material_id":61,"material_name":"Cit_Belt","zone":"Citadel","thickness_mm":32,"layers":[32,10],"hidden":false},
+        {"model_index":1,"triangle_index":1,"material_id":61,"material_name":"Cit_Belt","zone":"Citadel","thickness_mm":32,"layers":[32,10],"hidden":false},
+        {"model_index":2,"triangle_index":2,"material_id":61,"material_name":"Cit_Belt","zone":"Citadel","thickness_mm":0,"layers":[32,10],"hidden":true}
+      ]
+    },
+    {
+      "name": "TurretArmor [HP_GUN_1]",
+      "positions": [[0,0,0], [1,0,0], [0,1,0]],
+      "indices": [0,1,2],
+      "transform": [0,0,-1,0, 0,1,0,0, 1,0,0,0, 10,3,-2,1],
+      "triangle_info": [
+        {"model_index":1,"triangle_index":0,"material_id":71,"material_name":"GkBar","zone":"Turret","thickness_mm":250,"layers":[250],"hidden":false}
+      ]
+    },
+    {
+      "name": "TurretArmor [HP_GUN_2]",
+      "positions": [[0,0,0], [1,0,0], [0,1,0]],
+      "indices": [0,1,2],
+      "transform": [1,0,0,0, 0,1,0,0, 0,0,1,0, -10,3,2,1],
+      "triangle_info": [
+        {"model_index":1,"triangle_index":0,"material_id":71,"material_name":"GkBar","zone":"Turret","thickness_mm":250,"layers":[250],"hidden":false}
+      ]
+    }
+  ]
+}

@@ -108,6 +108,8 @@ function clearModel() {
   state.armor = null
   state.armorMeshes = []
   state.appearance = []
+  $('appearance').disabled = true
+  $('opacity').disabled = true
   state.bounds = null
   viewport.dataset.plateCount = '0'
   viewport.dataset.visiblePlates = '0'
@@ -164,6 +166,7 @@ function selectPlate(mesh) {
     $('plate-thickness').textContent = Number.isFinite(plate.thickness_mm) ? plate.thickness_mm : '未知'
     $('plate-zone').textContent = zoneNames[plateZone(plate)] || plateZone(plate)
     details($('plate-details'), { 材质: plate.material_name || plate.material, 层号: plate.layer,
+      ...(plate.source_mesh ? { 模型部件: plate.source_mesh } : {}),
       部件: plate.source === 'mount' ? plate.mount?.component : state.armor.ship.hull_component,
       挂载点: plate.mount?.hp || '舰体', '游戏默认显示': plate.hidden_in_viewer ? '隐藏' : '显示' })
     const comparison = comparePlate(plate, state.armor, state.parameters)
@@ -295,8 +298,8 @@ async function loadModel(file) {
       if (shipData.modelInfo?.fetchedAt) $('model-source').textContent += ` · 缓存于 ${new Date(shipData.modelInfo.fetchedAt).toLocaleString('zh-CN')}`
       if (!shipData.modelBase64) {
         status('请选择本地模型', shipData.modelError
-          ? `生成时未能打包模型：${shipData.modelError}。可直接选择本地 GLB / ZST。`
-          : '此批次采用手动模式，请选择对应舰船的 GLB / ZST 文件。', false, true)
+          ? `生成时未能打包模型：${shipData.modelError}。可选择本地 GLB / ZST 或 Toolkit 装甲 JSON。`
+          : '此批次采用手动模式，请选择对应舰船的 GLB / ZST 或 Toolkit 装甲 JSON。', false, true)
         details($('model-stats'), { 状态: '等待选择模型' })
         return
       }
@@ -325,6 +328,8 @@ async function loadModel(file) {
       } else state.appearance.push(object)
     })
     if (decoded.armor && !state.armorMeshes.length) throw new Error('装甲网格未能关联到厚度数据')
+    $('appearance').disabled = !state.appearance.length
+    $('opacity').disabled = !state.appearance.length
     scene.add(gltf.scene)
     gltf.scene.updateMatrixWorld(true)
     state.bounds = new THREE.Box3().setFromObject(gltf.scene)
@@ -343,9 +348,10 @@ async function loadModel(file) {
     const mismatches = comparisons.filter(result => result.status === 'mismatch').length
     details($('model-stats'), { 装甲板: state.armorMeshes.length, '装甲三角面': decoded.armor?.totals?.triangles ?? '未标注',
       '参数一致': comparisons.filter(result => result.status === 'match').length, '参数差异': mismatches })
-    $('model-config').textContent = decoded.armor ? `舰体配置：${decoded.armor.ship.hull_component || '未标注'} · ${decoded.armor.ship.hull_upgrade || ''}` : '未提供舰船配置'
+    $('model-config').textContent = decoded.armor ? `舰体配置：${decoded.armor.ship.hull_component || '未标注'} · ${decoded.armor.ship.hull_upgrade || shipData.modelInfo?.hullSelection || ''}` : '未提供舰船配置'
     $('model-notice').textContent = !decoded.armor ? '此文件没有支持的装甲元数据，仅显示外观，无法读取装甲厚度。'
-      : mismatches ? `有 ${mismatches} 块装甲与本批次参数不同，点击查看具体差异。` : '三维厚度来自模型；参数一致不等于模型版本完全一致。'
+      : decoded.armor.origin?.components === 'unavailable' ? 'Toolkit 装甲：保留逐层厚度；原始 JSON 未标注舰船编号和完整组件，请确认文件对应当前舰船。仅含装甲几何，无法与参数逐项对照。'
+        : mismatches ? `有 ${mismatches} 块装甲与本批次参数不同，点击查看具体差异。` : '三维厚度来自模型；参数一致不等于模型版本完全一致。'
     $('load-panel').hidden = true
     $('scene-state').textContent = decoded.armor ? '装甲视图 · 点击装甲板' : '外观视图 · 无厚度数据'
     viewport.dataset.state = 'ready'

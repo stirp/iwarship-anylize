@@ -176,7 +176,13 @@ def main():
     parser.add_argument("--regions", required=True)
     parser.add_argument("--ships", default="[]")
     parser.add_argument("--categories", required=True)
+    parser.add_argument("--translations", type=Path)
     args = parser.parse_args()
+    translations = {}
+    if args.translations:
+        with args.translations.open(encoding="utf-8") as stream:
+            translations = json.load(stream)
+        translations = translations.get("zh_sg", translations)
     groups = region_groups(load_data(args.path))
     regions = json.loads(args.regions)
     if regions == ["ALL"]:
@@ -207,6 +213,10 @@ def main():
                 str(record.get(field, "")).casefold()
                 for field in ("index", "name", "id")
             ]
+            values.extend(
+                str(translations.get("IDS_" + str(record.get(field, "")).upper(), "")).casefold()
+                for field in ("index", "name")
+            )
             if queries and not any(
                 query in value for query in queries for value in values
             ):

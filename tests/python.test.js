@@ -61,6 +61,7 @@ test('缺少解释器时在联网下载前失败，自动检测可完成本地 G
   assert.equal(failed.stdout.includes('下载公开'), false)
   assert.deepEqual(readdirSync(output), [])
   const success = spawnSync(process.execPath, ['fetch-data.js', '--source', 'gameparams',
+    '--translations', resolve('tests/fixtures/translations.json'),
     '--gameparams', resolve('tests/fixtures/gameparams.json'), '--game-version', 'fixture',
     '--ships', 'PJSB510', '--categories', 'armor', '--no-html', '--no-markdown', '--output', output],
   { encoding: 'utf8', timeout: 15000 })

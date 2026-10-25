@@ -1,4 +1,5 @@
 import { Decompress } from 'fzstd'
+import { convertToolkitArmor } from './toolkit-armor.js'
 
 export const MAX_MODEL_BYTES = 100 * 1024 * 1024
 const MAX_DECODED_BYTES = 256 * 1024 * 1024
@@ -31,6 +32,11 @@ export function decodeModel(input, expectedShip) {
   let bytes = input instanceof Uint8Array ? input : new Uint8Array(input)
   if (bytes.length > MAX_MODEL_BYTES) throw new Error('模型文件超过 100 MiB 限制')
   if (bytes.length < 12) throw new Error('模型文件不完整')
+  let start = bytes[0] === 0xef && bytes[1] === 0xbb && bytes[2] === 0xbf ? 3 : 0
+  while (start < bytes.length && [9, 10, 13, 32].includes(bytes[start])) start++
+  if (bytes[start] === 0x7b) {
+    bytes = convertToolkitArmor(JSON.parse(new TextDecoder().decode(bytes.subarray(start))), expectedShip, MAX_MODEL_BYTES)
+  }
   if (new DataView(bytes.buffer, bytes.byteOffset).getUint32(0, true) === 0xfd2fb528) {
     const chunks = []
     let size = 0
@@ -74,6 +80,7 @@ export function decodeModel(input, expectedShip) {
 
 /** 仅对相同舰体组件、挂载点、材质和层进行对照，绝不以参数值覆盖模型值。 */
 export function comparePlate(plate, armor, parameters) {
+  if (armor.origin?.components === 'unavailable') return { status: 'missing', text: 'Toolkit 导出未包含完整组件标识，显示模型厚度，无法与本批次参数逐项对照' }
   if (!parameters?.length) return { status: 'missing', text: '本批次未包含可对照的装甲参数' }
   const component = plate.source === 'mount' ? plate.mount?.component : armor.ship.hull_component
   const mount = plate.mount?.hp
