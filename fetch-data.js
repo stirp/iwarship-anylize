@@ -1,223 +1,104 @@
 #!/usr/bin/env node
-/**
- * iwarship-anylize 主入口脚本
- *
- * 流程：
- * 1. 从 /wowsdb/index 获取 I18N、shipName、serverVersion
- * 2. 从 serverVersion.ASIA.versionId 获取版本号
- * 3. 请求 /wowsdb/data/get-ship-detail 获取全量数据
- * 4. 生成 HTML（CSV 导出功能集成在 HTML 页面中）
- *
- * 用法:
- *   node fetch-data.js                    # 使用默认 cookie.txt
- *   node fetch-data.js --cookie custom.txt # 使用自定义 Cookie 文件
- *   node fetch-data.js --no-html          # 不生成网页
- *
- * 输出目录: output/
- */
-
-import { mkdirSync, existsSync } from 'fs'
-import { join, dirname } from 'path'
-import { fileURLToPath } from 'url'
-
-// 导入模块
+/** 运行时选择来源和范围，按来源、版本、区域及批次生成独立文件。 */
+import { appendFileSync, mkdirSync } from 'node:fs'
+import { resolve, join, dirname } from 'node:path'
+import { fileURLToPath } from 'node:url'
+import { help, parseOptions, promptOptions, validateOptions } from './lib/options.js'
+import { categoryNames, selectCategories, matchesShip } from './lib/categories.js'
 import { fetchIndexData, fetchFullData } from './lib/index-fetcher.js'
-import { loadMapping, transformData, setPresets, getChineseName, getEnglishName } from './lib/csv-writer.js'
-import { generateHTML } from './lib/html-writer.js'
-import { generateMarkdown } from './lib/markdown-writer.js'
-import { mappings } from './lib/mappings.js'
-// preset 数据在内存中使用，不写入文件
+import { setPresets, transformData, loadMapping, getChineseName } from './lib/csv-writer.js'
+import { prepareGameParams, readGameParams } from './lib/sources/gameparams.js'
+import { buildGameParamsRows } from './lib/gameparams-tables.js'
+import { createOutputDirectory, writeOutput } from './lib/output.js'
 
-const __filename = fileURLToPath(import.meta.url)
-const __dirname = dirname(__filename)
+const projectDir = dirname(fileURLToPath(import.meta.url))
 
-// 默认配置
-const DEFAULT_OUTPUT_DIR = 'output'
-
-/**
- * 显示使用帮助
- */
-function showHelp() {
-  console.log(`
-🏴‍☠️ iwarship-anylize - 战舰世界数据抓取工具
-
-用法:
-  node fetch-data.js [选项]
-
-选项:
-  -o, --output <dir>   输出目录 (默认: output)
-      --no-html        不生成网页
-      --no-markdown    不生成 Markdown 文件
-  -h, --help           显示帮助信息
-  -v, --verbose        详细输出模式
-
-示例:
-  node fetch-data.js
-  node fetch-data.js --no-html
-  node fetch-data.js --no-markdown
-`)
-}
-
-/**
- * 解析命令行参数
- */
-function parseArgs() {
-  const args = process.argv.slice(2)
-  const options = {
-    outputDir: DEFAULT_OUTPUT_DIR,
-    verbose: false,
-    generateHTML: true,
-    generateMarkdown: true
+async function generateIwarship(options, root, categories) {
+  const firstRegion = options.regions[0] === 'ALL' ? 'ASIA' : options.regions[0]
+  const index = await fetchIndexData(firstRegion)
+  const regions = options.regions[0] === 'ALL' ? Object.keys(index.serverVersion) : options.regions
+  // 在开始生成前校验全部区域，不把未知区域静默替换为 ASIA。
+  for (const region of regions) {
+    if (!Number.isInteger(index.serverVersion[region]?.versionId)) throw new Error(`iwarship 不支持区域 ${region}`)
   }
-
-  for (let i = 0; i < args.length; i++) {
-    const arg = args[i]
-
-    if (arg === '-h' || arg === '--help') {
-      showHelp()
-      process.exit(0)
-    }
-
-    if (arg === '-v' || arg === '--verbose') {
-      options.verbose = true
-      continue
-    }
-
-    if ((arg === '-o' || arg === '--output') && i + 1 < args.length) {
-      options.outputDir = args[++i]
-      continue
-    }
-
-    if (arg === '--no-excel') {
-      options.generateExcel = false
-      continue
-    }
-
-    if (arg === '--no-html') {
-      options.generateHTML = false
-      continue
-    }
-
-    if (arg === '--no-markdown') {
-      options.generateMarkdown = false
-      continue
-    }
-  }
-
-  return options
-}
-
-/**
- * 主函数
- */
-async function main() {
-  console.log('')
-  console.log('🏴‍☠️ iwarship-anylize - 战舰世界数据抓取工具')
-  console.log('='.repeat(50))
-  console.log('')
-
-  // 解析参数
-  const options = parseArgs()
-
-  // 显示配置
-  console.log('📋 配置:')
-  console.log(`   输出目录:   ${options.outputDir}`)
-  console.log(`   生成网页:   ${options.generateHTML ? '是' : '否'}`)
-  console.log(`   生成Markdown: ${options.generateMarkdown ? '是' : '否'}`)
-  console.log('')
-
-  // 1. 确保输出目录存在
-  const outputDir = join(__dirname, options.outputDir)
-  if (!existsSync(outputDir)) {
-    mkdirSync(outputDir, { recursive: true })
-    console.log(`📁 创建目录: ${outputDir}`)
-  }
-  console.log('')
-
-  // 2. 获取 index 页面数据 (I18N, shipName, versionId)
-  console.log('🔄 步骤 1: 获取初始化数据...\n')
-
-  const indexData = await fetchIndexData()
-
-  // 设置预设数据供转换函数使用
-  setPresets(indexData.shipName, indexData.i18n)
-
-  const versionId = indexData.versionId
-
-  // 3. 获取全量数据
-  console.log('')
-  console.log(`🔄 步骤 2: 获取全量数据 (versionId: ${versionId})...\n`)
-
-  const fullData = await fetchFullData(versionId, options.verbose)
-
-  // API Key 到 类别名的映射
-  const categoryMapping = {
-    'hull': '船体',
-    'artillery': '火炮',
-    'torpedoes': '鱼雷',
-    'aircraft': '飞机',
-    'atba': '副炮',
-    'airSupport': '空袭',
-    'airDefense': '防空',
-    'pingerGun': '声呐',
-    'asw': '反潜武器',
-    'ability': '消耗品',
-    'penetration': '弹道穿深',
-    'specials': '特色'
-  }
-
-  // 4. 生成网页（需要先转换数据）
-  // CSV/Excel 导出功能集成在 HTML 页面中，点击导出按钮时动态生成
-  if (options.generateHTML) {
-    console.log('')
-    console.log('🔄 步骤 5: 生成网页...\n')
-
-    // 转换数据并生成网页
-    const htmlData = {}
-    for (const [apiKey, categoryName] of Object.entries(categoryMapping)) {
-      const records = fullData[apiKey]
-      if (records && records.length > 0) {
-        const mapping = loadMapping(categoryName)
-        if (mapping) {
-          htmlData[categoryName] = transformData(records, mapping)
-        } else {
-          htmlData[categoryName] = records
-        }
+  setPresets(index.shipName, index.i18n)
+  for (const region of regions) {
+    const version = index.serverVersion[region]
+    const gameVersion = version.gameVersion || `version-${version.versionId}`
+    const fullData = await fetchFullData(version.versionId)
+    const tables = {}
+    const directory = createOutputDirectory(root, 'iwarship', gameVersion, region)
+    for (const category of categories) {
+      const records = (fullData[category] || []).filter(record => matchesShip(record, options.ships, index.shipName))
+      tables[category] = transformData(records, loadMapping(categoryNames[category])).map((row, position) => ({
+        ...row, 编号: records[position].index || records[position].name,
+        英文名字: records[position].name || records[position].index,
+        中文名字: getChineseName(records[position].index)
+      }))
+      if (options.verbose) {
+        for (const record of records) appendFileSync(join(directory, 'raw.jsonl'), `${JSON.stringify({ category, record })}\n`)
       }
     }
-
-    const indexPath = join(outputDir, 'index.html')
-    const gameVersion = indexData.gameVersion || ''
-    if (!generateHTML(htmlData, indexPath, gameVersion)) {
-      throw new Error('网页生成失败')
-    }
+    await writeOutput(tables, directory, { source: 'iwarship', gameVersion, region,
+      provenance: { url: `https://iwarship.net/wowsdb/data/get-ship-detail/${version.versionId}`, versionId: version.versionId } }, options)
   }
-
-  if (options.generateMarkdown) {
-    console.log('')
-    console.log('🔄 步骤 6: 生成 Markdown 文件...\n')
-    const gameVersion = indexData.gameVersion || '未知版本'
-    generateMarkdown(fullData, mappings, outputDir, gameVersion, getChineseName, getEnglishName)
-  }
-  console.log('')
-  console.log('📁 输出文件:')
-  if (options.generateHTML) {
-    console.log(`   网页:    ${outputDir}/index.html`)
-  }
-  if (options.generateMarkdown) {
-    console.log(`   Markdown: ${outputDir}/战舰世界数据${indexData.gameVersion || '未知版本'}`)
-  }
-  console.log('')
-  console.log('💡 提示: 在 HTML 页面中点击"导出"按钮可下载 CSV')
-
-  console.log('')
-  console.log('✨ 完成！')
-  console.log('')
 }
 
-// 执行主函数
+async function generateGameParams(options, root, categories) {
+  const input = await prepareGameParams(options, root)
+  let currentRegion
+  let directory
+  let tables
+  // 一个区域结束即写盘，下一组不保留上一组数据。
+  await readGameParams(input, options, categories, async event => {
+    if (event.event === 'regions') {
+      console.log(`GameParams 区域：${event.regions.join(', ')}`)
+      return
+    }
+    if (event.region !== currentRegion) {
+      currentRegion = event.region
+      directory = createOutputDirectory(root, 'gameparams', input.gameVersion, currentRegion)
+      tables = Object.fromEntries(categories.map(category => [category, []]))
+    }
+    if (event.event === 'record') {
+      for (const { category, row } of buildGameParamsRows(event, categories)) tables[category].push(row)
+      if (options.verbose) appendFileSync(join(directory, 'raw.jsonl'), `${JSON.stringify(event)}\n`)
+    } else if (event.event === 'end') {
+      await writeOutput(tables, directory, { source: 'gameparams', gameVersion: input.gameVersion, region: currentRegion,
+        provenance: input.provenance,
+        note: 'GameParams 原始参数；英文字段保持游戏原始单位，未应用配装加成。装甲各层独立展示，不相加。'
+      }, options)
+      tables = null
+    }
+  })
+}
+
+async function main() {
+  let values = parseOptions()
+  if (values.help) { console.log(help); return }
+  if (values.interactive) values = await promptOptions(values)
+  const options = validateOptions(values)
+  const root = resolve(projectDir, options.output)
+  options.outputRoot = root
+  mkdirSync(root, { recursive: true })
+  console.log(`来源：${options.sources.join(', ')}；区域：${options.regions.join(', ')}；舰船：${options.ships.join(', ') || '全部'}`)
+  const failures = []
+  for (const source of options.sources) {
+    const categories = selectCategories(options.categories, source)
+    console.log(`${source} 类别：${categories.map(key => categoryNames[key]).join('、')}`)
+    try {
+      if (source === 'iwarship') await generateIwarship(options, root, categories)
+      else await generateGameParams(options, root, categories)
+    } catch (error) {
+      console.error(`${source} 失败：${error.message}`)
+      failures.push(source)
+    }
+  }
+  if (failures.length) throw new Error(`${failures.join(', ')} 未完成；已成功来源的输出保留`)
+  console.log('生成完成。每个批次的 manifest.json 记录来源、版本、区域、范围及记录数。')
+}
+
 main().catch(error => {
-  console.error('\n❌ 发生错误:', error.message)
-  console.error(error.stack)
-  process.exit(1)
+  console.error(`生成失败：${error.message}`)
+  process.exitCode = 1
 })

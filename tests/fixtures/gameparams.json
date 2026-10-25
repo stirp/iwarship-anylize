@@ -1,0 +1,23 @@
+{
+  "": {
+    "PJSB510_Shikishima": {"index":"PJSB510","name":"PJSB510_Shikishima","id":3760142032,"level":10,"typeinfo":{"type":"Ship","species":"Battleship","nation":"Japan"},"A_Hull":{"health":97000,"armor":{"65597":400}}}
+  },
+  "ASIA": {
+    "PJSB510_Shikishima": {
+      "index":"PJSB510","name":"PJSB510_Shikishima","id":3760142032,"level":10,
+      "typeinfo":{"type":"Ship","species":"Battleship","nation":"Japan"},
+      "A_Hull":{"health":97200,"maxSpeed":27,"armor":{"65597":410,"131133":200,"1":0}},
+      "B_Hull":{"health":98000,"armor":{"65597":420}},
+      "A_Artillery":{"maxDist":26630,"sigmaCount":2.1,"HP_GUN_1":{"shotDelay":27,"ammoList":["SHELL_AP"],"armor":{"65537":650}}},
+      "Specials":{"test":{"enabled":true}},
+      "ShipAbilities":{"AbilitySlot0":{"abils":[["ABILITY","Default"]]}}
+    },
+    "OTHER_SHIP":{"index":"PASC001","name":"OTHER_SHIP","typeinfo":{"type":"Ship","species":"Cruiser"},"A_Hull":{"health":10000,"armor":{"65597":1}}},
+    "SHELL_AP":{"index":"SHELL_AP","name":"SHELL_AP","typeinfo":{"type":"Projectile"},"alphaDamage":19400,"ammoType":"AP"},
+    "UNRELATED_SHELL":{"index":"UNRELATED_SHELL","typeinfo":{"type":"Projectile"},"alphaDamage":1},
+    "ABILITY":{"index":"ABILITY","typeinfo":{"type":"Ability"},"Default":{"consumableType":"repair","numConsumables":0,"reloadTime":80}}
+  },
+  "EU": {
+    "PJSB510_Shikishima":{"index":"PJSB510","name":"PJSB510_Shikishima","typeinfo":{"type":"Ship"},"A_Hull":{"health":96000,"armor":{"65597":405}}}
+  }
+}

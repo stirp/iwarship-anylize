@@ -6,7 +6,9 @@
   "main": "fetch-data.js",
   "scripts": {
     "fetch": "node fetch-data.js",
-    "export": "node export.js"
+    "export": "node export.js",
+    "test": "node --test",
+    "serve": "node serve.js"
   },
   "keywords": [
     "wows",
@@ -18,7 +20,10 @@
   "license": "MIT",
   "dependencies": {
     "csv-stringify": "^6.4.0",
+    "esbuild": "0.25.10",
+    "fzstd": "0.1.1",
     "iconv-lite": "^0.6.3",
+    "three": "0.180.0",
     "xlsx": "^0.18.5"
   }
 }

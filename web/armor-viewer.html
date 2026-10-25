@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>3D 装甲查看器 · 战舰世界</title>
+  <link rel="stylesheet" href="viewer.css">
+</head>
+<body>
+  <header class="topbar">
+    <a href="../index.html" class="back">← 数据表</a>
+    <div class="brand"><span class="eyebrow">WORLD OF WARSHIPS</span><h1>3D 装甲查看器</h1></div>
+    <div class="ship-picker"><label for="ship">舰船</label><select id="ship"></select></div>
+  </header>
+  <main class="workspace">
+    <aside class="sidebar">
+      <section class="intro"><span class="eyebrow">ARMOR INSPECTOR</span><h2 id="ship-name">选择舰船</h2><p id="dataset" class="muted"></p></section>
+      <section>
+        <div class="section-heading"><h2>显示区域</h2><button id="zones-all" class="text-button" disabled>全部显示</button></div>
+        <div id="zones" class="zones"><p class="muted">加载后可切换各区域</p></div>
+      </section>
+      <section class="controls">
+        <h2>视图设置</h2>
+        <label class="control-row">着色方式<select id="color-mode"><option value="thickness">装甲厚度</option><option value="zone">装甲区域</option></select></label>
+        <label class="control-row"><span>显示舰船外观</span><input id="appearance" type="checkbox"></label>
+        <label class="control-row" for="opacity">外观不透明度 <output id="opacity-value">15%</output></label>
+        <input id="opacity" type="range" min="0.03" max="1" step="0.01" value="0.15" aria-label="外观不透明度">
+        <label class="control-row"><span>线框模式</span><input id="wireframe" type="checkbox"></label>
+        <label class="control-row"><span>显示游戏中隐藏的装甲</span><input id="include-hidden" type="checkbox"></label>
+        <div class="control-row"><span>厚度范围 / mm</span></div>
+        <div class="thickness-inputs"><input id="min-thickness" type="number" min="0" value="0" aria-label="最小厚度"><span>至</span><input id="max-thickness" type="number" min="0" value="1000" aria-label="最大厚度"></div>
+        <p id="filter-error" class="error-text" role="alert"></p>
+        <button id="reset-filters" class="secondary full">恢复显示设置</button>
+      </section>
+      <section class="source-panel"><h2>模型来源</h2><p id="model-source">尚未加载</p><p id="model-config" class="muted"></p><p class="muted">模型版本未标注时，不能假定与表格版本相同。点击装甲板可逐项对照。</p>
+        <label class="file-button" for="local-model">打开本地模型<input id="local-model" type="file" accept=".glb,.zst" aria-label="打开本地模型"></label><p class="muted small">支持内嵌资源的 GLB / Zstandard 模型</p>
+      </section>
+    </aside>
+    <div class="scene-area">
+      <div id="viewport" aria-label="舰船装甲三维视图" tabindex="0"></div>
+      <div class="scene-top"><span id="scene-state" class="status-pill" role="status">准备加载</span><span id="visible-count" class="status-pill"></span></div>
+      <div id="load-panel" class="load-panel" role="status"><div class="spinner"></div><h2 id="load-title">正在加载模型</h2><p id="load-message">正在读取本地舰船数据，无需启动服务。</p><button id="retry" class="primary" hidden>重试加载</button><button id="choose-local" class="secondary" hidden>选择本地模型</button></div>
+      <div class="scene-bottom"><div class="view-buttons" role="group" aria-label="预设视角"><button data-view="perspective">默认</button><button data-view="side">侧视</button><button data-view="top">俯视</button><button data-view="front">正视</button><button id="reset-camera">重置视角</button></div><p>拖动旋转 · 滚轮缩放 · 右键平移 · 点击装甲查看厚度</p></div>
+      <div id="legend" class="legend" aria-label="装甲厚度图例"></div>
+    </div>
+    <aside class="inspector">
+      <section><span class="eyebrow">SELECTED PLATE</span><h2>装甲详情</h2><div id="selection-empty" class="empty-selection">点击模型中的装甲板<br>查看部位和厚度</div>
+        <div id="selection" hidden><div class="thickness-display"><span id="plate-thickness">—</span><small>mm</small></div><h3 id="plate-zone"></h3><dl id="plate-details"></dl><p id="comparison" class="comparison"></p><p class="muted small">厚度来自当前模型。层号表示材质对应的几何层，各层厚度不直接相加。</p><button id="hide-selected" class="secondary full">隐藏当前装甲板</button></div>
+      </section>
+      <section><button id="restore-plates" class="text-button" disabled>恢复手动隐藏的装甲板</button><p id="hidden-count" class="muted small"></p></section>
+      <section><h2>模型概况</h2><dl id="model-stats"><dt>状态</dt><dd>等待加载</dd></dl><p id="model-notice" class="muted small"></p></section>
+    </aside>
+  </main>
+  <script id="viewer-config" type="application/json">__VIEWER_CONFIG__</script>
+  <script src="viewer.js" defer></script>
+</body>
+</html>
