@@ -49,8 +49,8 @@ GameParams 支持编号、ID、内部英文名称及 `zh_sg` 简体中文名匹�
 | `--ref <Git引用>` | 公开数据的提交、标签或分支，默认 `master`；下载前固定到实际提交 |
 | `--python <程序>` | 指定 Python 3.10+ 程序路径；省略时 Windows 检测 `py -3`、`python`、`python3`，其他系统检测 `python3`、`python` |
 | `--models-dir <目录>` | 打包 `<舰船编号>.armor.json`、`.glb` 或 `.zst`；装甲 JSON 优先，自动转换为 GLB |
-| `--game-dir <目录>` | 从本地游戏目录导出装甲，与 `--models-dir` 二选一；需要 `--wowsunpack` |
-| `--wowsunpack <程序>` | 支持 `export-ship --armor-json` 的兼容导出器，如 WoWS Toolbox 的 `wowsunpack_armor.exe` |
+| `--game-dir <目录>` | 从本地游戏目录导出装甲，与 `--models-dir` 二选一 |
+| `--wowsunpack <程序>` | 支持 `export-ship --armor-json` 的兼容导出器；省略时从 PATH 使用 WoWS Toolbox 的 `wowsunpack_armor`，未加入 PATH 时需指定完整路径 |
 | `--model-hull <配置>` | 本地游戏导出时选择舰体，如 `A`、`B`；省略使用导出器默认配置 |
 | `--model-mode <模式>` | 默认 `embedded`，生成时下载或打包模型；`manual` 只打包参数，查看时手动选择模型 |
 | `--no-3d` | 不生成独立 3D 查看器；`--no-html` 同时关闭查看器 |
@@ -173,7 +173,7 @@ npm run fetch -- --source gameparams --ships PJSB510 --categories hull,armor --g
 
 支持 `--model-hull A` 或 `--model-hull B` 指定舰体；也可通过 `--interactive` 选择模型来源 `game`。只导出本批次选中的舰船，因此补齐模型站 404 的舰船时，将 `--ships` 换成相应编号即可。游戏目录中也没有该舰资源时，会记录失败并保留手动导入入口。
 
-生成器先检查导出能力，再调用 `export-ship --no-textures --armor-json`。原始输出保存在批次的 `armor/toolkit/` 下，每次使用独立目录；JSON 转换为含装甲元数据的 GLB 后打包到舰船数据脚本。导出不修改游戏目录，单舰超时为 10 分钟。此路径生成的是**装甲几何**，不包含外观纹理；查看页面仍可直接双击、断网使用。
+生成器先检查导出能力，再调用 `export-ship --no-textures --armor-json`。若本地参数出现 `ValueNotHashable`，自动调用导出器同目录下 WoWS Toolbox 自带的 `compat_cache.py`，在输出根目录 `.cache/toolkit` 创建兼容副本后重试；需保留完整的 Toolbox Backend 文件。原始输出保存在批次的 `armor/toolkit/` 下，每次使用独立目录；JSON 转换为含装甲元数据的 GLB 后打包到舰船数据脚本。导出不修改游戏目录，单舰超时为 10 分钟。此路径生成的是**装甲几何**，不包含外观纹理；查看页面仍可直接双击、断网使用。
 
 模型来源与参数来源独立：上面的命令默认下载公开 GameParams。如需与本机版本保持一致，还应提供从该客户端解包的 `--gameparams` 和 `--game-version`。
 

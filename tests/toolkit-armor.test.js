@@ -153,9 +153,50 @@ test('模型来源选项拒绝冲突，保留游戏目录和导出器的完整�
   const parse = args => validateOptions(parseOptions(args))
   const base = ['--game-dir', root, '--wowsunpack', 'C:/Tools With Spaces/wowsunpack_armor.exe']
   assert.equal(parse(base).wowsunpack, base[3])
-  assert.throws(() => parse(['--game-dir', root]), /需要 --wowsunpack/)
+  assert.equal(parse(['--game-dir', root])['game-dir'], root)
   for (const extra of [['--models-dir', root], ['--model-mode', 'manual'], ['--no-html'], ['--no-3d']]) {
     assert.throws(() => parse([...base, ...extra]))
   }
   assert.throws(() => parse(['--model-hull', 'A']), /需要 --game-dir/)
+})
+
+test('省略导出器路径时使用 PATH 中的兼容导出器，仍检查装甲接口', async () => {
+  const options = { 'game-dir': tmpdir() }
+  const run = async (command, args) => {
+    assert.equal(command, 'wowsunpack_armor')
+    assert.deepEqual(args, ['export-ship', '--help'])
+    return { stdout: '--armor-json <PATH>' }
+  }
+  assert.equal(typeof await createToolkitExporter(options, { run }), 'function')
+  await assert.rejects(createToolkitExporter(options, {
+    run: async () => { throw Object.assign(new Error('spawn ENOENT'), { code: 'ENOENT' }) }
+  }), /请通过 --wowsunpack 指定/)
+  await assert.rejects(createToolkitExporter(options, {
+    run: async () => ({ stdout: '--output <OUTPUT>' })
+  }), /缺少 --armor-json/)
+})
+
+test('本地 Pickle 不兼容时转换一次并重试，后续舰船复用兼容参数', async () => {
+  const root = mkdtempSync(join(tmpdir(), 'wows-toolkit-compat-'))
+  let conversions = 0
+  let exports = 0
+  const exporter = await createToolkitExporter({ 'game-dir': root, python: 'test-python', outputRoot: root }, {
+    run: async (command, args, settings) => {
+      if (args.includes('--help')) return { stdout: '--armor-json' }
+      if (command === 'test-python') {
+        conversions++
+        assert.equal(args.at(-1), join(root, '.cache', 'toolkit'))
+        return { stdout: 'progress\n' + JSON.stringify({ game_params: join(root, 'compat.data') }) + '\n' }
+      }
+      exports++
+      if (exports === 1) throw Object.assign(new Error('exit 1'), { stderr: 'Pickle(Syntax(ValueNotHashable))' })
+      assert.equal(settings.env.WOWS_GAME_PARAMS_OVERRIDE, join(root, 'compat.data'))
+      writeFileSync(args[args.indexOf('--armor-json') + 1], fixture)
+      return { stdout: '' }
+    }
+  })
+  await exporter('PJSB510', root)
+  await exporter('PJSB510', root)
+  assert.equal(conversions, 1)
+  assert.equal(exports, 3)
 })
