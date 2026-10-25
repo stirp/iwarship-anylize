@@ -46,7 +46,7 @@ GameParams 仅支持编号、ID 或内部英文名称匹配，例如 `PJSB510`�
 | `--gameparams <路径>` | 本地 `.data` 或原始 GameParams JSON；不指定时下载公开文件 |
 | `--game-version <版本>` | 本地 GameParams 必填；公开数据可手动指定版本标签 |
 | `--ref <Git引用>` | 公开数据的提交、标签或分支，默认 `master`；下载前固定到实际提交 |
-| `--python <程序>` | Python 程序路径，默认 `python3`；Windows 可指定 `python` |
+| `--python <程序>` | 指定 Python 3.10+ 程序路径；省略时 Windows 检测 `py -3`、`python`、`python3`，其他系统检测 `python3`、`python` |
 | `--models-dir <目录>` | 将该目录下的 `<舰船编号>.glb` 或 `.zst` 打包到查看器；不指定时使用公开模型 |
 | `--model-mode <模式>` | 默认 `embedded`，生成时下载或打包模型；`manual` 只打包参数，查看时手动选择模型 |
 | `--no-3d` | 不生成独立 3D 查看器；`--no-html` 同时关闭查看器 |
@@ -58,6 +58,14 @@ GameParams 仅支持编号、ID 或内部英文名称匹配，例如 `PJSB510`�
 | `-h, --help` | 显示帮助 |
 
 未知选项、无效区域、不支持的类别、未命中舰船或空结果会报错。两来源同时运行时，共用选择范围；类别取各来源支持的部分，每个来源必须至少支持一个所选类别。一个来源失败仍继续处理另一个，最终退出码为非零。
+
+GameParams 下载前会检测 Python 是否可执行且版本至少为 3.10；指定 `--python` 时只使用指定程序，不自动换成其他解释器。Windows 上退出码 `9009` 通常表示 Python 未安装、命令不可用或命中了 Microsoft Store 占位程序。安装 Python 3.10+ 后重新打开终端，也可显式指定：
+
+```powershell
+npm run fetch -- --source gameparams --ships PJSB510 --categories armor --python py
+# 或指定实际安装路径，路径包含空格时保留引号
+npm run fetch -- --source gameparams --ships PJSB510 --categories armor --python "C:/Program Files/Python313/python.exe"
+```
 
 ## 数据来源及范围
 

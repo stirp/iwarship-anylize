@@ -10,6 +10,7 @@ import { setPresets, transformData, loadMapping, getChineseName } from './lib/cs
 import { prepareGameParams, readGameParams } from './lib/sources/gameparams.js'
 import { buildGameParamsRows } from './lib/gameparams-tables.js'
 import { createOutputDirectory, writeOutput } from './lib/output.js'
+import { resolvePython } from './lib/python.js'
 
 const projectDir = dirname(fileURLToPath(import.meta.url))
 
@@ -45,6 +46,8 @@ async function generateIwarship(options, root, categories) {
 }
 
 async function generateGameParams(options, root, categories) {
+  // 下载前确认解释器可用，使用实际程序路径绕过启动器和系统别名。
+  options = { ...options, python: await resolvePython(options.python) }
   const input = await prepareGameParams(options, root)
   let currentRegion
   let directory
