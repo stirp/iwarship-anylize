@@ -1,6 +1,6 @@
 import test from 'node:test'
 import assert from 'node:assert/strict'
-import { mkdtempSync, readFileSync, writeFileSync, readdirSync, existsSync } from 'node:fs'
+import { mkdtempSync, mkdirSync, readFileSync, writeFileSync, readdirSync, existsSync } from 'node:fs'
 import { join, resolve } from 'node:path'
 import { tmpdir } from 'node:os'
 import { runInNewContext } from 'node:vm'
@@ -115,6 +115,7 @@ test('导出器检查能力，以参数数组传递带空格的路径，按选�
   assert.equal(calls.filter(args => args.includes('--help')).length, 1)
   assert.equal(decodeModel(readFileSync(first.path), 'PJSB510').armor.plates.length, 4)
   assert.equal(first.info.hullSelection, 'B')
+  assert.deepEqual(readFileSync(join(first.path, '..', 'visual.glb')), readFileSync(first.path))
   assert.equal(readdirSync(join(root, 'output')).length, 2)
 })
 
@@ -204,6 +205,45 @@ test('本地 Pickle 不兼容时转换一次并重试，后续舰船复用兼容
   await exporter('PJSB510', root)
   assert.equal(conversions, 1)
   assert.equal(exports, 3)
+})
+
+test('本地模型跨批次复用，资源、工具、舰体变化或缓存损坏时重新导出', async () => {
+  const root = mkdtempSync(join(tmpdir(), 'wows-toolkit-cache-'))
+  const game = join(root, 'game')
+  mkdirSync(join(game, 'bin', '1', 'idx'), { recursive: true })
+  mkdirSync(join(game, 'res_packages'))
+  const index = join(game, 'bin', '1', 'idx', 'ships.idx')
+  writeFileSync(index, 'index-v1')
+  const command = join(root, 'exporter.exe')
+  writeFileSync(command, 'exporter-v1')
+  let exports = 0
+  const run = async (_, args) => {
+    if (args.includes('--help')) return { stdout: '--armor-json' }
+    exports++
+    writeFileSync(args[args.indexOf('--armor-json') + 1], fixture)
+    writeFileSync(args[args.indexOf('--output') + 1], 'raw mixed scene')
+    return { stdout: 'export complete' }
+  }
+  const options = { 'game-dir': game, wowsunpack: command, outputRoot: root }
+  const exportBatch = async (batch, extra = {}) =>
+    (await createToolkitExporter({ ...options, ...extra }, { run }))('PJSB510', join(root, batch))
+  const first = await exportBatch('batch1')
+  const second = await exportBatch('batch2')
+  assert.equal(exports, 1)
+  assert.equal(second.cached, true)
+  assert.deepEqual(readFileSync(first.path), readFileSync(second.path))
+  assert.equal(readFileSync(join(first.path, '..', 'toolkit-scene.glb'), 'utf8'), 'raw mixed scene')
+  writeFileSync(second.path, 'broken')
+  await exportBatch('batch3')
+  assert.equal(exports, 2)
+  writeFileSync(index, 'index-v2')
+  await exportBatch('batch4')
+  assert.equal(exports, 3)
+  writeFileSync(command, 'exporter-v2')
+  await exportBatch('batch5')
+  assert.equal(exports, 4)
+  await exportBatch('batch6', { 'model-hull': 'B' })
+  assert.equal(exports, 5)
 })
 
 test('官方导出器使用 PATH 默认命令及 armor 内容，校验成功后生成 GLB 与日志', async () => {
