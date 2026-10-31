@@ -18,6 +18,21 @@ export const defaultBands = [
   [33, '#e1ab36'], [75, '#e39031'], [160, '#e67331'], [399, '#dc4e30'], [Infinity, '#b92f30']
 ]
 
+// 水线相关：客户端舰船模型以设计水线为原点，实测三条独立证据链一致指向 Y=0。
+export const waterlineSideNames = { above: '水线以上', below: '水线以下', crosses: '跨越水线' }
+export const waterlineSideColors = { above: '#6ed1b0', crosses: '#e2c33e', below: '#5b93c9' }
+
+/** 装甲板相对水线的位置；无法判定时返回 null，不以零值冒充。 */
+export function plateWaterlineSide(bounds, waterlineY) {
+  if (!bounds || !Number.isFinite(waterlineY)) return null
+  const min = bounds.min?.y, max = bounds.max?.y
+  if (!Number.isFinite(min) || !Number.isFinite(max)) return null
+  if (min >= waterlineY && max > waterlineY) return 'above'
+  if (max <= waterlineY && min < waterlineY) return 'below'
+  if (min === max) return min >= waterlineY ? 'above' : 'below'
+  return 'crosses'
+}
+
 export function plateZone(plate) {
   return /barbette|gkbar/i.test(plate.material_name || '') ? 'Barbette' : plate.zone || 'Other'
 }

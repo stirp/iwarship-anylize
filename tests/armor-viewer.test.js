@@ -5,7 +5,8 @@ import { mkdtempSync, mkdirSync, readFileSync, writeFileSync, symlinkSync, readd
 import { join } from 'node:path'
 import { tmpdir } from 'node:os'
 import { runInNewContext } from 'node:vm'
-import { decodeModel, comparePlate, plateVisible, plateZone } from '../web/armor-format.js'
+import { decodeModel, comparePlate, plateVisible, plateZone, plateWaterlineSide,
+  waterlineSideNames, waterlineSideColors } from '../web/armor-format.js'
 import { generateArmorViewer } from '../lib/armor-viewer-writer.js'
 import { createPreviewServer } from '../lib/preview-server.js'
 import { createShipDataLoader, unpackModel } from '../web/armor-data.js'
@@ -67,6 +68,25 @@ test('区域、厚度、游戏隐藏标记和手动隐藏共同决定可见性',
   assert.equal(plateZone({ material_name: 'GkBar', zone: 'Hull' }), 'Barbette')
 })
 
+test('装甲板相对水线的位置按包围盒判定，缺数据时不冒充结论', () => {
+  const box = (min, max) => ({ min: { y: min }, max: { y: max } })
+  assert.equal(plateWaterlineSide(box(0.2, 0.8), 0), 'above')
+  assert.equal(plateWaterlineSide(box(-0.8, -0.2), 0), 'below')
+  assert.equal(plateWaterlineSide(box(-0.3, 0.4), 0), 'crosses')
+  // 恰好落在水线上的板：整体在水线之上按以上计，之下按以下计。
+  assert.equal(plateWaterlineSide(box(0, 0.5), 0), 'above')
+  assert.equal(plateWaterlineSide(box(-0.5, 0), 0), 'below')
+  // 零厚度板按所在位置判定，不落入跨越分支。
+  assert.equal(plateWaterlineSide(box(0.3, 0.3), 0), 'above')
+  assert.equal(plateWaterlineSide(box(-0.3, -0.3), 0), 'below')
+  // 缺少包围盒或水线高度时返回 null，由界面显示未判定。
+  assert.equal(plateWaterlineSide(null, 0), null)
+  assert.equal(plateWaterlineSide(box(-1, 1), Number.NaN), null)
+  assert.equal(plateWaterlineSide({ min: {}, max: {} }, 0), null)
+  assert.deepEqual(Object.keys(waterlineSideNames).sort(), ['above', 'below', 'crosses'])
+  assert.equal(new Set(Object.values(waterlineSideColors)).size, 3)
+})
+
 function readPacked(path) {
   let payload
   runInNewContext(readFileSync(path, 'utf8'), { document: { currentScript: { dataset: { request: 'test' } } },
@@ -93,6 +113,9 @@ test('查看器打包本地模型和参数，数据包无需 fetch 即可读取'
   assert.ok(!html.includes('</script><script>bad()'))
   assert.ok(html.includes('\\u003c/script>'))
   assert.ok(readFileSync(join(root, 'armor/viewer.js')).length > 1000)
+  // 水线控件随页面一并产出，开关与过滤都可用。
+  for (const id of ['waterline', 'waterline-filter', 'waterline-value']) assert.ok(html.includes(`id="${id}"`), id)
+  assert.ok(html.includes('value="waterline"'))
 })
 
 test('生成时下载公开模型，跨批次复用缓存；手动模式不下载但保留参数', async () => {

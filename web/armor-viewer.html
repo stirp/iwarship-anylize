@@ -21,11 +21,15 @@
       </section>
       <section class="controls">
         <h2>视图设置</h2>
-        <label class="control-row">着色方式<select id="color-mode"><option value="thickness">装甲厚度</option><option value="zone">装甲区域</option></select></label>
+        <label class="control-row">着色方式<select id="color-mode"><option value="thickness">装甲厚度</option><option value="zone">装甲区域</option><option value="waterline">相对水线</option></select></label>
         <label class="control-row"><span>显示舰船外观</span><input id="appearance" type="checkbox" aria-describedby="appearance-note"></label>
         <p id="appearance-note" class="muted small" hidden></p>
         <label class="control-row" for="opacity"><span id="opacity-label">外观不透明度</span><output id="opacity-value">15%</output></label>
         <input id="opacity" type="range" min="0.03" max="1" step="0.01" value="0.15" aria-label="外观不透明度">
+        <label class="control-row"><span>显示水线</span><input id="waterline" type="checkbox" checked></label>
+        <div class="control-row"><span>水线高度</span><output id="waterline-value">未加载</output></div>
+        <div class="control-row"><span>水线过滤</span><select id="waterline-filter" aria-label="按水线位置过滤装甲" disabled><option value="">全部装甲</option><option value="above">仅水线以上</option><option value="crosses">仅跨越水线</option><option value="below">仅水线以下</option></select></div>
+        <p class="muted small">水线取客户端舰船模型的设计水线，即模型局部 Y=0。</p>
         <label class="control-row"><span>线框模式</span><input id="wireframe" type="checkbox"></label>
         <label class="control-row"><span>显示游戏中隐藏的装甲</span><input id="include-hidden" type="checkbox"></label>
         <div class="control-row"><span>厚度范围 / mm</span></div>

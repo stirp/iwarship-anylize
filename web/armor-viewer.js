@@ -1,7 +1,8 @@
 import * as THREE from 'three'
 import { OrbitControls } from 'three/addons/controls/OrbitControls.js'
 import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js'
-import { decodeModel, comparePlate, plateVisible, plateZone, thicknessColor, zoneNames, zoneColors, defaultBands, MAX_MODEL_BYTES } from './armor-format.js'
+import { decodeModel, comparePlate, plateVisible, plateZone, plateWaterlineSide, thicknessColor, zoneNames, zoneColors,
+  waterlineSideNames, waterlineSideColors, defaultBands, MAX_MODEL_BYTES } from './armor-format.js'
 import { createShipDataLoader, unpackModel } from './armor-data.js'
 import { prepareToolkitAppearance } from './toolkit-appearance.js'
 
@@ -10,8 +11,11 @@ const $ = id => document.getElementById(id)
 const viewport = $('viewport')
 const loadShipData = createShipDataLoader(document, window)
 const state = { root: null, armor: null, armorMeshes: [], appearance: [], parameters: [], selected: null,
-  zones: new Set(), hidden: new Set(), sequence: 0, controller: null, entry: null, bounds: null }
+  zones: new Set(), hidden: new Set(), sequence: 0, controller: null, entry: null, bounds: null, waterline: null }
 let renderer, scene, camera, controls, grid, selectionOutline, frame
+
+/** 客户端模型以设计水线为原点，水线即模型局部 Y=0。 */
+const WATERLINE_Y = 0
 
 function status(title, message, error = false, idle = false) {
   $('load-panel').hidden = false
@@ -105,6 +109,7 @@ function clearModel() {
   selectPlate(null)
   if (state.root) { scene.remove(state.root); disposeObject(state.root) }
   if (grid) { scene.remove(grid); disposeObject(grid); grid = null }
+  if (state.waterline) { scene.remove(state.waterline); disposeObject(state.waterline); state.waterline = null }
   state.root = null
   state.armor = null
   state.armorMeshes = []
@@ -112,6 +117,9 @@ function clearModel() {
   $('appearance').disabled = true
   $('opacity').disabled = true
   $('appearance-note').hidden = true
+  $('waterline').disabled = true
+  $('waterline-filter').disabled = true
+  $('waterline-value').textContent = ''
   state.bounds = null
   viewport.dataset.plateCount = '0'
   viewport.dataset.visiblePlates = '0'
@@ -149,6 +157,39 @@ function fitCamera(view = 'perspective') {
   invalidate()
 }
 
+/** 装甲板的世界包围盒；水线位置判定基于它，避免用材质名猜测。 */
+function meshBounds(mesh) {
+  if (!mesh.geometry.boundingBox) mesh.geometry.computeBoundingBox()
+  return mesh.geometry.boundingBox.clone().applyMatrix4(mesh.matrixWorld)
+}
+
+/**
+ * 建立水线平面并标注每块装甲板相对水线的位置。
+ *
+ * 客户端舰船模型以设计水线为原点，实测三条独立证据链一致指向模型局部 Y=0：
+ * 以吃水反推的水线 Y 中位 -0.0004；主甲板装甲高度与 GameParams deckHeight 差中位 0.13 米；
+ * 防雷突出部上缘中位 Y=0。外观场景与装甲网格同源，故同一平面同时对两者成立。
+ */
+function buildWaterline() {
+  if (!state.bounds) return
+  if (state.waterline) { scene.remove(state.waterline); disposeObject(state.waterline) }
+  const size = state.bounds.getSize(new THREE.Vector3())
+  const center = state.bounds.getCenter(new THREE.Vector3())
+  const geometry = new THREE.PlaneGeometry(size.x * 1.4, size.z * 1.4)
+  const material = new THREE.MeshBasicMaterial({ color: 0x3f8fd0, transparent: true, opacity: 0.22,
+    side: THREE.DoubleSide, depthWrite: false })
+  const mesh = new THREE.Mesh(geometry, material)
+  mesh.rotation.x = -Math.PI / 2
+  mesh.position.set(center.x, WATERLINE_Y, center.z)
+  mesh.renderOrder = 5
+  scene.add(mesh)
+  state.waterline = mesh
+  for (const plateMesh of state.armorMeshes) plateMesh.userData.side = plateWaterlineSide(meshBounds(plateMesh), WATERLINE_Y)
+  $('waterline').disabled = false
+  $('waterline-filter').disabled = false
+  $('waterline-value').textContent = `Y ${WATERLINE_Y.toFixed(3)}`
+}
+
 function details(element, values) {
   element.replaceChildren()
   for (const [label, value] of Object.entries(values)) {
@@ -166,12 +207,14 @@ function selectPlate(mesh) {
   $('selection-empty').hidden = Boolean(mesh)
   if (mesh) {
     const plate = mesh.userData.plate
+    const side = mesh.userData.side
     $('plate-thickness').textContent = Number.isFinite(plate.thickness_mm) ? plate.thickness_mm : '未知'
     $('plate-zone').textContent = zoneNames[plateZone(plate)] || plateZone(plate)
     details($('plate-details'), { 材质: plate.material_name || plate.material, 层号: plate.layer,
       ...(plate.source_mesh ? { 模型部件: plate.source_mesh } : {}),
       部件: plate.source === 'mount' ? plate.mount?.component : state.armor.ship.hull_component,
-      挂载点: plate.mount?.hp || '舰体', '游戏默认显示': plate.hidden_in_viewer ? '隐藏' : '显示' })
+      挂载点: plate.mount?.hp || '舰体', '游戏默认显示': plate.hidden_in_viewer ? '隐藏' : '显示',
+      '相对水线': side ? waterlineSideNames[side] : '未判定' })
     const comparison = comparePlate(plate, state.armor, state.parameters)
     $('comparison').textContent = comparison.text
     $('comparison').dataset.status = comparison.status
@@ -217,11 +260,16 @@ function updateDisplay() {
   }
   $('filter-error').textContent = ''
   const filters = { zones: state.zones, hidden: state.hidden, minimum, maximum, includeHidden: $('include-hidden').checked }
+  const waterlineFilter = $('waterline-filter').value
+  const mode = $('color-mode').value
   for (const mesh of state.armorMeshes) {
     const plate = mesh.userData.plate
-    mesh.visible = plateVisible(plate, filters)
+    const side = mesh.userData.side
+    const sideVisible = !waterlineFilter || side === waterlineFilter
+    mesh.visible = plateVisible(plate, filters) && sideVisible
     mesh.material.wireframe = $('wireframe').checked
-    mesh.material.color.set($('color-mode').value === 'zone' ? zoneColors[plateZone(plate)] || '#89939b' : thicknessColor(plate.thickness_mm))
+    mesh.material.color.set(mode === 'zone' ? zoneColors[plateZone(plate)] || '#89939b'
+      : mode === 'waterline' ? waterlineSideColors[side] || '#89939b' : thicknessColor(plate.thickness_mm))
     if (!state.appearance.length) setOpacity(mesh.material)
   }
   for (const mesh of state.appearance) {
@@ -230,6 +278,7 @@ function updateDisplay() {
       setOpacity(material)
     }
   }
+  if (state.waterline) state.waterline.visible = $('waterline').checked
   if (state.selected && !state.selected.visible) selectPlate(null)
   const visible = state.armorMeshes.filter(mesh => mesh.visible).length
   $('visible-count').textContent = state.armorMeshes.length ? `${visible} / ${state.armorMeshes.length} 块装甲` : '外观模型'
@@ -242,9 +291,12 @@ function updateDisplay() {
 
 function buildLegend() {
   $('legend').replaceChildren()
-  const entries = $('color-mode').value === 'zone'
+  const mode = $('color-mode').value
+  const entries = mode === 'zone'
     ? [...state.zones].map(zone => [zoneNames[zone] || zone, zoneColors[zone] || '#89939b'])
-    : defaultBands.map(([limit, color], index) => [Number.isFinite(limit) ? `≤${limit}` : `>${defaultBands[index - 1][0]}`, color])
+    : mode === 'waterline'
+      ? Object.entries(waterlineSideNames).map(([side, label]) => [label, waterlineSideColors[side]])
+      : defaultBands.map(([limit, color], index) => [Number.isFinite(limit) ? `≤${limit}` : `>${defaultBands[index - 1][0]}`, color])
   for (const [label, color] of entries) {
     const item = document.createElement('div'); item.className = 'legend-item'
     const bar = document.createElement('div'); bar.className = 'legend-color'; bar.style.background = color
@@ -271,6 +323,8 @@ function resetFilters() {
   $('appearance').checked = Boolean(state.appearance.length)
   $('opacity').value = state.armor && state.appearance.length ? 0.15 : 1
   $('opacity-value').textContent = `${Math.round(Number($('opacity').value) * 100)}%`
+  $('waterline').checked = true
+  $('waterline-filter').value = ''
   state.hidden.clear()
   buildZoneControls()
   updateDisplay()
@@ -373,12 +427,17 @@ async function loadModel(file) {
     grid.position.copy(state.bounds.getCenter(new THREE.Vector3()))
     grid.position.y = state.bounds.min.y - extent * 0.025
     scene.add(grid)
+    buildWaterline()
     resetFilters()
     fitCamera()
     const comparisons = state.armorMeshes.map(mesh => comparePlate(mesh.userData.plate, decoded.armor, state.parameters))
     const mismatches = comparisons.filter(result => result.status === 'mismatch').length
+    const above = state.armorMeshes.filter(mesh => mesh.userData.side === 'above').length
+    const below = state.armorMeshes.filter(mesh => mesh.userData.side === 'below').length
+    const crosses = state.armorMeshes.filter(mesh => mesh.userData.side === 'crosses').length
     details($('model-stats'), { 装甲板: state.armorMeshes.length, '装甲三角面': decoded.armor?.totals?.triangles ?? '未标注',
-      '参数一致': comparisons.filter(result => result.status === 'match').length, '参数差异': mismatches })
+      '参数一致': comparisons.filter(result => result.status === 'match').length, '参数差异': mismatches,
+      '水线以上装甲': above, '跨越水线装甲': crosses, '水线以下装甲': below })
     const armorGeometry = shipData.modelInfo?.geometry === 'armor'
     $('model-config').textContent = decoded.armor ? `舰体配置：${decoded.armor.ship.hull_component || '未标注'} · ${decoded.armor.ship.hull_upgrade || shipData.modelInfo?.hullSelection || ''}` : `舰体配置：${shipData.modelInfo?.hullSelection || '未标注（导出器默认）'}`
     $('model-notice').textContent = !decoded.armor ? `此文件没有支持的装甲元数据，仅显示${armorGeometry ? '装甲几何' : '模型几何'}，无法读取装甲厚度。`
@@ -406,7 +465,7 @@ $('ship').addEventListener('change', () => loadModel())
 $('local-model').addEventListener('change', event => { const file = event.target.files[0]; if (file) loadModel(file); event.target.value = '' })
 $('choose-local').addEventListener('click', () => $('local-model').click())
 $('retry').addEventListener('click', () => { if (renderer || initializeScene()) loadModel() })
-for (const id of ['color-mode', 'appearance', 'wireframe', 'include-hidden', 'min-thickness', 'max-thickness']) $(id).addEventListener('change', updateDisplay)
+for (const id of ['color-mode', 'appearance', 'wireframe', 'include-hidden', 'min-thickness', 'max-thickness', 'waterline', 'waterline-filter']) $(id).addEventListener('change', updateDisplay)
 $('opacity').addEventListener('input', () => { $('opacity-value').textContent = `${Math.round(Number($('opacity').value) * 100)}%`; updateDisplay() })
 $('reset-filters').addEventListener('click', resetFilters)
 $('zones-all').addEventListener('click', () => { buildZoneControls(); updateDisplay() })
