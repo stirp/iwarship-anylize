@@ -1,0 +1,12 @@
+{
+  "armor-json": {
+    "version": "0.23.0",
+    "source": "https://github.com/landaire/wows-toolkit",
+    "note": "上游 0.23.0 派生版本，新增 --armor-json 逐面装甲 JSON 与 decode-texture 命令"
+  },
+  "upstream": {
+    "version": "0.46.0",
+    "source": "https://crates.io/crates/wowsunpack",
+    "note": "上游官方发布物，原生支持 GameParams，无 --armor-json"
+  }
+}

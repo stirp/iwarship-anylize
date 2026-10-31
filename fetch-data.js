@@ -11,11 +11,13 @@ import { prepareGameParams, readGameParams } from './lib/sources/gameparams.js'
 import { buildGameParamsRows } from './lib/gameparams-tables.js'
 import { prepareTranslations } from './lib/sources/translations.js'
 import { createOutputDirectory, writeOutput } from './lib/output.js'
+import { pruneOldVersions } from './lib/cleanup.js'
 import { resolvePython } from './lib/python.js'
 
 const projectDir = dirname(fileURLToPath(import.meta.url))
 
 async function generateIwarship(options, root, categories) {
+  const generated = new Set()
   const firstRegion = options.regions[0] === 'ALL' ? 'ASIA' : options.regions[0]
   const index = await fetchIndexData(firstRegion)
   const regions = options.regions[0] === 'ALL' ? Object.keys(index.serverVersion) : options.regions
@@ -30,6 +32,7 @@ async function generateIwarship(options, root, categories) {
     const fullData = await fetchFullData(version.versionId)
     const tables = {}
     const directory = createOutputDirectory(root, 'iwarship', gameVersion, region)
+    generated.add(directory)
     if (options.verbose) writeFileSync(join(directory, 'raw.jsonl'), '')
     for (const category of categories) {
       const records = (fullData[category] || []).filter(record => matchesShip(record, options.ships, index.shipName))
@@ -45,6 +48,7 @@ async function generateIwarship(options, root, categories) {
     await writeOutput(tables, directory, { source: 'iwarship', gameVersion, region,
       provenance: { url: `https://iwarship.net/wowsdb/data/get-ship-detail/${version.versionId}`, versionId: version.versionId } }, options)
   }
+  return generated
 }
 
 async function generateGameParams(options, root, categories) {
@@ -53,6 +57,7 @@ async function generateGameParams(options, root, categories) {
   const input = await prepareGameParams(options, root)
   const translations = await prepareTranslations(options, input, root)
   options = { ...options, translationsPath: translations.path }
+  const generated = new Set()
   let currentRegion
   let directory
   let tables
@@ -65,6 +70,7 @@ async function generateGameParams(options, root, categories) {
     if (event.region !== currentRegion) {
       currentRegion = event.region
       directory = createOutputDirectory(root, 'gameparams', input.gameVersion, currentRegion)
+      generated.add(directory)
       if (options.verbose) writeFileSync(join(directory, 'raw.jsonl'), '')
       tables = Object.fromEntries(categories.map(category => [category, []]))
     }
@@ -79,6 +85,16 @@ async function generateGameParams(options, root, categories) {
       tables = null
     }
   })
+  return generated
+}
+
+/** 生成完成后清理旧版本留下的模型中间产物；旧版本页面已内嵌模型，不受影响。 */
+function pruneOldResults(options, root, source, generated) {
+  if (options['keep-old']) return
+  const summary = pruneOldVersions(root, source, { removeAll: Boolean(options['prune-old']), keep: [...generated] })
+  if (summary.removed.length) {
+    console.log(`清理旧版本产物：${summary.removed.length} 项，释放 ${(summary.freed / 1024 / 1024).toFixed(1)} MiB`)
+  }
 }
 
 async function main() {
@@ -95,8 +111,9 @@ async function main() {
     const categories = selectCategories(options.categories, source)
     console.log(`${source} 类别：${categories.map(key => categoryNames[key]).join('、')}`)
     try {
-      if (source === 'iwarship') await generateIwarship(options, root, categories)
-      else await generateGameParams(options, root, categories)
+      const generated = source === 'iwarship' ? await generateIwarship(options, root, categories)
+        : await generateGameParams(options, root, categories)
+      pruneOldResults(options, root, source, generated)
     } catch (error) {
       console.error(`${source} 失败：${error.message}`)
       failures.push(source)

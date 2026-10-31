@@ -50,8 +50,10 @@ GameParams 支持编号、ID、内部英文名称及 `zh_sg` 简体中文名匹�
 | `--python <程序>` | 指定 Python 3.10+ 程序路径；省略时 Windows 检测 `py -3`、`python`、`python3`，其他系统检测 `python3`、`python` |
 | `--models-dir <目录>` | 打包 `<舰船编号>.armor.json`、`.glb` 或 `.zst`；装甲 JSON 优先，自动转换为 GLB |
 | `--game-dir <目录>` | 从本地游戏目录导出装甲，与 `--models-dir` 二选一 |
-| `--wowsunpack <程序>` | 官方或兼容导出器路径；省略时从 PATH 调用 `wowsunpack`，自动识别 `--contents` / `--armor-json` |
+| `--wowsunpack <程序>` | 官方或兼容导出器路径；省略时优先用项目内 `tools/wowsunpack/` 集成的版本，其后才是 PATH 上的 `wowsunpack`，自动识别 `--contents` / `--armor-json` |
 | `--model-hull <配置>` | 本地游戏导出时选择舰体，如 `A`、`B`；省略使用导出器默认配置 |
+| `--keep-old` | 保留旧版本目录里的模型中间产物；默认生成后清理 |
+| `--prune-old` | 生成后删除旧版本的整个输出目录（数据表、页面与模型） |
 | `--model-mode <模式>` | 默认 `embedded`，生成时下载或打包模型；`manual` 只打包参数，查看时手动选择模型 |
 | `--no-3d` | 不生成独立 3D 查看器；`--no-html` 同时关闭查看器 |
 | `-o, --output <目录>` | 输出根目录，默认项目下 `output`；支持绝对路径 |
@@ -104,7 +106,7 @@ npm run fetch -- --source gameparams --ships PJSB510 --categories armor --python
 
 网页和 `data/*.json` 使用中文基础字段。明确的单位在表头标注：舰船航速为节、隐蔽距离为千米；比较页射程通常为千米，其他距离以表头和页面说明为准；炮管及弹丸口径从米换算为毫米，起火概率与防空命中率换算为百分数。防空光环拆为距离、每周期伤害、伤害周期、命中率、爆炸云伤害及数量，不将原始周期伤害冒充每秒伤害。未确认单位的字段保留原始量纲。升级品已识别修正项展开为中文系数/加数列，未释义项列出原键；舰长显示基本特性和技能数量，避免把整棵技能树铺成数千列。`--verbose` 保存筛选后的原始组件和实体，供查阅未进入基础表的字段。
 
-舰名优先使用 wowsinfo/data 的 `live/app/lang/lang.json` 中 `zh_sg` 词条，例如 `PZSB529` 对应“载之”。公开 GameParams 与词条固定到同一提交，并校验词条大小及 Git blob 哈希，缓存至 `output/.cache/translations/<提交>/`。本地参数默认使用 `--ref` 对应词条，版本未必一致；可以通过 `--translations` 指定配套词条并完全离线生成。缺词时回退内部名；下载失败会提示，原因记录在 manifest 中。词条用于生成阶段，打开 HTML 不再下载词条。飞机、弹药等实体使用独立的实体类别字段，不进入舰种、舰船类型筛选。
+舰名优先使用 wowsinfo/data 的 `live/app/lang/lang.json` 中 `zh_sg` 词条，例如 `PZSB529` 对应“载之”。公开 GameParams 与词条固定到同一提交，并校验词条大小及 Git blob 哈希，缓存至 `output/.cache/translations/<提交>/`。直连 `raw.githubusercontent.com` 失败时自动改用 GitHub blob 接口取回同一文件，下载中断重跑会命中缓存。本地参数默认使用 `--ref` 对应词条，版本未必一致；可以通过 `--translations` 指定配套词条并完全离线生成。缺词时回退内部名；下载失败会提示，原因记录在 manifest 中。词条用于生成阶段，打开 HTML 不再下载词条。飞机、弹药等实体使用独立的实体类别字段，不进入舰种、舰船类型筛选。
 
 装甲表默认显示舰艏外板、舰艉外板、中段甲板、上层建筑、侧舷装甲，各有“最薄/最厚”数值列，单位为毫米。“列”菜单还能显示核心区侧壁、甲板、横隔壁、倾斜装甲、主炮塔正面/顶部、炮座、防雷凸舱。侧舷范围包含可识别的核心区侧装甲；核心区列再单独细分。所有舰体及武器配置合并为同舰一行，并列出配置范围，不指定某个配置为完全体。不同层独立取范围，绝不相加；零值保留在明细，但不进入有效厚度范围，缺失部位显示空白。
 
@@ -162,7 +164,16 @@ npm run fetch -- --source gameparams --ships PJSB510 --categories armor \
 
 ### 从本地游戏导出装甲（Windows）
 
-需要完整游戏安装目录（含 `bin` 和 `res_packages`），以及官方 `wowsunpack` 或支持 `--armor-json` 的兼容导出器。本项目自动检测 `export-ship --help`：有 `--armor-json` 时优先导出逐面厚度 JSON；否则使用官方 `--contents armor --no-textures` 导出装甲几何 GLB。后者没有兼容厚度元数据时仅显示几何，不能点击查询装甲厚度。本项目不会自动下载或安装导出器。
+需要完整游戏安装目录（含 `bin` 和 `res_packages`），以及官方 `wowsunpack` 或支持 `--armor-json` 的兼容导出器。本项目自动检测 `export-ship --help`：有 `--armor-json` 时优先导出逐面厚度 JSON；否则使用官方 `--contents armor --no-textures` 导出装甲几何 GLB。后者没有兼容厚度元数据时仅显示几何，不能点击查询装甲厚度。
+
+项目内已集成两个导出器，放在 `tools/wowsunpack/`，运行时按“优先逐面装甲 JSON”的顺序自动选择，无需再配置 PATH：
+
+| 目录 | 版本 | 特点 |
+|------|------|------|
+| `armor-json/` | 0.23.0 + 补丁 | 支持 `--armor-json`，输出逐面厚度 JSON，**默认选中** |
+| `upstream/` | 0.46.0 | 上游官方版，原生支持 GameParams，用 `--contents` 导出装甲几何 |
+
+二进制本体不入版本库，按 `tools/wowsunpack/README.md` 下载放置；来源地址、许可条款与游戏资产使用边界见同目录的 `NOTICE.md` 与 `LICENSE-MIT`。用 `--wowsunpack` 仍可显式指定其他导出器。
 
 如果 `wowsunpack` 已加入 PATH，在项目目录运行以下命令，即可批量导出全部所选区域的舰船装甲模型并打包到网页，无需单独执行 PowerShell 循环：
 
@@ -180,9 +191,11 @@ npm run fetch -- --source gameparams --ships PJSB510 --categories hull,armor --g
 
 支持 `--model-hull A` 或 `--model-hull B` 指定舰体；也可通过 `--interactive` 选择模型来源 `game`。只导出本批次选中的舰船，因此补齐模型站 404 的舰船时，将 `--ships` 换成相应编号即可。游戏目录中也没有该舰资源时，会记录失败并保留手动导入入口。
 
-若本地参数出现 `ValueNotHashable`，自动调用导出器同目录下 WoWS Toolbox 自带的 `compat_cache.py`，在输出根目录 `.cache/toolkit` 创建兼容副本后重试；需保留完整的 Toolbox Backend 文件。后续舰船复用同一次兼容转换。
+若本地参数出现 `ValueNotHashable`，自动调用导出器同目录下 WoWS Toolbox 自带的 `compat_cache.py`（集成目录已附带该脚本及其依赖），在输出根目录 `.cache/toolkit` 创建兼容副本后重试；脚本随导出器放置时无需完整 Toolbox Backend 文件，若把导出器移到别处，用环境变量 `WOWS_TOOLBOX_BACKEND` 指向实际的 `Backend` 目录。后续舰船复用同一次兼容转换。
 
-缓存未命中时，原始输出保存在固定的 `armor/toolkit/<舰船编号>/` 下，包括最终 `<舰船编号>.glb` 和每舰 `export.log`；兼容模式还保留 `armor.json`。不再生成重复的 `visual.glb`。原始混合场景 `toolkit-scene.glb` 会作为外观一并打包：查看器保留外观原生坐标和挂载变换、隐藏其中重复的装甲，继续使用独立装甲模型提供逐面厚度交互。默认显示 15% 不透明度的外观，可关闭外观或调整不透明度；旧文件没有贴图时只恢复外观几何。
+缓存未命中时，导出结果写入工作区模型库 `.cache/local-models/<舰船编号>/`，包括最终 `<舰船编号>.glb`、`export.log`，兼容模式还保留 `armor.json`。版本目录不再保留这些中间产物，页面只保留内嵌模型的数据包。原始混合场景 `toolkit-scene.glb` 作为外观一并打包：查看器保留外观原生坐标和挂载变换、隐藏其中重复的装甲，继续使用独立装甲模型提供逐面厚度交互。默认显示 15% 不透明度的外观，可关闭外观或调整不透明度；旧文件没有贴图时只恢复外观几何。
+
+外观场景与装甲模型成对存放，跨版本复用装甲模型时会一并保留场景。若旧版本页面数据包尚在，可用 `node scripts/restore-armor-appearance.js <旧版本目录> <当前版本目录> --output-root output` 把历史外观还原到模型库并重新打包当前版本；场景字节与装甲模型不配对时跳过，避免外观与厚度对不上。
 
 已有批次可直接重建查看器，无需联网、重新导出模型或安装游戏：
 
@@ -201,6 +214,27 @@ npm run refresh:armor -- "output/gameparams/<版本>/<区域>" --ships PGSD737 -
 ```
 
 该命令也支持 `--wowsunpack`、`--model-hull` 和 `--python`。普通 `npm run fetch` 可通过 `--force-models` 强制导出，但会同时按所选范围重新生成表格；只更新模型应使用上面的 `refresh:armor`。
+
+### 跨版本复用模型
+
+`.cache/toolkit-models/` 缓存只保存模型路径、资源指纹和校验摘要，不复制模型与日志；模型本体在 `.cache/local-models/`。缓存按游戏目录、客户端构建号及舰体配置区分，读取时检查模型 SHA256 和格式，模型缺失或损坏时重新导出；无法识别客户端构建号时不启用缓存。
+
+客户端构建号只决定缓存分组，不再决定是否重新导出。生成时用 `wowsunpack metadata` 采集客户端资源清单（约 7 秒），按**客户端资源目录**汇总该目录几何资源的 CRC32 指纹：
+
+- 指纹与历史记录一致 → 几何未变，直接复用旧模型，不重复导出；
+- 指纹不一致 → 重新导出，覆盖模型库中的对应舰船。
+
+指纹的键是客户端资源目录名（如 `ASA013_Essex_1945`），不是 GameParams 里的舰船编号：两者不是同一套编号，`PASA020` 对应目录 `ASA013_Essex_1945`，`PJSD706` 对应 `JSD013_Fubuki_1942`。舰船与目录的对应关系从导出日志里取（导出器会打印该舰船实际使用的资源目录名），因此编号不同也能正确比对。
+
+历史模型没有指纹时，从其导出日志取回资源目录名再补写指纹，再纳入同一判据，因此更早版本导出的模型同样可以直接复用。实测同一客户端的两个相邻版本之间，5447 条舰船资源中 5421 条指纹未变，只有 26 条需要重新导出。
+
+国家级共享资源（该国部件、炮塔、纹理等）每次客户端更新都会变化，只能作为审计提示，不能作为复用门槛，否则每次更新都会退化成全量重导。复用旧模型但该国共享资源已变化时，生成结束会汇总提示，外观可能未同步。
+
+导出器不支持 `metadata` 时退回按客户端构建号复用，行为与之前一致。
+
+### 旧结果清理
+
+生成完成后默认删除各版本目录下的 `armor/toolkit` 中间产物；页面数据包已内嵌模型，旧版本页面仍可双击查看。加 `--keep-old` 可保留这些中间产物，加 `--prune-old` 会连同旧版本的数据表与页面一起删除。历史指纹缓存在生成结束后清理，其中的记录先迁到当前指纹，模型同时归集到模型库，跨版本复用能力不受影响。
 
 `.cache/toolkit-models/` 新缓存只保存模型路径、信息和校验摘要，不再复制模型与日志；旧缓存仍可读取。缓存按游戏目录、客户端构建号及舰体配置区分：客户端版本未变且已有模型完整，就不重复导出；资源时间戳、导出工具、转换代码或日志变化不会使模型失效。客户端构建号取本地 `bin` 下含 `idx` 目录的最高数字构建，与 Toolbox 一致，不使用公开 GameParams 的版本标签。读取时检查模型 SHA256 和格式，模型缺失或损坏时重新导出；无法识别客户端构建号时不启用缓存。旧指纹仍匹配的完整模型可继续复用。导出不修改游戏目录；查看页面仍可直接双击、断网使用。
 
@@ -267,3 +301,5 @@ npm test
 ## 数据与许可证
 
 数据来源：[iwarship.net](https://iwarship.net/wowsdb/)、[wowsinfo/data](https://github.com/wowsinfo/data) 或用户提供的游戏参数。项目许可证：MIT；工具代码许可不等同于游戏资产再分发许可。
+
+`tools/wowsunpack/` 集成的第三方组件（wowsunpack 与 WoWS Toolbox v5 兼容脚本）同为 MIT，来源地址、版权声明与修改说明见该目录的 `NOTICE.md` 与 `LICENSE-MIT`。导出的舰船模型、贴图等游戏资产归 Wargaming / Lesta 所有，MIT 不授予其再分发权。

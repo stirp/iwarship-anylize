@@ -94,7 +94,8 @@ test('公共中文词条固定到参数提交，校验缓存，显式词条损�
   let downloads = 0
   t.mock.method(globalThis, 'fetch', async url => {
     assert.ok(url.includes(revision))
-    if (url.includes('/contents/')) return new Response(JSON.stringify({ size: bytes.length, sha }))
+    if (url.includes('/contents/')) return new Response(JSON.stringify({ size: bytes.length, sha,
+      download_url: `https://raw.githubusercontent.com/wowsinfo/data/${revision}/live/app/lang/lang.json` }))
     downloads++
     return new Response(bytes)
   })

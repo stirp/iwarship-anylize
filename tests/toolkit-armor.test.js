@@ -103,6 +103,7 @@ test('导出器检查能力，以参数数组传递带空格的路径，按舰�
     assert.equal(command, options.wowsunpack)
     assert.equal(settings.shell, undefined)
     if (args.includes('--help')) return { stdout: '--armor-json <PATH>' }
+    if (args.includes('metadata')) throw new Error('测试环境不支持资源指纹采集')
     assert.equal(args[args.indexOf('--game-dir') + 1], resolve(root))
     assert.equal(args[args.indexOf('--hull') + 1], 'B')
     assert.equal(args[args.indexOf('export-ship') + 1], 'PJSB510')
@@ -127,6 +128,7 @@ test('不支持装甲导出的版本明确失败，单舰失败记录日志且�
   const result = await generateArmorViewer({ hull: [{ 编号: 'PXSB030' }] }, root, {}, { ...options,
     fetchModel: () => { throw new Error('不应联网') }, toolkitRuntime: { run: async (_, args) => {
       if (args.includes('--help')) return { stdout: '--armor-json' }
+      if (args.includes('metadata')) throw new Error('测试环境不支持资源指纹采集')
       throw Object.assign(new Error('exit code 1'), { stderr: 'Ship not found PXSB030' })
     } }
   })
@@ -143,6 +145,7 @@ test('生成器可从兼容导出器完成模型打包', async () => {
     generateHTML: true, 'game-dir': root, wowsunpack: 'wowsunpack_armor',
     toolkitRuntime: { run: async (_, args) => {
       if (args.includes('--help')) return { stdout: '--armor-json' }
+      if (args.includes('metadata')) throw new Error('测试环境不支持资源指纹采集')
       writeFileSync(args[args.indexOf('--armor-json') + 1], fixture)
       return { stdout: '' }
     } }
@@ -190,6 +193,7 @@ test('本地 Pickle 不兼容时转换一次并重试，后续舰船复用兼容
   const exporter = await createToolkitExporter({ 'game-dir': root, python: 'test-python', outputRoot: root }, {
     run: async (command, args, settings) => {
       if (args.includes('--help')) return { stdout: '--armor-json' }
+      if (args.includes('metadata')) throw new Error('测试环境不支持资源指纹采集')
       if (command === 'test-python') {
         conversions++
         assert.equal(args.at(-1), join(root, '.cache', 'toolkit'))
@@ -220,14 +224,16 @@ test('本地模型按客户端构建跨批次复用，仅版本、舰体变化�
   let exports = 0
   const run = async (_, args) => {
     if (args.includes('--help')) return { stdout: '--armor-json' }
+    if (args.includes('metadata')) throw new Error('测试环境不支持资源指纹采集')
     exports++
     writeFileSync(args[args.indexOf('--armor-json') + 1], fixture)
     writeFileSync(args[args.indexOf('--output') + 1], 'raw mixed scene')
     return { stdout: 'export complete' }
   }
   const options = { 'game-dir': game, wowsunpack: command, outputRoot: root }
+  // 模型统一存放在工作区模型目录，各批次共用同一份产物。
   const exportBatch = async (batch, extra = {}) =>
-    (await createToolkitExporter({ ...options, ...extra }, { run }))('PJSB510', join(root, batch))
+    (await createToolkitExporter({ ...options, ...extra }, { run }))('PJSB510', join(root, 'models'))
   const first = await exportBatch('batch1')
   const second = await exportBatch('batch2')
   assert.equal(exports, 1)
@@ -253,6 +259,80 @@ test('本地模型按客户端构建跨批次复用，仅版本、舰体变化�
   assert.equal(exports, 4)
 })
 
+test('资源指纹一致时跨客户端构建复用模型，资源变化或舰体变化时重新导出', async () => {
+  const root = mkdtempSync(join(tmpdir(), 'wows-toolkit-assets-'))
+  const game = join(root, 'game')
+  mkdirSync(join(game, 'bin', '1', 'idx'), { recursive: true })
+  mkdirSync(join(game, 'res_packages'))
+  let crc = '111'
+  let exports = 0
+  const run = async (_, args) => {
+    if (args.includes('--help')) return { stdout: '--armor-json' }
+    if (args.includes('metadata')) {
+      // 客户端资源目录名与舰船编号不是同一套编号，按目录汇总指纹。
+      writeFileSync(args.at(-1), ['path,is_directory,compressed_size,compression_info,unpacked_size,crc32',
+        `/content/gameplay/usa/ship/battleship/JSB510_Test/JSB510_Test.model,false,1,0,1,${crc}`].join('\n'))
+      return { stdout: 'ok' }
+    }
+    exports++
+    writeFileSync(args[args.indexOf('--armor-json') + 1], fixture)
+    // 导出日志里带该舰船实际使用的客户端资源目录名。
+    return { stdout: "Warning: sub-model 'JSB510_Test' has no primitives for LOD 0" }
+  }
+  const options = { 'game-dir': game, wowsunpack: 'wowsunpack', outputRoot: root }
+  const exportOnce = async (extra = {}) =>
+    (await createToolkitExporter({ ...options, ...extra }, { run }))('PJSB510', join(root, 'models'))
+  const first = await exportOnce()
+  assert.equal(exports, 1)
+  assert.equal(first.cached, undefined)
+  assert.equal(first.info.modelDir, 'JSB510_Test')
+  // 客户端构建号变化但资源未变：直接沿用历史模型，不再导出。
+  mkdirSync(join(game, 'bin', '2', 'idx'), { recursive: true })
+  const reused = await exportOnce()
+  assert.equal(exports, 1)
+  assert.equal(reused.cached, true)
+  assert.deepEqual(readFileSync(first.path), readFileSync(reused.path))
+  // 资源变化：模型必须重新导出。
+  crc = '222'
+  mkdirSync(join(game, 'bin', '3', 'idx'), { recursive: true })
+  await exportOnce()
+  assert.equal(exports, 2)
+  // 舰体配置不同即使资源一致也要重新导出。
+  await exportOnce({ 'model-hull': 'B' })
+  assert.equal(exports, 3)
+})
+
+test('舰船编号与客户端资源目录名不同时仍能按资源指纹复用', async () => {
+  const root = mkdtempSync(join(tmpdir(), 'wows-toolkit-dirname-'))
+  const game = join(root, 'game')
+  mkdirSync(join(game, 'bin', '1', 'idx'), { recursive: true })
+  mkdirSync(join(game, 'res_packages'))
+  let exports = 0
+  const run = async (_, args) => {
+    if (args.includes('--help')) return { stdout: '--armor-json' }
+    if (args.includes('metadata')) {
+      // PASA020 的模型目录实际是 ASA013_Essex_1945，编号与目录名不同。
+      writeFileSync(args.at(-1), ['path,is_directory,compressed_size,compression_info,unpacked_size,crc32',
+        '/content/gameplay/usa/ship/aircarrier/ASA013_Essex_1945/ASA013_Essex_1945.model,false,1,0,1,222'].join('\n'))
+      return { stdout: 'ok' }
+    }
+    exports++
+    writeFileSync(args[args.indexOf('--armor-json') + 1], fixture)
+    return { stdout: "Warning: sub-model 'ASA013_Essex_1945' has no primitives for LOD 0" }
+  }
+  const options = { 'game-dir': game, wowsunpack: 'wowsunpack', outputRoot: root }
+  const exportOnce = async () =>
+    (await createToolkitExporter(options, { run }))('PASA020', join(root, 'models'))
+  const first = await exportOnce()
+  assert.equal(exports, 1)
+  assert.equal(first.info.modelDir, 'ASA013_Essex_1945')
+  // 换一个客户端构建号，资源未变，按资源目录指纹复用旧模型。
+  mkdirSync(join(game, 'bin', '2', 'idx'), { recursive: true })
+  const reused = await exportOnce()
+  assert.equal(exports, 1)
+  assert.equal(reused.cached, true)
+})
+
 test('客户端构建只选择含 idx 的数字目录，忽略未安装完成的版本', () => {
   const game = mkdtempSync(join(tmpdir(), 'wows-client-build-'))
   assert.equal(toolkitClientBuild(game), null)
@@ -269,6 +349,7 @@ test('强制重新导出覆盖固定模型，失败保留旧模型，缓存只�
   let count = 0, broken = false
   const run = async (_, args) => {
     if (args.includes('--help')) return { stdout: '--armor-json' }
+    if (args.includes('metadata')) throw new Error('测试环境不支持资源指纹采集')
     count++
     const data = sample()
     data.meshes[0].triangle_info[0].thickness_mm = count * 10
@@ -308,6 +389,7 @@ test('旧指纹匹配的完整模型接入版本缓存，后续工具变化仍�
   createToolkitCache(root, legacyToolkitFingerprint(game, command, true, null)).write('PJSB510', { path, info: { log, hullSelection: null } })
   const options = { 'game-dir': game, wowsunpack: command, outputRoot: root }
   const run = async (_, args) => {
+    if (args.includes('metadata')) throw new Error('测试环境不支持资源指纹采集')
     assert.ok(args.includes('--help'), '已有模型不应再次导出')
     return { stdout: '--armor-json' }
   }
@@ -319,12 +401,13 @@ test('旧指纹匹配的完整模型接入版本缓存，后续工具变化仍�
   assert.equal(reused.cached, true)
 })
 
-test('官方导出器使用 PATH 默认命令及 armor 内容，校验成功后生成 GLB 与日志', async () => {
+test('显式指定导出器时使用 armor 内容，校验成功后生成 GLB 与日志', async () => {
   const root = mkdtempSync(join(tmpdir(), 'wows-official-export-'))
-  const exporter = await createToolkitExporter({ 'game-dir': root, 'model-hull': 'B' }, { run: async (command, args, options) => {
+  const exporter = await createToolkitExporter({ 'game-dir': root, 'model-hull': 'B', wowsunpack: 'wowsunpack' }, { run: async (command, args, options) => {
     assert.equal(command, 'wowsunpack')
     assert.equal(options.shell, undefined)
     if (args.includes('--help')) return { stdout: '--contents <CONTENTS>' }
+    if (args.includes('metadata')) throw new Error('测试环境不支持资源指纹采集')
     assert.equal(args[args.indexOf('--contents') + 1], 'armor')
     assert.equal(args[args.indexOf('--hull') + 1], 'B')
     assert.equal(args.includes('--armor-json'), false)
@@ -345,6 +428,7 @@ test('官方导出损坏或缺失文件不计成功，保留失败日志', async
     const root = mkdtempSync(join(tmpdir(), 'wows-official-broken-'))
     const exporter = await createToolkitExporter({ 'game-dir': root }, { run: async (_, args) => {
       if (args.includes('--help')) return { stdout: '--contents' }
+      if (args.includes('metadata')) throw new Error('测试环境不支持资源指纹采集')
       if (content) writeFileSync(args[args.indexOf('--output') + 1], content)
       return { stdout: 'Export started' }
     } })
