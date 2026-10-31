@@ -6,7 +6,7 @@ import { join, resolve } from 'node:path'
 import { spawnSync } from 'node:child_process'
 import { pathToFileURL } from 'node:url'
 import { parseOptions, validateOptions } from '../lib/options.js'
-import { safeSegment } from '../lib/output.js'
+import { safeSegment, createOutputDirectory } from '../lib/output.js'
 import { generateHTML } from '../lib/html-writer.js'
 
 const fixture = resolve('tests/fixtures/gameparams.json')
@@ -61,9 +61,17 @@ test('完整生成两区域，只包含选中舰船、类别与相关弹药，�
   assert.ok(!html.includes('OTHER_SHIP'))
   assert.ok(generated.some(path => path.endsWith('PJSB510.md')))
   assert.ok(generated.some(path => path.endsWith('raw.jsonl')))
-  // 同目录重跑生成独立批次，不使旧范围伪装为本次结果。
+  // 同版本同区域重跑覆盖同一套输出，不再增加快照目录。
   assert.equal(run([...args, '--no-html', '--no-markdown']).status, 0)
-  assert.equal(files(output).filter(path => path.endsWith('manifest.json')).length, 4)
+  assert.equal(files(output).filter(path => path.endsWith('manifest.json')).length, 2)
+})
+
+test('输出目录按来源、版本和区域固定，重跑不增加目录层级', () => {
+  const root = mkdtempSync(join(tmpdir(), 'wows-fixed-output-'))
+  const path = createOutputDirectory(root, 'gameparams', '15.10', 'ASIA')
+  assert.equal(path, join(root, 'gameparams/15.10/ASIA'))
+  assert.equal(createOutputDirectory(root, 'gameparams', '15.10', 'ASIA'), path)
+  assert.deepEqual(readdirSync(path), [])
 })
 
 test('同时生成两个来源，目录和来源记录相互独立', () => {

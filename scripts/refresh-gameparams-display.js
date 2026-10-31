@@ -1,6 +1,6 @@
 /** 使用批次对应的本地缓存刷新比较表，不重新下载或导出 3D 模型。 */
 import { readFileSync, writeFileSync, existsSync } from 'node:fs'
-import { resolve, join } from 'node:path'
+import { resolve, join, dirname } from 'node:path'
 import { createHash } from 'node:crypto'
 import { readGameParams } from '../lib/sources/gameparams.js'
 import { readTranslations } from '../lib/sources/translations.js'
@@ -16,7 +16,14 @@ const manifest = JSON.parse(readFileSync(manifestPath, 'utf8'))
 if (!process.argv[2] || manifest.source !== 'gameparams') throw new Error('请指定已有 GameParams 批次目录')
 const revision = manifest.provenance?.revision
 if (!/^[a-f0-9]{40}$/.test(revision || '')) throw new Error('批次未记录固定提交，无法确认缓存版本')
-const cache = resolve(directory, '../../../..', '.cache')
+// 同时支持固定区域目录与旧的时间戳目录，不再依赖固定层数。
+let cacheRoot = directory
+while (!existsSync(join(cacheRoot, '.cache', 'gameparams', revision, 'GameParams.data'))) {
+  const parent = dirname(cacheRoot)
+  if (parent === cacheRoot) throw new Error('未找到该版本对应的本地 GameParams 缓存')
+  cacheRoot = parent
+}
+const cache = join(cacheRoot, '.cache')
 const input = join(cache, 'gameparams', revision, 'GameParams.data')
 const bytes = readFileSync(input)
 const blob = createHash('sha1').update(`blob ${bytes.length}\0`).update(bytes).digest('hex')

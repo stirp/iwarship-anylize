@@ -342,7 +342,8 @@ async function loadModel(file) {
     if (!file && shipData.appearanceBase64) {
       let appearance
       try {
-        if (shipData.appearanceFormat !== 'toolkit-local-z-reflection/v1') throw new Error('不支持的外观坐标格式')
+        // 旧包内也是未修改的原始 GLB，仅旧查看器错误执行了局部翻转。
+        if (!['toolkit-scene/v1', 'toolkit-local-z-reflection/v1'].includes(shipData.appearanceFormat)) throw new Error('不支持的外观坐标格式')
         const visual = decodeModel(unpackModel(shipData.appearanceBase64), id)
         shipData.appearanceBase64 = null
         appearance = await new GLTFLoader().parseAsync(visual.buffer, '')

@@ -1,6 +1,6 @@
 #!/usr/bin/env node
-/** 运行时选择来源和范围，按来源、版本、区域及批次生成独立文件。 */
-import { appendFileSync, mkdirSync } from 'node:fs'
+/** 运行时选择来源和范围，按来源、版本、区域覆盖生成。 */
+import { appendFileSync, mkdirSync, writeFileSync } from 'node:fs'
 import { resolve, join, dirname } from 'node:path'
 import { fileURLToPath } from 'node:url'
 import { help, parseOptions, promptOptions, validateOptions } from './lib/options.js'
@@ -30,6 +30,7 @@ async function generateIwarship(options, root, categories) {
     const fullData = await fetchFullData(version.versionId)
     const tables = {}
     const directory = createOutputDirectory(root, 'iwarship', gameVersion, region)
+    if (options.verbose) writeFileSync(join(directory, 'raw.jsonl'), '')
     for (const category of categories) {
       const records = (fullData[category] || []).filter(record => matchesShip(record, options.ships, index.shipName))
       tables[category] = transformData(records, loadMapping(categoryNames[category])).map((row, position) => ({
@@ -64,6 +65,7 @@ async function generateGameParams(options, root, categories) {
     if (event.region !== currentRegion) {
       currentRegion = event.region
       directory = createOutputDirectory(root, 'gameparams', input.gameVersion, currentRegion)
+      if (options.verbose) writeFileSync(join(directory, 'raw.jsonl'), '')
       tables = Object.fromEntries(categories.map(category => [category, []]))
     }
     if (event.event === 'record') {
@@ -101,7 +103,7 @@ async function main() {
     }
   }
   if (failures.length) throw new Error(`${failures.join(', ')} 未完成；已成功来源的输出保留`)
-  console.log('生成完成。每个批次的 manifest.json 记录来源、版本、区域、范围及记录数。')
+  console.log('生成完成。同一来源、版本和区域使用固定目录，manifest.json 记录本次范围及记录数。')
 }
 
 main().catch(error => {

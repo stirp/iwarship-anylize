@@ -94,7 +94,7 @@ test('本地模型目录优先转换装甲 sidecar，打包后无需读取 JSON 
   assert.equal(decodeModel(Buffer.from(data.modelBase64, 'base64'), 'PJSB510').armor.plates.length, 4)
 })
 
-test('导出器检查能力，以参数数组传递带空格的路径，按选船转换并隔离每次输出', async () => {
+test('导出器检查能力，以参数数组传递带空格的路径，按舰船固定覆盖输出', async () => {
   const root = mkdtempSync(join(tmpdir(), 'wows-toolkit-export-'))
   const calls = []
   const options = { 'game-dir': root, wowsunpack: 'C:/Tools With Spaces/wowsunpack_armor.exe', 'model-hull': 'B' }
@@ -112,12 +112,12 @@ test('导出器检查能力，以参数数组传递带空格的路径，按选�
   const exporter = await createToolkitExporter(options, { run })
   const first = await exporter('PJSB510', join(root, 'output'))
   const second = await exporter('PJSB510', join(root, 'output'))
-  assert.notEqual(first.path, second.path)
+  assert.equal(first.path, second.path)
   assert.equal(calls.filter(args => args.includes('--help')).length, 1)
   assert.equal(decodeModel(readFileSync(first.path), 'PJSB510').armor.plates.length, 4)
   assert.equal(first.info.hullSelection, 'B')
-  assert.deepEqual(readFileSync(join(first.path, '..', 'visual.glb')), readFileSync(first.path))
-  assert.equal(readdirSync(join(root, 'output')).length, 2)
+  assert.equal(existsSync(join(first.path, '..', 'visual.glb')), false)
+  assert.equal(readdirSync(join(root, 'output')).length, 1)
 })
 
 test('不支持装甲导出的版本明确失败，单舰失败记录日志且不回退公网', async () => {
@@ -262,6 +262,38 @@ test('客户端构建只选择含 idx 的数字目录，忽略未安装完成的
   assert.equal(toolkitFingerprint(game, 'old.exe', false, null), toolkitFingerprint(game, 'new.exe', true, null))
 })
 
+test('强制重新导出覆盖固定模型，失败保留旧模型，缓存只保存索引', async () => {
+  const root = mkdtempSync(join(tmpdir(), 'wows-reexport-'))
+  mkdirSync(join(root, 'game/bin/1/idx'), { recursive: true })
+  const options = { 'game-dir': join(root, 'game'), outputRoot: root }
+  let count = 0, broken = false
+  const run = async (_, args) => {
+    if (args.includes('--help')) return { stdout: '--armor-json' }
+    count++
+    const data = sample()
+    data.meshes[0].triangle_info[0].thickness_mm = count * 10
+    writeFileSync(args[args.indexOf('--armor-json') + 1], broken ? 'bad JSON' : JSON.stringify(data))
+    writeFileSync(args[args.indexOf('--output') + 1], plainGLB())
+    return { stdout: 'complete' }
+  }
+  const exportOne = async force => (await createToolkitExporter({ ...options, 'force-models': force }, { run }))('PJSB510', join(root, 'models'))
+  const first = await exportOne(false)
+  await exportOne(false)
+  assert.equal(count, 1)
+  const before = readFileSync(first.path)
+  const second = await exportOne(true)
+  assert.equal(first.path, second.path)
+  assert.notDeepEqual(readFileSync(second.path), before)
+  const good = readFileSync(second.path)
+  broken = true
+  await assert.rejects(exportOne(true))
+  assert.deepEqual(readFileSync(second.path), good)
+  const fingerprint = toolkitFingerprint(options['game-dir'], '', true, null)
+  assert.deepEqual(readdirSync(join(root, '.cache/toolkit-models', fingerprint)), ['PJSB510.json'])
+  assert.equal(createToolkitCache(root, fingerprint).read('PJSB510').path, second.path)
+  assert.deepEqual(readdirSync(join(root, 'models')), ['PJSB510'])
+})
+
 test('旧指纹匹配的完整模型接入版本缓存，后续工具变化仍然复用', async () => {
   const root = mkdtempSync(join(tmpdir(), 'wows-legacy-cache-'))
   const game = join(root, 'game')
@@ -338,7 +370,7 @@ test('fetch 全量批处理自动调用官方导出器，失败舰船不阻止�
   assert.match(result.stdout, /本地模型导出完成：成功 1，失败 1/)
   assert.match(result.stdout, /从本地游戏导出装甲：PASC001[\s\S]*从本地游戏导出装甲：PJSB510/)
   const directory = join(root, 'output/gameparams/fixture/ASIA')
-  const batch = join(directory, readdirSync(directory)[0])
+  const batch = directory
   const manifest = JSON.parse(readFileSync(join(batch, 'manifest.json')))
   assert.equal(manifest.viewer.ships, 2)
   assert.equal(manifest.viewer.embeddedModels, 1)

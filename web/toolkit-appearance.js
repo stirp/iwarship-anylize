@@ -1,4 +1,4 @@
-/** Toolkit GLB 对局部顶点翻转 Z，但挂载矩阵与装甲 sidecar 一致。 */
+/** 外观网格与挂载矩阵已经配套；仅隐藏与 sidecar 重复的装甲层。 */
 export function prepareToolkitAppearance(gltf) {
   const meshes = [], excluded = []
   const visit = object => {
@@ -9,9 +9,7 @@ export function prepareToolkitAppearance(gltf) {
       return
     }
     if (object.isMesh) {
-      // 仅翻转网格局部坐标，不能翻转父组或炮塔挂载位置。
-      object.scale.z *= -1
-      object.updateMatrix()
+      // 不能用原始场景内装甲层的方向推断外观方向；保留原生局部变换。
       meshes.push(object)
     }
     for (const child of object.children) visit(child)
