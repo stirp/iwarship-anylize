@@ -72,7 +72,7 @@ async function generateGameParams(options, root, categories) {
     } else if (event.event === 'end') {
       await writeOutput(tables, directory, { source: 'gameparams', gameVersion: input.gameVersion, region: currentRegion,
         provenance: { ...input.provenance, translations: translations.provenance },
-        note: '舰名使用 zh_sg 简体中文；未应用配装加成。装甲每舰一行，汇总所有配置的有效厚度范围，各层不相加。空值表示无可归类参数，不代表零装甲；参数不能确定实际外露面积，完整分层数据见 data/armor-details.json。'
+        note: '各比较页按舰船配置组织，独立实体见参数页。旧版列对齐状态和计算条件见各表说明；待核实列保留为空，不以旧版本数值填充。装甲各配置和各层厚度不相加。'
       }, options)
       tables = null
     }

@@ -10,6 +10,7 @@ import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js'
 import { convertToolkitArmor } from '../web/toolkit-armor.js'
 import { decodeModel, comparePlate, plateVisible } from '../web/armor-format.js'
 import { createToolkitExporter } from '../lib/toolkit-exporter.js'
+import { createToolkitCache, toolkitFingerprint, toolkitClientBuild, legacyToolkitFingerprint } from '../lib/toolkit-cache.js'
 import { generateArmorViewer } from '../lib/armor-viewer-writer.js'
 import { parseOptions, validateOptions } from '../lib/options.js'
 import { plainGLB } from './fixtures/plain-glb.js'
@@ -207,7 +208,7 @@ test('本地 Pickle 不兼容时转换一次并重试，后续舰船复用兼容
   assert.equal(exports, 3)
 })
 
-test('本地模型跨批次复用，资源、工具、舰体变化或缓存损坏时重新导出', async () => {
+test('本地模型按客户端构建跨批次复用，仅版本、舰体变化或缓存损坏时重新导出', async () => {
   const root = mkdtempSync(join(tmpdir(), 'wows-toolkit-cache-'))
   const game = join(root, 'game')
   mkdirSync(join(game, 'bin', '1', 'idx'), { recursive: true })
@@ -238,12 +239,52 @@ test('本地模型跨批次复用，资源、工具、舰体变化或缓存损�
   assert.equal(exports, 2)
   writeFileSync(index, 'index-v2')
   await exportBatch('batch4')
-  assert.equal(exports, 3)
+  assert.equal(exports, 2)
   writeFileSync(command, 'exporter-v2')
   await exportBatch('batch5')
-  assert.equal(exports, 4)
+  assert.equal(exports, 2)
   await exportBatch('batch6', { 'model-hull': 'B' })
-  assert.equal(exports, 5)
+  assert.equal(exports, 3)
+  mkdirSync(join(game, 'bin', '2', 'idx'), { recursive: true })
+  const updated = await exportBatch('batch7')
+  assert.equal(exports, 4)
+  assert.equal(updated.info.clientBuild, '2')
+  await exportBatch('batch8')
+  assert.equal(exports, 4)
+})
+
+test('客户端构建只选择含 idx 的数字目录，忽略未安装完成的版本', () => {
+  const game = mkdtempSync(join(tmpdir(), 'wows-client-build-'))
+  assert.equal(toolkitClientBuild(game), null)
+  for (const build of ['9', '10', 'backup']) mkdirSync(join(game, 'bin', build, 'idx'), { recursive: true })
+  mkdirSync(join(game, 'bin', '11'))
+  assert.equal(toolkitClientBuild(game), '10')
+  assert.equal(toolkitFingerprint(game, 'old.exe', false, null), toolkitFingerprint(game, 'new.exe', true, null))
+})
+
+test('旧指纹匹配的完整模型接入版本缓存，后续工具变化仍然复用', async () => {
+  const root = mkdtempSync(join(tmpdir(), 'wows-legacy-cache-'))
+  const game = join(root, 'game')
+  mkdirSync(join(game, 'bin', '1', 'idx'), { recursive: true })
+  mkdirSync(join(game, 'res_packages'))
+  const command = join(root, 'exporter.exe')
+  writeFileSync(command, 'exporter-v1')
+  const path = join(root, 'PJSB510.glb')
+  const log = join(root, 'export.log')
+  writeFileSync(path, convertToolkitArmor(sample(), 'PJSB510'))
+  writeFileSync(log, 'complete')
+  createToolkitCache(root, legacyToolkitFingerprint(game, command, true, null)).write('PJSB510', { path, info: { log, hullSelection: null } })
+  const options = { 'game-dir': game, wowsunpack: command, outputRoot: root }
+  const run = async (_, args) => {
+    assert.ok(args.includes('--help'), '已有模型不应再次导出')
+    return { stdout: '--armor-json' }
+  }
+  const migrated = await (await createToolkitExporter(options, { run }))('PJSB510', join(root, 'batch1'))
+  assert.equal(migrated.cached, true)
+  assert.equal(migrated.info.clientBuild, '1')
+  writeFileSync(command, 'exporter-v2')
+  const reused = await (await createToolkitExporter(options, { run }))('PJSB510', join(root, 'batch2'))
+  assert.equal(reused.cached, true)
 })
 
 test('官方导出器使用 PATH 默认命令及 armor 内容，校验成功后生成 GLB 与日志', async () => {

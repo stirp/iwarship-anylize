@@ -39,7 +39,7 @@ test('装甲每舰一行，多配置和层独立取范围，不累加、不把�
 
 test('实体种类和适用范围不污染舰种、类型筛选，舰船国家和名称使用中文', () => {
   for (const kind of ['Aircraft', 'Projectile', 'Modernization', 'Crew']) {
-    const rows = buildGameParamsRows({ key: kind, kind, data: { group: ['upgradeable', 'premium'], typeinfo: { species: 'Bomb' } } }, ['aircraft', 'projectiles', 'modernizations', 'crew'])
+    const rows = buildGameParamsRows({ key: kind, kind, data: { group: ['upgradeable', 'premium'], typeinfo: { species: 'Bomb' } } }, ['aircraftDetails', 'projectiles', 'modernizations', 'crew'])
     assert.equal(rows[0].row['舰种'], undefined)
     assert.equal(rows[0].row['类型'], undefined)
     assert.ok(rows[0].row['实体类别'])

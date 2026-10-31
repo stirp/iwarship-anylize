@@ -3,6 +3,7 @@ import { OrbitControls } from 'three/addons/controls/OrbitControls.js'
 import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js'
 import { decodeModel, comparePlate, plateVisible, plateZone, thicknessColor, zoneNames, zoneColors, defaultBands, MAX_MODEL_BYTES } from './armor-format.js'
 import { createShipDataLoader, unpackModel } from './armor-data.js'
+import { prepareToolkitAppearance } from './toolkit-appearance.js'
 
 const config = JSON.parse(document.getElementById('viewer-config').textContent)
 const $ = id => document.getElementById(id)
@@ -110,9 +111,11 @@ function clearModel() {
   state.appearance = []
   $('appearance').disabled = true
   $('opacity').disabled = true
+  $('appearance-note').hidden = true
   state.bounds = null
   viewport.dataset.plateCount = '0'
   viewport.dataset.visiblePlates = '0'
+  viewport.dataset.appearanceCount = '0'
   state.hidden.clear()
   $('zones').replaceChildren()
   $('legend').replaceChildren()
@@ -219,14 +222,12 @@ function updateDisplay() {
     mesh.visible = plateVisible(plate, filters)
     mesh.material.wireframe = $('wireframe').checked
     mesh.material.color.set($('color-mode').value === 'zone' ? zoneColors[plateZone(plate)] || '#89939b' : thicknessColor(plate.thickness_mm))
+    if (!state.appearance.length) setOpacity(mesh.material)
   }
   for (const mesh of state.appearance) {
     mesh.visible = $('appearance').checked
     for (const material of Array.isArray(mesh.material) ? mesh.material : [mesh.material]) {
-      material.transparent = true
-      material.opacity = Number($('opacity').value)
-      material.depthWrite = material.opacity > 0.95
-      material.needsUpdate = true
+      setOpacity(material)
     }
   }
   if (state.selected && !state.selected.visible) selectPlate(null)
@@ -252,15 +253,24 @@ function buildLegend() {
   }
 }
 
+function setOpacity(material) {
+  const opacity = Number($('opacity').value)
+  const transparent = opacity < 1
+  if (material.transparent !== transparent) material.needsUpdate = true
+  material.transparent = transparent
+  material.opacity = opacity
+  material.depthWrite = !transparent
+}
+
 function resetFilters() {
   $('min-thickness').value = 0
   $('max-thickness').value = Math.max(1, ...state.armorMeshes.map(mesh => mesh.userData.plate.thickness_mm || 0))
   $('include-hidden').checked = false
   $('wireframe').checked = false
   $('color-mode').value = 'thickness'
-  $('appearance').checked = !state.armor
-  $('opacity').value = state.armor ? 0.15 : 1
-  $('opacity-value').textContent = state.armor ? '15%' : '100%'
+  $('appearance').checked = Boolean(state.appearance.length)
+  $('opacity').value = state.armor && state.appearance.length ? 0.15 : 1
+  $('opacity-value').textContent = `${Math.round(Number($('opacity').value) * 100)}%`
   state.hidden.clear()
   buildZoneControls()
   updateDisplay()
@@ -328,20 +338,40 @@ async function loadModel(file) {
       } else state.appearance.push(object)
     })
     if (decoded.armor && !state.armorMeshes.length) throw new Error('装甲网格未能关联到厚度数据')
+    let appearanceError = shipData.appearanceError
+    if (!file && shipData.appearanceBase64) {
+      let appearance
+      try {
+        if (shipData.appearanceFormat !== 'toolkit-local-z-reflection/v1') throw new Error('不支持的外观坐标格式')
+        const visual = decodeModel(unpackModel(shipData.appearanceBase64), id)
+        shipData.appearanceBase64 = null
+        appearance = await new GLTFLoader().parseAsync(visual.buffer, '')
+        if (sequence !== state.sequence) { disposeObject(appearance.scene); return }
+        const prepared = prepareToolkitAppearance(appearance)
+        gltf.scene.add(appearance.scene)
+        state.appearance.push(...prepared.meshes)
+      } catch (error) {
+        if (appearance) disposeObject(appearance.scene)
+        appearanceError = `外观加载失败：${error.message}`
+      }
+    }
     $('appearance').disabled = !state.appearance.length
-    $('opacity').disabled = !state.appearance.length
+    $('appearance-note').hidden = Boolean(state.appearance.length)
+    $('appearance-note').textContent = appearanceError || '当前模型仅含装甲，没有舰船外观网格。可调节下方装甲不透明度查看内部。'
+    $('opacity').disabled = !state.appearance.length && !state.armorMeshes.length
+    const opacityLabel = state.appearance.length ? '外观不透明度' : '装甲不透明度'
+    $('opacity-label').textContent = opacityLabel
+    $('opacity').setAttribute('aria-label', opacityLabel)
     scene.add(gltf.scene)
     gltf.scene.updateMatrixWorld(true)
-    state.bounds = new THREE.Box3().setFromObject(gltf.scene)
+    state.bounds = new THREE.Box3()
+    for (const mesh of [...state.armorMeshes, ...state.appearance]) state.bounds.expandByObject(mesh)
     if (state.bounds.isEmpty() || !Number.isFinite(state.bounds.getBoundingSphere(new THREE.Sphere()).radius)) throw new Error('模型几何范围无效')
     const extent = state.bounds.getSize(new THREE.Vector3()).length()
     grid = new THREE.GridHelper(extent * 1.6, 40, 0x314c5a, 0x213946)
     grid.position.copy(state.bounds.getCenter(new THREE.Vector3()))
     grid.position.y = state.bounds.min.y - extent * 0.025
     scene.add(grid)
-    $('appearance').checked = !decoded.armor
-    $('opacity').value = decoded.armor ? 0.15 : 1
-    $('opacity-value').textContent = decoded.armor ? '15%' : '100%'
     resetFilters()
     fitCamera()
     const comparisons = state.armorMeshes.map(mesh => comparePlate(mesh.userData.plate, decoded.armor, state.parameters))
@@ -351,12 +381,13 @@ async function loadModel(file) {
     const armorGeometry = shipData.modelInfo?.geometry === 'armor'
     $('model-config').textContent = decoded.armor ? `舰体配置：${decoded.armor.ship.hull_component || '未标注'} · ${decoded.armor.ship.hull_upgrade || shipData.modelInfo?.hullSelection || ''}` : `舰体配置：${shipData.modelInfo?.hullSelection || '未标注（导出器默认）'}`
     $('model-notice').textContent = !decoded.armor ? `此文件没有支持的装甲元数据，仅显示${armorGeometry ? '装甲几何' : '模型几何'}，无法读取装甲厚度。`
-      : decoded.armor.origin?.components === 'unavailable' ? 'Toolkit 装甲：保留逐层厚度；原始 JSON 未标注舰船编号和完整组件，请确认文件对应当前舰船。仅含装甲几何，无法与参数逐项对照。'
+      : decoded.armor.origin?.components === 'unavailable' ? 'Toolkit 装甲：保留逐层厚度；原始 JSON 未标注舰船编号和完整组件，请确认文件对应当前舰船。无法与参数逐项对照。'
         : mismatches ? `有 ${mismatches} 块装甲与本批次参数不同，点击查看具体差异。` : '三维厚度来自模型；参数一致不等于模型版本完全一致。'
     $('load-panel').hidden = true
     $('scene-state').textContent = decoded.armor ? '装甲视图 · 点击装甲板' : `${armorGeometry ? '装甲几何' : '模型'}视图 · 无厚度数据`
     viewport.dataset.state = 'ready'
     viewport.dataset.plateCount = state.armorMeshes.length
+    viewport.dataset.appearanceCount = state.appearance.length
   } catch (error) {
     if (sequence !== state.sequence) return
     clearModel()

@@ -86,21 +86,22 @@ def region_groups(root):
 
 
 COMPONENTS = {
-    "hull": ("Hull", "Engine"),
-    "artillery": ("Artillery",),
+    "hull": ("Hull", "Engine", "Abilities"),
+    "artillery": ("Artillery", "FireControl", "Abilities", "Hull"),
+    "penetration": ("Artillery",),
     "atba": ("ATBA",),
     "torpedoes": ("Torpedoes", "SubTorpedoes"),
-    "airDefense": ("AirDefense", "AirDefence", "AirDedense"),
-    "aircraft": ("FlightControl", "AirArmament"),
+    "airDefense": ("AirDefense", "AirDefence", "AirDedense", "Artillery", "ATBA"),
+    "aircraft": ("FlightControl", "AirArmament", "Fighter", "DiveBomber", "TorpedoBomber", "SkipBomber", "Bomber"),
     "airSupport": ("AirSupport",),
     "asw": ("DepthCharge", "DepthChargeGuns", "DepthCharges", "ASW", "AirSupport"),
     "pingerGun": ("Pinger", "PingerGun"),
-    "specials": ("Specials", "Specials1", "Specials2", "Specials3", "Innate"),
+    "specials": ("Specials", "Specials1", "Specials2", "Specials3", "Innate", "Artillery", "ATBA"),
     "ability": ("Abilities",),
 }
 ENTITY_TYPES = {
-    "aircraft": "Aircraft",
-    "ability": "Ability",
+    "aircraftDetails": "Aircraft",
+    "abilityDetails": "Ability",
     "projectiles": "Projectile",
     "crew": "Crew",
     "modernizations": "Modernization",
@@ -200,6 +201,9 @@ def main():
     emit({"event": "regions", "regions": regions})
     for region in regions:
         params = groups[region]
+        range_upgrades = [normalize(value) for value in params.values()
+                          if fields(fields(value).get("typeinfo", {})).get("type") == "Modernization"
+                          and "GMMaxDist" in fields(fields(value).get("modifiers", {}))]
         ships = []
         related = {}
         for key, raw in params.items():
@@ -229,7 +233,7 @@ def main():
         for key, record in ships:
             selected = {
                 field: record[field]
-                for field in ("index", "name", "id", "level", "group", "typeinfo")
+                for field in ("index", "name", "id", "level", "group", "typeinfo", "ShipUpgradeInfo", "RarityCategory", "BattleUpgradeInfo")
                 if field in record
             }
             component_kinds = {}
@@ -247,7 +251,7 @@ def main():
                         and "_" in field
                         and isinstance(fields(value), dict)
                     )
-                    or (field == "ShipAbilities" and "ability" in categories)
+                    or (field == "ShipAbilities" and any(category in categories for category in ("ability", "hull", "artillery")))
                     or (field == "Specials" and "specials" in categories)
                 )
                 if include:
@@ -259,6 +263,10 @@ def main():
                     "kind": "Ship",
                     "key": key,
                     "componentKinds": component_kinds,
+                    # 展示派生值所需的引用随舰船输出，独立于用户是否选择弹药表。
+                    "references": ship_references(selected, params),
+                    "concealmentUpgrade": normalize(params.get("PCM027_ConcealmentMeasures_Mod_I", {})),
+                    "rangeUpgrades": range_upgrades if "artillery" in categories else [],
                     "data": normalize(selected),
                 }
             )
@@ -272,12 +280,20 @@ def main():
                     {
                         "event": "record",
                         "region": region,
-                        "kind": kind,
-                        "key": key,
+                    "kind": kind,
+                    "key": key,
+                    "references": ship_references(record, params) if kind in ("Aircraft", "Ability") else {},
                         "data": normalize(related[key] if queries else record),
                     }
                 )
         emit({"event": "end", "region": region})
+
+
+def ship_references(selected, params):
+    """只传递所选组件引用的弹药、飞机和消耗品，避免复制整个参数库。"""
+    found = {}
+    references(selected, params, {"Projectile", "Aircraft", "Ability"}, found)
+    return normalize(found)
 
 
 if __name__ == "__main__":

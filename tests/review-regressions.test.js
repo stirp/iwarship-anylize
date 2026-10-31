@@ -5,6 +5,7 @@ import { mkdtempSync, readFileSync, readdirSync, writeFileSync, truncateSync } f
 import { tmpdir } from 'node:os'
 import { join, resolve } from 'node:path'
 import { spawnSync } from 'node:child_process'
+import { pathToFileURL } from 'node:url'
 import { runInNewContext } from 'node:vm'
 import { generateHTML } from '../lib/html-writer.js'
 import { writeOutput } from '../lib/output.js'
@@ -78,7 +79,7 @@ test('跨类别筛选保留无匹配舰种，切回和刷新后仍生效，取�
 
 test('iwarship 单配置 Markdown 保留中英文名称及 Dataview 数值属性', () => {
   const root = mkdtempSync(join(tmpdir(), 'wows-markdown-regression-'))
-  const result = spawnSync(process.execPath, ['--import', resolve('tests/fixtures/mock-iwarship.js'), 'fetch-data.js',
+  const result = spawnSync(process.execPath, ['--import', pathToFileURL(resolve('tests/fixtures/mock-iwarship.js')).href, 'fetch-data.js',
     '--source', 'iwarship', '--categories', 'hull', '--ships', 'PJSB510', '--no-html', '--output', root], { encoding: 'utf8' })
   assert.equal(result.status, 0, result.stderr)
   const attributes = frontmatter(files(root).find(path => path.endsWith('PJSB510.md')))
@@ -137,7 +138,7 @@ test('共享消耗品按配置追踪飞机和弹药，多舰合并引用，全�
   params.PJSB510_Shikishima.ShipAbilities.AbilitySlot1 = { abils: [['ABILITY', 'Default']] }
   const path = join(root, 'params.json')
   writeFileSync(path, JSON.stringify(data))
-  const execute = (ships, categories = ['ability', 'aircraft', 'projectiles']) => {
+  const execute = (ships, categories = ['abilityDetails', 'aircraftDetails', 'projectiles']) => {
     const result = spawnSync(python, ['scripts/read-gameparams.py', path, '--regions', '["ASIA"]',
       '--ships', JSON.stringify(ships), '--categories', JSON.stringify(categories)], { encoding: 'utf8', timeout: 10000 })
     assert.equal(result.status, 0, result.stderr)
@@ -147,8 +148,8 @@ test('共享消耗品按配置追踪飞机和弹药，多舰合并引用，全�
   for (const [ships, configs] of [[['PJSB510'], ['Default']], [['PJSB510', 'PASC001'], ['Alternative', 'Default']],
     [[], ['Alternative', 'Default', 'Unused']]]) {
     const rows = execute(ships)
-    assert.deepEqual(rows.filter(item => item.category === 'ability' && item.row['编号'] === 'ABILITY').map(item => item.row['配置']).sort(), configs)
-    assert.deepEqual(rows.filter(item => item.category === 'aircraft').map(item => item.row['编号']).sort(), configs.map(config => `PLANE_${config}`))
+    assert.deepEqual(rows.filter(item => item.category === 'abilityDetails' && item.row['编号'] === 'ABILITY').map(item => item.row['配置']).sort(), configs)
+    assert.deepEqual(rows.filter(item => item.category === 'aircraftDetails').map(item => item.row['编号']).sort(), configs.map(config => `PLANE_${config}`))
     assert.deepEqual(rows.filter(item => item.row['编号'].startsWith('SHELL_') && item.row['编号'] !== 'SHELL_AP').map(item => item.row['编号']).sort(), configs.map(config => `SHELL_${config}`))
   }
   const projectilesOnly = execute(['PJSB510'], ['projectiles'])
@@ -157,7 +158,7 @@ test('共享消耗品按配置追踪飞机和弹药，多舰合并引用，全�
 
 test('非装甲分类不生成 3D 入口，飞机实体编号不会成为舰船', async () => {
   const root = mkdtempSync(join(tmpdir(), 'wows-aircraft-viewer-'))
-  const result = spawnSync(process.execPath, ['--import', resolve('tests/fixtures/mock-iwarship.js'), 'fetch-data.js',
+  const result = spawnSync(process.execPath, ['--import', pathToFileURL(resolve('tests/fixtures/mock-iwarship.js')).href, 'fetch-data.js',
     '--source', 'iwarship', '--categories', 'aircraft', '--ships', 'PJSA110', '--model-mode', 'manual', '--output', root], { encoding: 'utf8' })
   assert.equal(result.status, 0, result.stderr)
   const paths = files(root)

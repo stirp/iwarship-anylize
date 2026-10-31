@@ -7,6 +7,7 @@
   "scripts": {
     "fetch": "node fetch-data.js",
     "export": "node export.js",
+    "refresh:armor": "node scripts/refresh-armor-viewer.js",
     "test": "node --test",
     "serve": "node serve.js"
   },

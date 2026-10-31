@@ -4,6 +4,7 @@ import { mkdtempSync, readFileSync, readdirSync, writeFileSync } from 'node:fs'
 import { tmpdir } from 'node:os'
 import { join, resolve } from 'node:path'
 import { spawnSync } from 'node:child_process'
+import { pathToFileURL } from 'node:url'
 import { parseOptions, validateOptions } from '../lib/options.js'
 import { safeSegment } from '../lib/output.js'
 import { generateHTML } from '../lib/html-writer.js'
@@ -16,7 +17,7 @@ const run = (args, extra = []) => spawnSync(process.execPath, [...extra, 'fetch-
 })
 const files = directory => readdirSync(directory, { withFileTypes: true }).flatMap(entry => {
   const path = join(directory, entry.name)
-  return entry.isDirectory() ? files(path) : [path]
+  return entry.isDirectory() ? files(path) : [path.replaceAll('\\', '/')]
 })
 
 test('范围参数规范化，拒绝未知和不兼容选项', () => {
@@ -69,7 +70,7 @@ test('同时生成两个来源，目录和来源记录相互独立', () => {
   const output = mkdtempSync(join(tmpdir(), 'wows-two-sources-'))
   const result = run(['--source', 'all', '--gameparams', fixture, '--game-version', 'fixture', '--python', python,
     '--regions', 'ASIA', '--ships', 'PJSB510', '--categories', 'hull', '--output', output],
-  ['--import', resolve('tests/fixtures/mock-iwarship.js')])
+  ['--import', pathToFileURL(resolve('tests/fixtures/mock-iwarship.js')).href])
   assert.equal(result.status, 0, result.stderr)
   const manifests = files(output).filter(path => path.endsWith('manifest.json')).map(path => JSON.parse(readFileSync(path)))
   assert.deepEqual(manifests.map(item => item.source).sort(), ['gameparams', 'iwarship'])
@@ -91,7 +92,7 @@ test('未知区域、未命中舰船和缺少 Python 都返回失败且不留下
 test('一个来源失败不会阻止另一个来源生成，但整体返回失败', () => {
   const output = mkdtempSync(join(tmpdir(), 'wows-partial-'))
   const result = run(['--source', 'all', '--gameparams', fixture, '--game-version', 'fixture', '--python', python,
-    '--regions', 'DEFAULT', '--categories', 'hull', '--output', output], ['--import', resolve('tests/fixtures/mock-iwarship.js')])
+    '--regions', 'DEFAULT', '--categories', 'hull', '--output', output], ['--import', pathToFileURL(resolve('tests/fixtures/mock-iwarship.js')).href])
   assert.notEqual(result.status, 0)
   const manifests = files(output).filter(path => path.endsWith('manifest.json')).map(path => JSON.parse(readFileSync(path)))
   assert.deepEqual(manifests.map(item => item.source), ['gameparams'])
